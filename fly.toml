@@ -1,7 +1,6 @@
-# fly.toml file generated for dunkbincosmetics on 2022-06-03T01:32:51+01:00
+# fly.toml file generated for dunkbinstats on 2022-07-10T11:37:07+03:00
 
-app = "dunkbincosmetics"
-
+app = "dunkbinstats"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
@@ -18,7 +17,6 @@ processes = []
   processes = ["app"]
   protocol = "tcp"
   script_checks = []
-
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20
