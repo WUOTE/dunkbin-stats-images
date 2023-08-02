@@ -253,8 +253,8 @@
           "string": [
             {
               "value1": "={{ $json.stdout }}",
-              "operation": "contains",
-              "value2": "Your branch is up to date with 'origin/main'"
+              "operation": "notContains",
+              "value2": "to include in what will be committed"
             }
           ]
         }
@@ -490,7 +490,7 @@
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "0c605bc7-1928-4115-8733-3237dd6ded78",
+  "versionId": "3d70d5f4-002e-4307-9778-874b6395d09f",
   "id": "n4ixY3GpVrwGv6JX",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
