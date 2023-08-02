@@ -84,7 +84,7 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1280,
+        1100,
         1280
       ]
     },
@@ -137,7 +137,7 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        920,
+        740,
         1280
       ],
       "executeOnce": true
@@ -154,7 +154,7 @@
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1100,
+        920,
         1280
       ],
       "executeOnce": true
@@ -166,7 +166,7 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1640,
+        1460,
         1040
       ]
     },
@@ -179,25 +179,9 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1640,
+        1460,
         1300
       ]
-    },
-    {
-      "parameters": {
-        "amount": 0.1,
-        "unit": "seconds"
-      },
-      "name": "Wait for 0.1 sec",
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1,
-      "position": [
-        740,
-        1280
-      ],
-      "webhookId": "8cfd4c23-04a5-4f69-8020-f08cbf11521c",
-      "id": "d5801e85-c73b-4db3-a83f-e7b9a708237a",
-      "disabled": true
     },
     {
       "parameters": {
@@ -280,23 +264,23 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1460,
+        1280,
         1280
       ]
     },
     {
       "parameters": {
-        "content": "![d](https://dunkbinstats.runfast.stream/background/background.png#full-width)\n",
-        "height": 781.4819850441877,
-        "width": 1618.1101291638342
+        "content": "![](https://dunkbinstats.runfast.stream/background/background.png#full-width)\n",
+        "height": 695.7937145968119,
+        "width": 1349.284182662264
       },
       "id": "c56b19e9-f541-4a73-aa62-131eb670a09d",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        280,
-        740
+        316.96356764396614,
+        785.6882704473758
       ]
     },
     {
@@ -418,17 +402,6 @@
         ]
       ]
     },
-    "Wait for 0.1 sec": {
-      "main": [
-        [
-          {
-            "node": "Set today's date",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Are images the same?": {
       "main": [
         [
@@ -473,7 +446,7 @@
       "main": [
         [
           {
-            "node": "Wait for 0.1 sec",
+            "node": "Set today's date",
             "type": "main",
             "index": 0
           }
@@ -517,7 +490,7 @@
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "21977e8d-3e69-46b7-9128-d16419a031ec",
+  "versionId": "0c605bc7-1928-4115-8733-3237dd6ded78",
   "id": "n4ixY3GpVrwGv6JX",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
