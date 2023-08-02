@@ -4,4 +4,5 @@
 Repo for dunkbin PNGs, GIFs, and analytical dashboard.
 
 https://dunkbinstats.runfast.stream
-![Screenshot 2023-08-02 085813](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/1852fb45-09b0-42bf-915f-712fef2b632e)
+
+![V2 workflow chart](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/6b3351d7-6424-4e98-a3c7-30ec0ecf5be5)
