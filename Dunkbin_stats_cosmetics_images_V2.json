@@ -29,26 +29,6 @@
     },
     {
       "parameters": {
-        "triggerTimes": {
-          "item": [
-            {
-              "hour": 7,
-              "minute": 30
-            }
-          ]
-        }
-      },
-      "name": "Cron",
-      "type": "n8n-nodes-base.cron",
-      "typeVersion": 1,
-      "position": [
-        380,
-        840
-      ],
-      "id": "17ef00b5-f3f5-44b0-87c7-525ab37f3475"
-    },
-    {
-      "parameters": {
         "operation": "sort",
         "sortFieldsUi": {
           "sortField": [
@@ -318,6 +298,27 @@
         280,
         740
       ]
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 7,
+              "minute": 30
+            }
+          ]
+        }
+      },
+      "name": " Cron for daily execusion",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        380,
+        840
+      ],
+      "id": "17ef00b5-f3f5-44b0-87c7-525ab37f3475",
+      "notesInFlow": false
     }
   ],
   "pinData": {},
@@ -327,17 +328,6 @@
         [
           {
             "node": "Sort cosmetics by id from newest to oldest",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Cron": {
-      "main": [
-        [
-          {
-            "node": "Consume Cosmetics API",
             "type": "main",
             "index": 0
           }
@@ -507,6 +497,17 @@
           }
         ]
       ]
+    },
+    " Cron for daily execusion": {
+      "main": [
+        [
+          {
+            "node": "Consume Cosmetics API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -516,7 +517,7 @@
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "e3d54b04-6a05-4b81-adc7-c5b4830eb756",
+  "versionId": "21977e8d-3e69-46b7-9128-d16419a031ec",
   "id": "n4ixY3GpVrwGv6JX",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
