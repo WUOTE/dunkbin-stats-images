@@ -77,7 +77,7 @@
     },
     {
       "parameters": {
-        "command": "=cd ~/git/dunkbin-stats-images && git status"
+        "command": "=cd ~/git/dunkbin-stats-images && git pull && git fetch && git status"
       },
       "id": "2228fe07-6ce0-4c5c-9a2d-ee6333a8123e",
       "name": "git status",
@@ -172,7 +172,7 @@
     },
     {
       "parameters": {
-        "command": "=cd ~/git/dunkbin-stats-images && git add -A && git commit -m \"{{ $json.formattedDate }} Keeping Dunkbin Stats up-to-date\" && git push"
+        "command": "=cd ~/git/dunkbin-stats-images && git add -A && git commit -m \"{{ $('YYYY-MM-DD').item.json.formattedDate }} add {{ $('Dont process one broken cosmetic').item.json.name }}\" && git push   "
       },
       "id": "0adb3588-2295-440f-87b1-cd939ea76937",
       "name": "git commit + push",
@@ -483,14 +483,14 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "timezone": "Asia/Bishkek",
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "3d70d5f4-002e-4307-9778-874b6395d09f",
+  "versionId": "5b190ebc-4607-4d3f-8bd6-85e8ccad9b95",
   "id": "n4ixY3GpVrwGv6JX",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
