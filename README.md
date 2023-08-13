@@ -10,3 +10,6 @@ https://dunkbinstats.runfast.stream
 
 ## Backlog spritesheet workflow chart
 ![Backlog spritesheet workflow chart](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/fe28b665-699f-478e-a043-f3280a6b30b3)
+
+## Backlog spritesheet next cosmetic chart
+![Backlog spritesheet next cosmetic chart](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/708b3171-58e9-4b92-9bd7-26fd62da4ca5)
