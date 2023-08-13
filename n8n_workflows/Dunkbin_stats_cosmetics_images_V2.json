@@ -270,7 +270,7 @@
     },
     {
       "parameters": {
-        "content": "![](https://dunkbinstats.runfast.stream/background/background.png#full-width)\n",
+        "content": "![](https://dunkbinstats.runfast.stream/background/background.png#full-width)",
         "height": 695.7937145968119,
         "width": 1349.284182662264
       },
@@ -490,7 +490,7 @@
     "saveManualExecutions": true,
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "5b190ebc-4607-4d3f-8bd6-85e8ccad9b95",
+  "versionId": "fe870f2c-fe16-4027-ab87-9477f842a6a7",
   "id": "n4ixY3GpVrwGv6JX",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
