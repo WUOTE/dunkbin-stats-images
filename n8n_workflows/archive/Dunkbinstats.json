@@ -1,0 +1,909 @@
+{
+  "name": "Dunkbinstats",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"animatedCosmetic\"]}}"
+            }
+          ]
+        }
+      },
+      "name": "Is the cosmetic's image static (one frame)?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3240,
+        800
+      ],
+      "id": "4743cf2f-f26a-426f-b81a-3a91a1421475"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo cp /home/pi/pngsonly/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png"
+      },
+      "name": "Copy PNG without altering",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3660,
+        700
+      ],
+      "id": "2273f1d0-1350-4812-84e7-40ecaf0b28e4"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo mkdir /home/pi/dunkbin/gifs/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}} && sudo convert /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png -crop 210x210 +adjoin +repage -loop 0 -delay {{$node[\"One image at a time - to not hit API limits\"].json[\"delay\"]}} /home/pi/dunkbin/gifs/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/1.png"
+      },
+      "name": "save png frames",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3660,
+        920
+      ],
+      "id": "e7d17e6d-1854-40f2-8ca2-23d0dc5c3de9"
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "url": "https://dunkbin.com/export/cosmetics",
+        "options": {
+          "splitIntoItems": true
+        },
+        "queryParametersUi": {
+          "parameter": [
+            {}
+          ]
+        }
+      },
+      "name": "Consume Cosmetics API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        900,
+        840
+      ],
+      "id": "222227e4-62dd-4e22-9bb8-9e894d36faad",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "cn4Jtb5N2lDwNCA6",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 7,
+              "minute": 30
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        480,
+        840
+      ],
+      "id": "36e3fff4-2ca9-473b-8c52-e88c063641de"
+    },
+    {
+      "parameters": {
+        "command": "cd ~/ && sudo sh ./remove_directories.sh && cd /home/pi/git/dunkbin-stats-images && gh repo sync"
+      },
+      "name": "Run .sh scripts to cleanup PNG directory and make final dir",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        680,
+        840
+      ],
+      "id": "1aef8ef7-13a0-4b7a-9e52-3bbaf2e1a26c"
+    },
+    {
+      "parameters": {
+        "operation": "sort",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Sort cosmetics by id from newest to oldest",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        840
+      ],
+      "id": "f70ef197-31c0-4440-9881-fa9c450bfeeb"
+    },
+    {
+      "parameters": {
+        "functionCode": "if (Object.keys(items[0].json).length === 0) {\n  return [\n     {\n       json: {\n         results: 0,\n       }\n      }\n  ]\n}\nreturn [\n  {\n    json: {\n      results: items.length,\n    }\n  }\n];\n"
+      },
+      "name": "Count the number of cosmetics we got",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        940
+      ],
+      "id": "2ef22929-0eec-48e2-a13f-1b4f0be79a33"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$node[\"Sort cosmetics by id from newest to oldest\"].json[\"id\"]}}",
+              "operation": "larger"
+            },
+            {
+              "value1": "={{$node[\"Sort cosmetics by id from newest to oldest\"].json[\"id\"]}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Do we have cosmetic data? It should has an id and id should be > 0",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        840
+      ],
+      "id": "e43fab01-a6bb-4720-ba31-4035e1195a7b"
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "name": "One image at a time - to not hit API limits",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        760
+      ],
+      "notesInFlow": true,
+      "id": "d3afc573-b953-4f69-a84b-95660481cd7b",
+      "notes": "note 1\nnote 2\nnote 3\nnote 4\nnote 5"
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/pi/pngsonly && md5sum {{$json[\"id\"]}}.png | awk '{split($0,a); print a[1];}'"
+      },
+      "name": "Calculate md5sum hash of stored PNG",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1960,
+        820
+      ],
+      "id": "c767f544-d20c-42df-af2d-f0f2931a1972"
+    },
+    {
+      "parameters": {
+        "amount": 0.1,
+        "unit": "seconds"
+      },
+      "name": "Arbitrary throttle -- wait 1 sec ",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        2120,
+        820
+      ],
+      "webhookId": "9fac7566-5558-483c-98e9-dace48b3eaab",
+      "id": "3d8bb85a-8458-4074-b208-300240d2950f"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"stdout\"]}}",
+              "value2": "={{$node[\"One image at a time - to not hit API limits\"].json[\"md5\"]}}"
+            }
+          ]
+        }
+      },
+      "name": "Do md5sums match?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2280,
+        820
+      ],
+      "id": "e623e005-3520-4ab4-bb91-f1e5b6f0eae0"
+    },
+    {
+      "parameters": {
+        "functionCode": "// Code here will run once per input item.\n// More info and help: https://docs.n8n.io/nodes/n8n-nodes-base.functionItem\n// Tip: You can use luxon for dates and $jmespath for querying JSON structures\n\n// Add a new field called 'myNewField' to the JSON of the item\nitem.animatedCosmetic = item.size.width > item.size.height;\n\n// You can write logs to the browser console\nconsole.log('Done!');\n\nreturn item;"
+      },
+      "name": "Is cosmetic's width larger than its height? (Means it should be converted to GIF)",
+      "type": "n8n-nodes-base.functionItem",
+      "typeVersion": 1,
+      "position": [
+        3060,
+        800
+      ],
+      "id": "043cbc93-1c22-4352-a12b-3b3fe385fe10"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo mkdir /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}"
+      },
+      "name": "Create directory cosmetics",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3480,
+        700
+      ],
+      "id": "01a38c2a-776d-47df-8fc3-9b2b7e082e99"
+    },
+    {
+      "parameters": {},
+      "name": "Do nothing with broken cosmetics",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        960
+      ],
+      "id": "165e2eb0-f6d2-4ed0-9cc5-f2a2b699db1f"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=cd /home/pi/pngsonly && sudo touch {{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png && sudo rm -f /home/pi/pngsonly/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png && cd /home/pi && sudo mkdir /home/pi/TMP/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}} && cd /home/pi && sudo wget https://dunkbin.com/img/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png -P /home/pi/TMP/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}} && sudo cp /home/pi/TMP/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png /home/pi/pngsonly"
+      },
+      "name": "Download PNG using wget",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        2500,
+        920
+      ],
+      "id": "5613f1c6-56cf-4e04-8db2-73ab14d1a408"
+    },
+    {
+      "parameters": {
+        "filePath": "=/home/pi/pngsonly/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png"
+      },
+      "name": "Read Binary File (Access image)",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        2700,
+        800
+      ],
+      "id": "444a335a-da38-48f2-b5cf-806555355602"
+    },
+    {
+      "parameters": {
+        "operation": "information",
+        "dataPropertyName": "={{$node[\"Read Binary File (Access image)\"].parameter[\"dataPropertyName\"]}}"
+      },
+      "name": "Get image info (Statistical info of the image)",
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        2880,
+        800
+      ],
+      "id": "8ed3a7d1-b070-4e76-862e-1544562c7155"
+    },
+    {
+      "parameters": {
+        "content": "\n\n\n\n\n\n\n\n\n\n\n\n\n## Animated images flow",
+        "height": 220,
+        "width": 1040
+      },
+      "name": "Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3440,
+        900
+      ],
+      "id": "f16677ce-d2a0-4ac7-88f0-2bc509f957c2"
+    },
+    {
+      "parameters": {
+        "content": "\n## Static images flow",
+        "height": 220,
+        "width": 720
+      },
+      "name": "Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3440,
+        640
+      ],
+      "id": "8219cfaa-9cf3-4289-838c-91699a9d2683"
+    },
+    {
+      "parameters": {
+        "content": "We execute this workflow daily at 07:30 am MSK",
+        "height": 220,
+        "width": 160
+      },
+      "name": "Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        760
+      ],
+      "id": "d0e0fb99-eb1a-4641-a031-7dd6a40c0660"
+    },
+    {
+      "parameters": {
+        "content": "## Consume API -- receive data from dunkbin once",
+        "height": 340,
+        "width": 820
+      },
+      "name": "Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        840,
+        760
+      ],
+      "id": "c7d79bc4-7141-4cfa-9b50-4667ccb57c71"
+    },
+    {
+      "parameters": {
+        "content": "Cleanup and prepare empty directories",
+        "height": 240,
+        "width": 180
+      },
+      "name": "Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        760
+      ],
+      "id": "82cc313c-9e15-4d7f-9d1c-73d6bc411397"
+    },
+    {
+      "parameters": {
+        "content": "Arbitrary looping one image at a time to not throttle requests",
+        "height": 260,
+        "width": 220
+      },
+      "name": "Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        680
+      ],
+      "id": "6599e152-9325-4dec-a71c-f5f363e60ce8"
+    },
+    {
+      "parameters": {
+        "content": "## Get information about the image by reading its data",
+        "height": 280,
+        "width": 520
+      },
+      "name": "Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        700
+      ],
+      "id": "ffce089f-ddc1-431d-aa78-f5d9086a3c98"
+    },
+    {
+      "parameters": {
+        "content": "## Check if we need to re-download the image",
+        "height": 280,
+        "width": 480
+      },
+      "name": "Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        720
+      ],
+      "id": "81bfff0f-695a-4a87-b185-410314473e22"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo cp /home/pi/pngsonly/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png /home/pi/git/dunkbin-stats-images/public/img/"
+      },
+      "name": "Copy image to the repo",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3840,
+        700
+      ],
+      "id": "f415fb9d-f00f-4569-b6d6-99bb4472f010"
+    },
+    {
+      "parameters": {
+        "operation": "add",
+        "repositoryPath": "/home/pi/git/dunkbin-stats-images",
+        "pathsToAdd": "=public/img/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png"
+      },
+      "name": "Git add the copied image",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        4020,
+        700
+      ],
+      "id": "6c35c3a0-3786-4dae-abc8-d0df5aee0c8f"
+    },
+    {
+      "parameters": {
+        "operation": "add",
+        "repositoryPath": "/home/pi/git/dunkbin-stats-images",
+        "pathsToAdd": "=public/img/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.gif"
+      },
+      "name": "Git add the copied image1",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        4360,
+        920
+      ],
+      "id": "3200cda0-85f3-4a50-826f-f0c97d766b06"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo mkdir /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}} && cd /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}} && sudo cp /home/pi/pngsonly/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.png /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}"
+      },
+      "name": "Create directory cosmetics 2",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3480,
+        920
+      ],
+      "id": "85076bbd-1460-4373-a1cc-9a35cb7925ab"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=cd /home/pi/dunkbin/gifs/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}} && sudo sh /home/pi/rename_cosmetics.sh"
+      },
+      "name": "Rename GIF frames using .sh script",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        3840,
+        920
+      ],
+      "id": "dadafa75-a3fa-47ac-a354-d934f8bbffb6"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo convert /home/pi/dunkbin/gifs/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/*.png -set dispose 'background' -delay {{$node[\"One image at a time - to not hit API limits\"].json[\"delay\"]}} -loop 0 +dither -alpha background /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.gif"
+      },
+      "name": "Assemble GIF from its frames using convert command",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        4020,
+        920
+      ],
+      "id": "b25ed0e1-8c67-4820-a74c-cfa4d50a7cc9"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=sudo cp /home/pi/dunkbin/cosmetics/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.gif /home/pi/git/dunkbin-stats-images/public/img/{{$node[\"One image at a time - to not hit API limits\"].json[\"id\"]}}.gif"
+      },
+      "name": "Copy GIF to the repo directory",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        4200,
+        920
+      ],
+      "id": "4cb6085c-bf67-4fae-a91d-11054ce2958a"
+    },
+    {
+      "parameters": {
+        "command": "cd /home/pi/git/dunkbin-stats-images && git commit -m \"Add images\" && git push"
+      },
+      "name": "Set user to WUOTE and push to github",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        4840,
+        980
+      ],
+      "id": "c1831eda-4f8d-44f1-8e80-1b5ce85c218c",
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "listConfig",
+        "repositoryPath": "/home/pi/git/dunkbin-stats-images"
+      },
+      "id": "72ee5990-e72c-4bdc-9b52-9002abb8a6e8",
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        4600,
+        760
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Is the cosmetic's image static (one frame)?": {
+      "main": [
+        [
+          {
+            "node": "Create directory cosmetics",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create directory cosmetics 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy PNG without altering": {
+      "main": [
+        [
+          {
+            "node": "Copy image to the repo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "save png frames": {
+      "main": [
+        [
+          {
+            "node": "Rename GIF frames using .sh script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consume Cosmetics API": {
+      "main": [
+        [
+          {
+            "node": "Sort cosmetics by id from newest to oldest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Run .sh scripts to cleanup PNG directory and make final dir",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run .sh scripts to cleanup PNG directory and make final dir": {
+      "main": [
+        [
+          {
+            "node": "Consume Cosmetics API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort cosmetics by id from newest to oldest": {
+      "main": [
+        [
+          {
+            "node": "Count the number of cosmetics we got",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Do we have cosmetic data? It should has an id and id should be > 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count the number of cosmetics we got": {
+      "main": [
+        [
+          {
+            "node": "Do we have cosmetic data? It should has an id and id should be > 0",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Do we have cosmetic data? It should has an id and id should be > 0": {
+      "main": [
+        [
+          {
+            "node": "One image at a time - to not hit API limits",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Do nothing with broken cosmetics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One image at a time - to not hit API limits": {
+      "main": [
+        [
+          {
+            "node": "Calculate md5sum hash of stored PNG",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate md5sum hash of stored PNG": {
+      "main": [
+        [
+          {
+            "node": "Arbitrary throttle -- wait 1 sec ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Arbitrary throttle -- wait 1 sec ": {
+      "main": [
+        [
+          {
+            "node": "Do md5sums match?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Do md5sums match?": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File (Access image)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download PNG using wget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is cosmetic's width larger than its height? (Means it should be converted to GIF)": {
+      "main": [
+        [
+          {
+            "node": "Is the cosmetic's image static (one frame)?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create directory cosmetics": {
+      "main": [
+        [
+          {
+            "node": "Copy PNG without altering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download PNG using wget": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File (Access image)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Binary File (Access image)": {
+      "main": [
+        [
+          {
+            "node": "Get image info (Statistical info of the image)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get image info (Statistical info of the image)": {
+      "main": [
+        [
+          {
+            "node": "Is cosmetic's width larger than its height? (Means it should be converted to GIF)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy image to the repo": {
+      "main": [
+        [
+          {
+            "node": "Git add the copied image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git add the copied image": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git add the copied image1": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create directory cosmetics 2": {
+      "main": [
+        [
+          {
+            "node": "save png frames",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rename GIF frames using .sh script": {
+      "main": [
+        [
+          {
+            "node": "Assemble GIF from its frames using convert command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assemble GIF from its frames using convert command": {
+      "main": [
+        [
+          {
+            "node": "Copy GIF to the repo directory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Copy GIF to the repo directory": {
+      "main": [
+        [
+          {
+            "node": "Git add the copied image1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git": {
+      "main": [
+        [
+          {
+            "node": "Set user to WUOTE and push to github",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set user to WUOTE and push to github": {
+      "main": [
+        [
+          {
+            "node": "One image at a time - to not hit API limits",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Bishkek",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "05dbe811-969d-4aaa-92d7-39c0e2000cbb",
+  "id": "GyCGxXNwFgVo2Sim",
+  "meta": {
+    "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
+  },
+  "tags": [
+    {
+      "id": "XrB4f7XZdukuOwdS",
+      "createdAt": "2023-08-01T12:49:51.802Z",
+      "updatedAt": "2023-08-01T12:49:51.802Z",
+      "name": "dunkbin"
+    }
+  ]
+}
