@@ -100,7 +100,7 @@
     {
       "parameters": {
         "executeOnce": false,
-        "command": "=cd ~/git/dunkbin-stats-images/public/spritesheets && md5sum dunkbin_backlog.xlsx | awk '{split($0,a); print a[1];}'"
+        "command": "=cd ~/git/dunkbin-stats-images/public/sheets && md5sum dunkbin_backlog.xlsx | awk '{split($0,a); print a[1];}'"
       },
       "name": "MD5 - File on Disk",
       "type": "n8n-nodes-base.executeCommand",
@@ -231,7 +231,7 @@
     },
     {
       "parameters": {
-        "fileName": "git/dunkbin-stats-images/public/spritesheets/dunkbin_backlog.xlsx",
+        "fileName": "git/dunkbin-stats-images/public/sheets/dunkbin_backlog.xlsx",
         "options": {
           "append": false
         }
@@ -354,7 +354,7 @@
         "operation": "toFile",
         "fileFormat": "xlsx",
         "options": {
-          "fileName": "~/git/dunkbin-stats-images/public/spritesheets/dunkbin_backlog",
+          "fileName": "~/git/dunkbin-stats-images/public/sheets/dunkbin_backlog",
           "sheetName": "Backlog"
         }
       },
@@ -558,7 +558,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "b7efa7c7-1c78-4412-8d59-442c6c7ed36b",
+  "versionId": "359385e7-297a-4f4e-a66c-a61c58d77cb9",
   "id": "kOW3yEWh03zfNcWX",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
