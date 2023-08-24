@@ -12,4 +12,4 @@ https://dunkbinstats.runfast.stream
 ![Backlog spritesheet workflow chart](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/fe28b665-699f-478e-a043-f3280a6b30b3)
 
 ## Backlog spritesheet next cosmetic and next cosmetic artist chart
-![Backlog spritesheet next cosmetic and next cosmetic artist chart](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/ad5401c5-76bc-42d4-a786-dfcb712fb518)
+![Backlog spritesheet next cosmetic and next cosmetic artist chart](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/853d01a1-34db-4a83-973e-e26b9853b91e)
