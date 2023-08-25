@@ -314,7 +314,7 @@
       "typeVersion": 1,
       "position": [
         1460,
-        720
+        700
       ],
       "notesInFlow": false
     },
@@ -328,7 +328,7 @@
       "typeVersion": 1,
       "position": [
         1640,
-        860
+        840
       ]
     },
     {
@@ -339,7 +339,7 @@
       "typeVersion": 1,
       "position": [
         1640,
-        700
+        680
       ]
     },
     {
@@ -352,7 +352,7 @@
       "typeVersion": 1,
       "position": [
         1280,
-        720
+        700
       ]
     },
     {
@@ -365,7 +365,7 @@
       "typeVersion": 1,
       "position": [
         1100,
-        720
+        700
       ]
     },
     {
@@ -496,7 +496,7 @@
       "typeVersion": 4,
       "position": [
         1100,
-        500
+        480
       ],
       "alwaysOutputData": false,
       "credentials": {
@@ -525,7 +525,7 @@
       "typeVersion": 2,
       "position": [
         1640,
-        500
+        480
       ]
     },
     {
@@ -549,7 +549,7 @@
       "typeVersion": 2,
       "position": [
         1280,
-        500
+        480
       ]
     },
     {
@@ -589,20 +589,7 @@
       "typeVersion": 1,
       "position": [
         1460,
-        500
-      ]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nmyjson = {\n  CosmeticName : $('Set Next Cosmetic Name').item.json['Next Cosmetic Name'] ,\nCosmeticRow : $('Next Cosmetic Row Number').item.json[\"Next Cosmetic Row Number\"],\nArtist : $('Set Next Cosmetic Artist to Save').item.json[\"Next Cosmetic Artist\"],\n}\n\nreturn myjson;"
-      },
-      "id": "c319dc04-a8c9-48d6-a29f-2d0180501771",
-      "name": "Code",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        1820,
-        500
+        480
       ]
     },
     {
@@ -622,7 +609,7 @@
       "typeVersion": 1,
       "position": [
         2000,
-        500
+        480
       ]
     },
     {
@@ -638,7 +625,20 @@
       "typeVersion": 1,
       "position": [
         2180,
-        500
+        480
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nmyjson = {\n  CosmeticName : $('Set Next Cosmetic Name').item.json['Next Cosmetic Name'] ,\nCosmeticRow : $('Next Cosmetic Row Number').item.json[\"Next Cosmetic Row Number\"],\nArtist : $('Set Next Cosmetic Artist to Save').item.json[\"Next Cosmetic Artist\"],\n}\n\nreturn myjson;"
+      },
+      "id": "c319dc04-a8c9-48d6-a29f-2d0180501771",
+      "name": "Create JSON from the set variables",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1820,
+        480
       ]
     }
   ],
@@ -853,18 +853,7 @@
       "main": [
         [
           {
-            "node": "Code",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code": {
-      "main": [
-        [
-          {
-            "node": "Spreadsheet File",
+            "node": "Create JSON from the set variables",
             "type": "main",
             "index": 0
           }
@@ -892,13 +881,24 @@
           }
         ]
       ]
+    },
+    "Create JSON from the set variables": {
+      "main": [
+        [
+          {
+            "node": "Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6e94fe72-d368-4aa3-9427-9d7ac9d54627",
+  "versionId": "81368908-7e96-4636-9612-eddbccdc63b7",
   "id": "SHP4EoGhAtDUZioI",
   "meta": {
     "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
