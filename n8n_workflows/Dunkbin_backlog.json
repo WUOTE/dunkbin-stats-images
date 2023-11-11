@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin backlog",
+  "name": "Dunkbin_backlog",
   "nodes": [
     {
       "parameters": {
@@ -13,13 +13,13 @@
           ]
         }
       },
-      "id": "35f4b387-df6f-49cb-b26d-e9d3697d4454",
+      "id": "6e683a9d-fb48-4ab3-b081-92e1d323bbbe",
       "name": "Remove \"Formula row\"",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        640,
-        360
+        1380,
+        380
       ]
     },
     {
@@ -31,26 +31,26 @@
           "sheetName": "Backlog"
         }
       },
-      "id": "1c177aa1-1a50-4052-9ad1-a6ae8350be17",
+      "id": "12717c6c-3a2f-41f3-bf46-5ff404d7ce6c",
       "name": "Save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
       "position": [
-        1000,
-        360
+        1740,
+        380
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "842accde-6b71-483a-8887-17de510d512f",
+      "id": "996fb94d-dfa3-4c58-b7a4-3c7abf2a9fc1",
       "name": "Get Current Date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        820,
-        1000
+        1560,
+        1020
       ]
     },
     {
@@ -60,26 +60,26 @@
         "format": "yyyy-MM-dd",
         "options": {}
       },
-      "id": "53c0d29b-a1b6-42ac-8c96-09be7477ded0",
+      "id": "e1e01872-62aa-4bda-82ae-a5baf653e90c",
       "name": "Format Date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1000,
-        1000
+        1740,
+        1020
       ]
     },
     {
       "parameters": {
         "command": "=cd ~/git/dunkbin-stats-images && git add -A && git commit -m \"{{ $json.formattedDate }} update cosmetic backlog\" && git push   "
       },
-      "id": "af907459-8cca-4ecc-9209-7ed1b6b09415",
+      "id": "c68fb383-0f8f-4d24-807d-a963a65c5195",
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1180,
-        1000
+        1920,
+        1020
       ]
     },
     {
@@ -88,13 +88,13 @@
         "height": 903.3784147520192,
         "width": 1183.760488375219
       },
-      "id": "49b1dc90-c54b-40df-8bb2-971631b6fd5c",
+      "id": "d88efc25-6af1-483a-b27f-34e72afea808",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        220,
-        300
+        960,
+        320
       ]
     },
     {
@@ -106,20 +106,20 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        640,
-        560
+        1380,
+        580
       ],
-      "id": "0e707d64-3d02-4ca0-bff9-94c9d4fd8391"
+      "id": "35a802e4-e72a-4a5b-9c0c-31ad00f66568"
     },
     {
       "parameters": {},
-      "id": "137ea0a9-41c5-4bf0-8168-3a43f4d8a677",
+      "id": "761fb056-cc33-4d16-a541-4177435292e0",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1180,
-        540
+        1920,
+        560
       ]
     },
     {
@@ -146,53 +146,33 @@
           }
         }
       },
-      "id": "605fb349-1fd6-42d7-806c-83135514cb2b",
+      "id": "64150643-6461-41f7-977b-c9b26ac2371c",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        460,
-        360
+        1200,
+        380
       ],
       "credentials": {
         "googleApi": {
-          "id": "9CCYckEXCdpwakyo",
-          "name": "Google Service Account account"
+          "id": "r3AKxz8lpaOgzdUi",
+          "name": "Wuote Service acc"
         }
       }
-    },
-    {
-      "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "field": "minutes",
-              "minutesInterval": 10
-            }
-          ]
-        }
-      },
-      "id": "50904216-1dcc-4dd9-b9c2-4417f18f70cd",
-      "name": "Schedule Trigger",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "typeVersion": 1.1,
-      "position": [
-        280,
-        360
-      ]
     },
     {
       "parameters": {
         "binaryData": true,
         "dataPropertyName": "Hash from Request"
       },
-      "id": "2d7f8453-6864-46c4-ba87-843cdb072ad5",
+      "id": "62a19158-5d0a-4b76-8511-8bfd320c4c0c",
       "name": "MD5 - File from Google Sheets",
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        460,
-        560
+        1200,
+        580
       ]
     },
     {
@@ -206,13 +186,13 @@
           ]
         }
       },
-      "id": "4fe85fcd-dd6f-4939-bf44-1e70e0991590",
+      "id": "1a03aa2c-29e2-4e6c-99ad-c6c47b7ad258",
       "name": "Are Spritesheets Identical?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        820,
-        560
+        1560,
+        580
       ],
       "notesInFlow": false
     },
@@ -220,13 +200,13 @@
       "parameters": {
         "command": "=cd ~/git/dunkbin-stats-images && git pull && git fetch && git status"
       },
-      "id": "69cf01be-8fb8-4086-a108-c8be6e66df2d",
+      "id": "3400752a-7b9c-450b-9e0a-f07dcc2663e6",
       "name": "Git Pull + Fetch + Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        640,
-        1000
+        1380,
+        1020
       ]
     },
     {
@@ -236,13 +216,13 @@
           "append": false
         }
       },
-      "id": "762febee-4eb0-4ecc-9409-df1ae9c02f23",
+      "id": "1aa4c7bb-ac7f-471c-81ef-782fa176d4bb",
       "name": "Save Spritesheet to Disk",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
       "position": [
-        460,
-        1000
+        1200,
+        1020
       ]
     },
     {
@@ -258,13 +238,13 @@
         },
         "options": {}
       },
-      "id": "ec577a45-b636-47b6-b320-25f6464b1a2d",
+      "id": "e20c0f95-4f5c-4c3d-939b-96e9efd47206",
       "name": "Sort by Added from New to Old",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        820,
-        360
+        1560,
+        380
       ]
     },
     {
@@ -291,18 +271,18 @@
           }
         }
       },
-      "id": "14e7a621-9f6a-4c88-83db-2e6a42c6e9fc",
+      "id": "d689a5cf-f69d-415f-aa33-4de5c1eca9c4",
       "name": "Re-read Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        460,
-        800
+        1200,
+        820
       ],
       "credentials": {
         "googleApi": {
-          "id": "9CCYckEXCdpwakyo",
-          "name": "Google Service Account account"
+          "id": "r3AKxz8lpaOgzdUi",
+          "name": "Wuote Service acc"
         }
       }
     },
@@ -318,13 +298,13 @@
           ]
         }
       },
-      "id": "53ccc34c-19f2-4b83-b9fe-56678b7a497d",
+      "id": "8d46132f-c6cd-4710-b186-5f926e2a3ed8",
       "name": "Re-remove \"Formula row\"",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        640,
-        800
+        1380,
+        820
       ]
     },
     {
@@ -340,13 +320,13 @@
         },
         "options": {}
       },
-      "id": "f47bce8e-90cd-4135-b78e-36a70901f0e6",
+      "id": "2d7d4890-02e1-48be-b1db-bf0f6cdc56d0",
       "name": "Re-sort by Added from New to Old",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        820,
-        800
+        1560,
+        820
       ]
     },
     {
@@ -358,13 +338,33 @@
           "sheetName": "Backlog"
         }
       },
-      "id": "6bb1ad88-467e-41c2-aff0-3e9d2409b956",
+      "id": "098fd0c0-d748-4053-aa86-6750bd862815",
       "name": "Re-save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
       "position": [
-        1000,
-        800
+        1740,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "triggerAtMinute": 5
+            }
+          ]
+        }
+      },
+      "id": "a68768a0-c62b-4348-bb79-146b2d81979c",
+      "name": "Cron For Hourly Execusion",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        1020,
+        380
       ]
     }
   ],
@@ -419,17 +419,6 @@
         [
           {
             "node": "Are Spritesheets Identical?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Schedule Trigger": {
-      "main": [
-        [
-          {
-            "node": "Google Sheets",
             "type": "main",
             "index": 0
           }
@@ -552,22 +541,36 @@
           }
         ]
       ]
+    },
+    "Cron For Hourly Execusion": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "Asia/Bishkek",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "359385e7-297a-4f4e-a66c-a61c58d77cb9",
-  "id": "kOW3yEWh03zfNcWX",
+  "versionId": "5e7301da-00bb-48ea-be64-bd88e7f5f0ad",
+  "id": "88CMk0mLTsS55dyA",
   "meta": {
-    "instanceId": "ca48c5a4c78b329c7c66a0a892fb3e2e2d29235987fa7237066be387e4be1cf0"
+    "instanceId": "885fa0d4209e1dc2b8c762e0c7afc069667d06fa829bf5c8578d01641fbb9a6d"
   },
   "tags": [
     {
-      "id": "XrB4f7XZdukuOwdS",
-      "createdAt": "2023-08-01T12:49:51.802Z",
-      "updatedAt": "2023-08-01T12:49:51.802Z",
+      "createdAt": "2023-11-09T11:40:59.340Z",
+      "updatedAt": "2023-11-09T11:40:59.340Z",
+      "id": "901WEvMoiqiL1X43",
       "name": "dunkbin"
     }
   ]
