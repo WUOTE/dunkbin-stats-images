@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for dunkbinstats on 2023-11-29T03:52:18+06:00
+# fly.toml app configuration file generated for dunkbinstats on 2023-12-27T16:19:03+06:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -7,9 +7,6 @@ app = "dunkbinstats"
 primary_region = "dfw"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
-
-[experimental]
-  auto_rollback = true
 
 [build]
 
