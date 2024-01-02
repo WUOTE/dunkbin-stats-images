@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin backlog",
+  "name": "Dunkbin_backlog",
   "nodes": [
     {
       "parameters": {
@@ -13,26 +13,44 @@
           ]
         }
       },
-      "id": "1b3172a5-bc57-4247-a379-85b9f99ccd65",
+      "id": "6e683a9d-fb48-4ab3-b081-92e1d323bbbe",
       "name": "Remove \"Formula row\"",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        880,
-        520
+        1380,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "xlsx",
+        "options": {
+          "fileName": "~/git/dunkbin-stats-images/dunkbin_backlog",
+          "sheetName": "Backlog"
+        }
+      },
+      "id": "12717c6c-3a2f-41f3-bf46-5ff404d7ce6c",
+      "name": "Save to Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        380
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "55bd81e8-1c87-4545-b967-fc011fa30462",
+      "id": "996fb94d-dfa3-4c58-b7a4-3c7abf2a9fc1",
       "name": "Get Current Date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1060,
-        1160
+        1560,
+        1020
       ]
     },
     {
@@ -42,26 +60,26 @@
         "format": "yyyy-MM-dd",
         "options": {}
       },
-      "id": "f5133d99-f3ff-4584-89cf-639d256f80a1",
+      "id": "e1e01872-62aa-4bda-82ae-a5baf653e90c",
       "name": "Format Date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1240,
-        1160
+        1740,
+        1020
       ]
     },
     {
       "parameters": {
-        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $json.formattedDate }} update cosmetic backlog\" && git push"
+        "command": "=cd ~/git/dunkbin-stats-images && git add -A && git commit -m \"{{ $json.formattedDate }} update cosmetic backlog\" && git push   "
       },
-      "id": "3fda370d-d3e2-452f-9cfb-3d44ce966587",
+      "id": "c68fb383-0f8f-4d24-807d-a963a65c5195",
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1420,
-        1160
+        1920,
+        1020
       ]
     },
     {
@@ -70,38 +88,38 @@
         "height": 903.3784147520192,
         "width": 1183.760488375219
       },
-      "id": "9914c096-d8a0-4102-bf2c-0b0ccca5fcd3",
+      "id": "d88efc25-6af1-483a-b27f-34e72afea808",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        460
+        960,
+        320
       ]
     },
     {
       "parameters": {
         "executeOnce": false,
-        "command": "=md5sum /home/node/git/dunkbin-stats-images/public/sheets/dunkbin_backlog.xlsx | awk '{split($0,a); print a[1];}'"
+        "command": "=cd ~/git/dunkbin-stats-images/public/sheets && md5sum dunkbin_backlog.xlsx | awk '{split($0,a); print a[1];}'"
       },
       "name": "MD5 - File on Disk",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        880,
-        720
+        1380,
+        580
       ],
-      "id": "83bd48ed-7d83-4c26-8c6b-30c9ad696d29"
+      "id": "35a802e4-e72a-4a5b-9c0c-31ad00f66568"
     },
     {
       "parameters": {},
-      "id": "171bd340-4d85-4b48-8f48-d724bdd24d2a",
+      "id": "761fb056-cc33-4d16-a541-4177435292e0",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1420,
-        700
+        1920,
+        560
       ]
     },
     {
@@ -128,18 +146,18 @@
           }
         }
       },
-      "id": "241b5ca5-fb69-43bf-8888-038d45838563",
+      "id": "64150643-6461-41f7-977b-c9b26ac2371c",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        700,
-        520
+        1200,
+        380
       ],
       "credentials": {
         "googleApi": {
-          "id": "PfVPCAHWDVyYiUWG",
-          "name": "Google Sheets account"
+          "id": "r3AKxz8lpaOgzdUi",
+          "name": "Wuote Service acc"
         }
       }
     },
@@ -148,13 +166,13 @@
         "binaryData": true,
         "dataPropertyName": "Hash from Request"
       },
-      "id": "025222c5-a28f-49f3-9899-9a2cd5e46497",
+      "id": "62a19158-5d0a-4b76-8511-8bfd320c4c0c",
       "name": "MD5 - File from Google Sheets",
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        700,
-        720
+        1200,
+        580
       ]
     },
     {
@@ -168,43 +186,43 @@
           ]
         }
       },
-      "id": "ca2c5408-a422-4421-8b95-a51541409294",
+      "id": "1a03aa2c-29e2-4e6c-99ad-c6c47b7ad258",
       "name": "Are Spritesheets Identical?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1060,
-        720
+        1560,
+        580
       ],
       "notesInFlow": false
     },
     {
       "parameters": {
-        "command": "=cd /home/node/git/dunkbin-stats-images && git pull && git fetch && git status"
+        "command": "=cd ~/git/dunkbin-stats-images && git pull && git fetch && git status"
       },
-      "id": "83f48309-1fb4-4e69-98f9-974521f81523",
+      "id": "3400752a-7b9c-450b-9e0a-f07dcc2663e6",
       "name": "Git Pull + Fetch + Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        880,
-        1160
+        1380,
+        1020
       ]
     },
     {
       "parameters": {
-        "fileName": "/home/node/git/dunkbin-stats-images/public/sheets/dunkbin_backlog.xlsx",
+        "fileName": "git/dunkbin-stats-images/public/sheets/dunkbin_backlog.xlsx",
         "options": {
           "append": false
         }
       },
-      "id": "b776adc1-8d5d-4b3e-b74d-7ed66f8e471c",
+      "id": "1aa4c7bb-ac7f-471c-81ef-782fa176d4bb",
       "name": "Save Spritesheet to Disk",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
       "position": [
-        700,
-        1160
+        1200,
+        1020
       ]
     },
     {
@@ -220,13 +238,13 @@
         },
         "options": {}
       },
-      "id": "851c898a-9367-4ad0-8dd1-91c172a0bfb6",
+      "id": "e20c0f95-4f5c-4c3d-939b-96e9efd47206",
       "name": "Sort by Added from New to Old",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        1060,
-        520
+        1560,
+        380
       ]
     },
     {
@@ -253,18 +271,18 @@
           }
         }
       },
-      "id": "9da9b47f-b976-4ff6-8594-99a42de5cdee",
+      "id": "d689a5cf-f69d-415f-aa33-4de5c1eca9c4",
       "name": "Re-read Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        700,
-        960
+        1200,
+        820
       ],
       "credentials": {
         "googleApi": {
-          "id": "PfVPCAHWDVyYiUWG",
-          "name": "Google Sheets account"
+          "id": "r3AKxz8lpaOgzdUi",
+          "name": "Wuote Service acc"
         }
       }
     },
@@ -280,13 +298,13 @@
           ]
         }
       },
-      "id": "d992f9a7-66b6-4c6a-99e8-bac4e6e15996",
+      "id": "8d46132f-c6cd-4710-b186-5f926e2a3ed8",
       "name": "Re-remove \"Formula row\"",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        880,
-        960
+        1380,
+        820
       ]
     },
     {
@@ -302,13 +320,31 @@
         },
         "options": {}
       },
-      "id": "e07ab5fb-a54e-4275-a439-4dbc8397054d",
+      "id": "2d7d4890-02e1-48be-b1db-bf0f6cdc56d0",
       "name": "Re-sort by Added from New to Old",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        1060,
-        960
+        1560,
+        820
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "xlsx",
+        "options": {
+          "fileName": "~/git/dunkbin-stats-images/public/sheets/dunkbin_backlog",
+          "sheetName": "Backlog"
+        }
+      },
+      "id": "098fd0c0-d748-4053-aa86-6750bd862815",
+      "name": "Re-save to Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        820
       ]
     },
     {
@@ -322,53 +358,13 @@
           ]
         }
       },
-      "id": "95770231-2358-4a6b-9bb3-7612e00172bc",
+      "id": "a68768a0-c62b-4348-bb79-146b2d81979c",
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        520,
-        520
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "toFile",
-        "fileFormat": "xlsx",
-        "options": {
-          "compression": false,
-          "fileName": "/home/node/git/dunkbin-stats-images/dunkbin_backlog",
-          "headerRow": true,
-          "sheetName": "Backlog"
-        }
-      },
-      "id": "8794313d-981b-435c-ab71-b29e05eedfb8",
-      "name": "Save to Spreadsheet File",
-      "type": "n8n-nodes-base.spreadsheetFile",
-      "typeVersion": 2,
-      "position": [
-        1240,
-        520
-      ]
-    },
-    {
-      "parameters": {
-        "operation": "toFile",
-        "fileFormat": "xlsx",
-        "options": {
-          "compression": false,
-          "fileName": "/home/node/git/dunkbin-stats-images/dunkbin_backlog",
-          "headerRow": true,
-          "sheetName": "Backlog"
-        }
-      },
-      "id": "3e845797-53a3-4185-ab7f-8d470293369e",
-      "name": "Re-save to Spreadsheet File",
-      "type": "n8n-nodes-base.spreadsheetFile",
-      "typeVersion": 2,
-      "position": [
-        1240,
-        960
+        1020,
+        380
       ]
     }
   ],
@@ -379,6 +375,17 @@
         [
           {
             "node": "Sort by Added from New to Old",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "MD5 - File from Google Sheets",
             "type": "main",
             "index": 0
           }
@@ -423,6 +430,17 @@
         [
           {
             "node": "Remove \"Formula row\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MD5 - File from Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "MD5 - File on Disk",
             "type": "main",
             "index": 0
           }
@@ -502,39 +520,6 @@
         ]
       ]
     },
-    "Cron For Hourly Execusion": {
-      "main": [
-        [
-          {
-            "node": "Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Save to Spreadsheet File": {
-      "main": [
-        [
-          {
-            "node": "MD5 - File from Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "MD5 - File from Google Sheets": {
-      "main": [
-        [
-          {
-            "node": "MD5 - File on Disk",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Re-sort by Added from New to Old": {
       "main": [
         [
@@ -556,22 +541,36 @@
           }
         ]
       ]
+    },
+    "Cron For Hourly Execusion": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "timezone": "Asia/Bishkek",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "a4c92bac-98de-46a7-ad4e-04519ba7d48f",
-  "id": "1KOzuwrp6HCaEyEh",
+  "versionId": "5e7301da-00bb-48ea-be64-bd88e7f5f0ad",
+  "id": "88CMk0mLTsS55dyA",
   "meta": {
-    "instanceId": "c61e0e3e352f4fb3eec73f12593a7bab561e3f4a1e80e6277ec4fb62e761252b"
+    "instanceId": "885fa0d4209e1dc2b8c762e0c7afc069667d06fa829bf5c8578d01641fbb9a6d"
   },
   "tags": [
     {
-      "createdAt": "2023-12-31T00:25:26.596Z",
-      "updatedAt": "2023-12-31T00:25:26.596Z",
-      "id": "SAvNJ3UYpYOh6u0P",
+      "createdAt": "2023-11-09T11:40:59.340Z",
+      "updatedAt": "2023-11-09T11:40:59.340Z",
+      "id": "901WEvMoiqiL1X43",
       "name": "dunkbin"
     }
   ]

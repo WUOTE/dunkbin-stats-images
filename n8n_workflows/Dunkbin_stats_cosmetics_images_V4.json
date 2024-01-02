@@ -1,0 +1,503 @@
+{
+  "name": "Dunkbin stats cosmetics images V4",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "url": "https://dunkbin.com/export/cosmetics",
+        "options": {
+          "splitIntoItems": true
+        }
+      },
+      "name": "Consume Cosmetics API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        703.0364323560339,
+        514.3117295526242
+      ],
+      "id": "f05ef71e-ec32-46cc-a46e-d7193b2efc5b",
+      "notesInFlow": true,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "XkDUkuWnSp0p1Smt",
+          "name": "Unnamed credential"
+        }
+      },
+      "notes": "Get JSON with cosmetics"
+    },
+    {
+      "parameters": {
+        "operation": "sort",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Sort cosmetics by id from newest to oldest",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1,
+      "position": [
+        883.0364323560339,
+        514.3117295526242
+      ],
+      "id": "79a0102f-c2d1-4523-9491-8161131530cf"
+    },
+    {
+      "parameters": {
+        "url": "=https://dunkbin.com/img/{{ $json.id }}-{{ $json.md5 }}.png ",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 25,
+              "batchInterval": 63000
+            }
+          },
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "b3e4b07a-105c-4294-a5d7-a932afca707d",
+      "name": "Download image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1423.0364323560339,
+        494.31172955262423
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch && git status"
+      },
+      "id": "8f40be97-624f-4a3d-bf62-588b3523a95d",
+      "name": "git status",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1243.0364323560339,
+        954.3117295526242
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.id }}",
+              "operation": "larger"
+            },
+            {
+              "value1": "={{ $json[\"id\"].toString().length() }}",
+              "operation": "largerEqual",
+              "value2": 1
+            }
+          ]
+        }
+      },
+      "id": "480e5f0f-ec9d-40d6-a1f1-43bffea77f51",
+      "name": "Dont process one broken cosmetic",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        1063.0364323560339,
+        514.3117295526242
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 25,
+        "options": {}
+      },
+      "id": "fd811951-0c9d-4954-a2b5-53c5376a9c83",
+      "name": "API allows burts of 25 requests at a time",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        1243.0364323560339,
+        514.3117295526242
+      ],
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "e7c2e843-ee02-49b1-992c-3967afdef026",
+      "name": "Set today's date",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        883.0364323560339,
+        954.3117295526242
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "yyyy-MM-dd",
+        "options": {}
+      },
+      "id": "77d9d3df-a7fb-4da7-99bf-079bdafd18b2",
+      "name": "YYYY-MM-DD",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1063.0364323560339,
+        954.3117295526242
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {},
+      "id": "7a707c9f-d1f4-47c7-9b51-bdfd543f3fc1",
+      "name": "Do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1603.0364323560339,
+        714.3117295526242
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $('YYYY-MM-DD').item.json.formattedDate }} add {{ $('Dont process one broken cosmetic').item.json.name }}\" && git push   "
+      },
+      "id": "8ee99da3-1168-487d-a891-9efeea1be161",
+      "name": "git commit + push",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1603.0364323560339,
+        974.3117295526242
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('MD5 - File from Dunkbin').item.json['Hash from Request'] }}",
+              "value2": "={{ $json.stdout }}"
+            }
+          ]
+        }
+      },
+      "id": "dbf87b44-85c4-4613-959a-289c915c5ed0",
+      "name": "Are images the same?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1063.0364323560339,
+        734.3117295526242
+      ],
+      "notesInFlow": true,
+      "notes": "Has the image on Dunkbin been changed?"
+    },
+    {
+      "parameters": {
+        "binaryData": true,
+        "dataPropertyName": "Hash from Request"
+      },
+      "id": "fa7d2f88-83b0-4d9b-9331-6f3e5021b61e",
+      "name": "MD5 - File from Dunkbin",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        703.0364323560339,
+        734.3117295526242
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=cd /home/node/git/dunkbin-stats-images/public/img && md5sum {{$json[\"id\"]}}.png | awk '{split($0,a); print a[1];}'"
+      },
+      "name": "MD5 - File on Disk",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        883.0364323560339,
+        734.3117295526242
+      ],
+      "id": "224236d5-3a8b-4204-b410-a72ce0a5d7da"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout }}",
+              "operation": "notContains",
+              "value2": "to include in what will be committed"
+            }
+          ]
+        }
+      },
+      "id": "6282e6a4-a8e4-47ad-b76a-55f2a72460ed",
+      "name": "Local copy is in sync with the remote server?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1423.0364323560339,
+        954.3117295526242
+      ]
+    },
+    {
+      "parameters": {
+        "content": "![](https://dunkbinstats.runfast.stream/background/background.png#full-width)",
+        "height": 685.9246684728848,
+        "width": 1350.9142097524466
+      },
+      "id": "cd2aca54-751e-4ec4-977a-f9f9bdbbeead",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=wget -O /home/node/git/dunkbin-stats-images/public/img/{{ $('Download image').item.json.id }}.png https://dunkbin.com/img/{{ $('Download image').item.json.id }}-{{ $('Download image').item.json.md5 }}.png"
+      },
+      "name": "Download new image using wget",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        703.0364323560339,
+        954.3117295526242
+      ],
+      "id": "a19a7dc9-dfea-41c1-91c5-3907f3d6191b"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour",
+              "minute": 23
+            }
+          ]
+        }
+      },
+      "name": "Cron For Hourly Execusion",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        523.0364323560339,
+        514.3117295526242
+      ],
+      "id": "2a4b2aca-bc22-4c49-8a42-68fa23d714cc",
+      "notesInFlow": false
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Consume Cosmetics API": {
+      "main": [
+        [
+          {
+            "node": "Sort cosmetics by id from newest to oldest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort cosmetics by id from newest to oldest": {
+      "main": [
+        [
+          {
+            "node": "Dont process one broken cosmetic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dont process one broken cosmetic": {
+      "main": [
+        [
+          {
+            "node": "API allows burts of 25 requests at a time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API allows burts of 25 requests at a time": {
+      "main": [
+        [
+          {
+            "node": "Download image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "MD5 - File from Dunkbin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download image": {
+      "main": [
+        [
+          {
+            "node": "API allows burts of 25 requests at a time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MD5 - File from Dunkbin": {
+      "main": [
+        [
+          {
+            "node": "MD5 - File on Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MD5 - File on Disk": {
+      "main": [
+        [
+          {
+            "node": "Are images the same?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Are images the same?": {
+      "main": [
+        [
+          {
+            "node": "Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download new image using wget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set today's date": {
+      "main": [
+        [
+          {
+            "node": "YYYY-MM-DD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YYYY-MM-DD": {
+      "main": [
+        [
+          {
+            "node": "git status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git status": {
+      "main": [
+        [
+          {
+            "node": "Local copy is in sync with the remote server?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Local copy is in sync with the remote server?": {
+      "main": [
+        [
+          {
+            "node": "Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "git commit + push",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download new image using wget": {
+      "main": [
+        [
+          {
+            "node": "Set today's date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron For Hourly Execusion": {
+      "main": [
+        [
+          {
+            "node": "Consume Cosmetics API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e9309416-d8c8-4041-974e-29767fd10446",
+  "id": "ROBCPsodVxjwJGE5",
+  "meta": {
+    "instanceId": "c61e0e3e352f4fb3eec73f12593a7bab561e3f4a1e80e6277ec4fb62e761252b"
+  },
+  "tags": [
+    {
+      "createdAt": "2023-12-31T00:25:26.596Z",
+      "updatedAt": "2023-12-31T00:25:26.596Z",
+      "id": "SAvNJ3UYpYOh6u0P",
+      "name": "dunkbin"
+    }
+  ]
+}
