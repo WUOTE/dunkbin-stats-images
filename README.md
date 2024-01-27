@@ -16,3 +16,7 @@
 ### Backlog spritesheet next cosmetic info
 ![Dunkbin_Next_Cosmetic_Info](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/6c91acd1-1874-4fed-9f9c-618acee537e1)
 
+### Gotchas
+Running n8n inside a container requires fixing writing priviliges
+Alpine: run as `root` in `sh`
+`chown node git/`
