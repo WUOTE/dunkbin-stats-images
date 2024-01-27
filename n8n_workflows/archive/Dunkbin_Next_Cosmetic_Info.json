@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin_Next_Cosmetic_Info",
+  "name": "Dunkbin Next Cosmetic Info",
   "nodes": [
     {
       "parameters": {
@@ -7,7 +7,7 @@
         "height": 974.4166911412664,
         "width": 1502.9106120794333
       },
-      "id": "253e8ab0-a0b4-4086-9d2a-c5e1b6714ffa",
+      "id": "470af637-6db7-41ed-97b3-c5798a234a20",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -31,7 +31,7 @@
           "dotNotation": true
         }
       },
-      "id": "250e3dd6-5997-42f9-808d-f89f704dc9f0",
+      "id": "5ba78805-1889-4963-be59-630ef7140961",
       "name": "Set Cosmetic and Notes",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -66,7 +66,7 @@
           ]
         }
       },
-      "id": "9e22f599-7b2b-4196-a631-fb25c448c5ce",
+      "id": "1aec888d-084f-4740-bca3-a7d811476370",
       "name": "Discard empty",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -121,7 +121,7 @@
           ]
         }
       },
-      "id": "59e9384d-cac9-4740-87d5-6260f3513cd8",
+      "id": "5ae76115-825c-41bb-bfcb-6acef1d7b536",
       "name": "Discard Number of Candidate Cosmetics",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -134,7 +134,7 @@
       "parameters": {
         "operation": "limit"
       },
-      "id": "7e6f9749-dbbd-43d9-b806-9e4aa1f6f630",
+      "id": "bef02fc8-7d4b-46e7-8146-ae05701cf09b",
       "name": "Keep the Name and Notes only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
@@ -156,7 +156,7 @@
         },
         "options": {}
       },
-      "id": "fbb5ae65-51ab-4dde-9d33-afbf61a80bab",
+      "id": "e4dc6883-efc4-4bc6-81a2-22738e7f035a",
       "name": "Set Next Cosmetic Name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -180,7 +180,7 @@
           "dotNotation": true
         }
       },
-      "id": "f295e7f8-767a-40b9-be98-91086ba0c726",
+      "id": "3ae17d6c-6d3d-44e0-9471-330e20a6ef85",
       "name": "Set Next Cosmetic Artist",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -230,7 +230,7 @@
           ]
         }
       },
-      "id": "7ea3586d-22a8-4570-bd5b-31264b11f768",
+      "id": "e847e721-a274-449e-83e8-c68282a21275",
       "name": "Discard Empty and non-name fields",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -243,7 +243,7 @@
       "parameters": {
         "operation": "limit"
       },
-      "id": "52240ba5-b6c2-45a2-80ad-3dc1d9c0b367",
+      "id": "4520c5ad-3ce8-47fb-84ca-d21d8e3da0b8",
       "name": "Keep Next Cosmetic Artist only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
@@ -267,7 +267,7 @@
           "dotNotation": true
         }
       },
-      "id": "61224788-e399-4c1a-99bb-01d3101a241d",
+      "id": "3231a84e-e32e-4075-b1f2-9b83d780ac0f",
       "name": "Set Next Cosmetic Artist to Save",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -288,7 +288,7 @@
           ]
         }
       },
-      "id": "f612f9f4-723c-4ea4-8023-be1c75837158",
+      "id": "4bb3118c-6ff5-4b80-9b48-553a86f831e7",
       "name": "Should we push to the repo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
@@ -300,9 +300,9 @@
     },
     {
       "parameters": {
-        "command": "=cd ~/git/dunkbin-stats-images && git add -A && git commit -m \"{{ $json.formattedDate }} update next cosmetic and next cosmetic artist\" && git push   "
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $json.formattedDate }} update next cosmetic and next cosmetic artist\" && git push   "
       },
-      "id": "8c103090-38ef-4a8b-b7ea-a95b1feda182",
+      "id": "17a4e872-cc98-4a66-b471-3da11dc02fc8",
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -313,7 +313,7 @@
     },
     {
       "parameters": {},
-      "id": "28bbecc2-ac08-4e13-8b46-2f15fe5aab8c",
+      "id": "aa8082cd-b341-43b1-9894-1bd4d7cfd694",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -326,7 +326,7 @@
       "parameters": {
         "command": "=cd ~/git/dunkbin-stats-images && git status"
       },
-      "id": "12aa129b-1ab6-4994-931b-fd4e63be8b18",
+      "id": "25da0219-4444-43fe-96f9-363bdeab8ff9",
       "name": "Git Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -339,7 +339,7 @@
       "parameters": {
         "command": "=cd ~/git/dunkbin-stats-images && git pull && git fetch"
       },
-      "id": "8660a7c2-e14f-4fc8-a3f8-fed17363009b",
+      "id": "8e9532e2-515d-4db3-9803-01a6809b515c",
       "name": "Git Pull + Fetch",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -378,7 +378,7 @@
           }
         }
       },
-      "id": "5c6e0d96-e0b2-4adc-95f5-f4ea7edd46e2",
+      "id": "9a6f9ccc-94c6-4b22-a7ed-3d6088213da0",
       "name": "Google Sheets Artist",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
@@ -389,8 +389,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "r3AKxz8lpaOgzdUi",
-          "name": "Wuote Service acc"
+          "id": "PfVPCAHWDVyYiUWG",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -424,7 +424,7 @@
           }
         }
       },
-      "id": "b3d151ad-a9c0-4837-844e-7f04b92927d5",
+      "id": "95fa6c14-bf70-4984-9277-95234294c801",
       "name": "Google Sheets Cosmetic",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
@@ -435,8 +435,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "r3AKxz8lpaOgzdUi",
-          "name": "Wuote Service acc"
+          "id": "PfVPCAHWDVyYiUWG",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -470,7 +470,7 @@
           }
         }
       },
-      "id": "5bca0b0a-dc48-451c-83c3-adecb6d6c409",
+      "id": "4e01e2af-f180-4767-b304-2fc18ac63f41",
       "name": "Google Sheets Cosmetic Row",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
@@ -481,8 +481,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "r3AKxz8lpaOgzdUi",
-          "name": "Wuote Service acc"
+          "id": "PfVPCAHWDVyYiUWG",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -499,7 +499,7 @@
         },
         "options": {}
       },
-      "id": "701d3057-0b5a-48f1-9c9c-18c99ddaab1a",
+      "id": "1b82a571-7a59-4b0b-a4ad-a135aba5ae5e",
       "name": "Next Cosmetic Row Number",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -523,7 +523,7 @@
           "dotNotation": true
         }
       },
-      "id": "309c5552-861c-44b4-bdde-aaab37e27e41",
+      "id": "023f108d-7b46-4edb-bb0d-7e1c4f88a224",
       "name": "Set Row Number",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -563,7 +563,7 @@
           ]
         }
       },
-      "id": "e15562a0-e0f5-4e3f-aa0e-355bc06ac591",
+      "id": "7fcd6479-9fd9-4470-946d-2d8cfd34e335",
       "name": "Filter for Row Number",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -583,7 +583,7 @@
           "sheetName": "NextCosmeticFullInfo"
         }
       },
-      "id": "53fe3897-b397-4320-a69b-e4bb29d5a052",
+      "id": "3c5284d1-0760-4d0b-9e89-80f05cde67b7",
       "name": "Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
@@ -599,7 +599,7 @@
           "append": false
         }
       },
-      "id": "f4a988c6-b720-47c2-88ce-815a5258e6d3",
+      "id": "233414e8-1e3c-4538-a8d1-4d319db8f456",
       "name": "Save Next Cosmetic File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
@@ -612,7 +612,7 @@
       "parameters": {
         "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nmyjson = {\n  CosmeticName : $('Set Next Cosmetic Name').item.json['Next Cosmetic Name'] ,\nCosmeticRow : $('Next Cosmetic Row Number').item.json[\"Next Cosmetic Row Number\"],\nArtist : $('Set Next Cosmetic Artist to Save').item.json[\"Next Cosmetic Artist\"],\n}\n\nreturn myjson;"
       },
-      "id": "1e499370-b6d7-4e31-8c63-2595bc9515d4",
+      "id": "4094a7d2-7128-42f5-afd2-53e7f7abdc5f",
       "name": "Create JSON from the set variables",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -632,7 +632,7 @@
           ]
         }
       },
-      "id": "0a8561ce-21f8-4d3c-ad4c-fd5b38e48383",
+      "id": "b79f2a16-ad16-42bc-9659-383fdfe42eb4",
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
@@ -894,23 +894,20 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Asia/Bishkek",
-    "saveManualExecutions": true,
-    "callerPolicy": "workflowsFromSameOwner"
+    "executionOrder": "v1"
   },
-  "versionId": "629bc13d-2748-4d7f-9074-99370c21c094",
-  "id": "QZRvsQ6UJ2OSNCnW",
+  "versionId": "f4a6c75f-c98b-4c68-ab21-82f2cae083b9",
+  "id": "WnIiqSTrs4cPQyCH",
   "meta": {
-    "instanceId": "885fa0d4209e1dc2b8c762e0c7afc069667d06fa829bf5c8578d01641fbb9a6d"
+    "instanceId": "c61e0e3e352f4fb3eec73f12593a7bab561e3f4a1e80e6277ec4fb62e761252b"
   },
   "tags": [
     {
-      "createdAt": "2023-11-09T11:40:59.340Z",
-      "updatedAt": "2023-11-09T11:40:59.340Z",
-      "id": "901WEvMoiqiL1X43",
+      "createdAt": "2023-12-31T00:25:26.596Z",
+      "updatedAt": "2023-12-31T00:25:26.596Z",
+      "id": "SAvNJ3UYpYOh6u0P",
       "name": "dunkbin"
     }
   ]

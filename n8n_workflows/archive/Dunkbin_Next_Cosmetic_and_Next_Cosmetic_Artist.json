@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist",
+  "name": "Dunkbin Next Cosmetic and Next Cosmetic Artist",
   "nodes": [
     {
       "parameters": {
@@ -7,7 +7,7 @@
         "height": 779.9160923388715,
         "width": 1695.4854623788347
       },
-      "id": "087ed82f-b5df-4cf8-b0e3-10c7fce322d7",
+      "id": "8e1510ae-2be8-418a-b263-03513324e5fc",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
@@ -46,7 +46,7 @@
           }
         }
       },
-      "id": "362a95d4-15c9-46c3-9b2f-ae9ad9a9df46",
+      "id": "31207bf7-966b-44d2-b5ad-f5c2f4681105",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
@@ -57,8 +57,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "r3AKxz8lpaOgzdUi",
-          "name": "Wuote Service acc"
+          "id": "PfVPCAHWDVyYiUWG",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -77,7 +77,7 @@
           "dotNotation": true
         }
       },
-      "id": "3e854e45-f5c9-44d7-a9d2-437edcdec6e2",
+      "id": "847f3fbe-ae7b-4033-99f8-d990a0981913",
       "name": "Set Cosmetic and Notes",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -112,7 +112,7 @@
           ]
         }
       },
-      "id": "4db2c8c3-5d2c-42e7-884d-3a5f974aca60",
+      "id": "2245bd7f-1138-4657-aa90-45839d4d298f",
       "name": "Discard empty",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -167,7 +167,7 @@
           ]
         }
       },
-      "id": "5657ccd4-2e38-4ea9-849f-8e1c797bf204",
+      "id": "457a41fb-9284-4ebe-8db6-787780970312",
       "name": "Discard Number of Candidate Cosmetics",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -180,7 +180,7 @@
       "parameters": {
         "operation": "limit"
       },
-      "id": "95822397-3dc8-46ce-9d93-fcac7427e17e",
+      "id": "0bc4c79c-4eee-48e8-8b7f-b789af0925cc",
       "name": "Keep the Name and Notes only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
@@ -202,7 +202,7 @@
         },
         "options": {}
       },
-      "id": "610e4fbe-b048-4f9e-b2b9-b90dad511a23",
+      "id": "01b4ba90-cfd9-481a-9108-58516d47e9ba",
       "name": "Set Next Cosmetic Name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -226,7 +226,7 @@
           "dotNotation": true
         }
       },
-      "id": "b70a9b12-9676-4de7-becc-6bb30c5e1438",
+      "id": "76b4383e-8376-4467-8f45-b57bab5959f0",
       "name": "Set Next Cosmetic Artist",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -276,7 +276,7 @@
           ]
         }
       },
-      "id": "8e8226ae-978c-4765-b93f-18c2835da6c1",
+      "id": "02e7ec0e-34c4-4c72-9f1d-e307e906ba57",
       "name": "Discard Empty and non-name fields",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
@@ -289,7 +289,7 @@
       "parameters": {
         "operation": "limit"
       },
-      "id": "fa3f51a7-68df-48e7-b1cf-52dde5717fbc",
+      "id": "7f802485-ddae-46b1-a3f1-84fd50c3a0cb",
       "name": "Keep Next Cosmetic Artist only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
@@ -313,7 +313,7 @@
           "dotNotation": true
         }
       },
-      "id": "ef036a23-6da0-49a1-8cee-91e99af33273",
+      "id": "313d751a-183e-4e80-a41e-602d93ba6bbf",
       "name": "Set Next Cosmetic Artist to Save",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
@@ -334,7 +334,7 @@
           ]
         }
       },
-      "id": "195651af-58ee-4f45-9f21-7dd3235d1727",
+      "id": "4f22c1d4-9c57-4fa1-8d6f-386faa632154",
       "name": "Should we push to the repo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
@@ -349,11 +349,11 @@
         "operation": "toFile",
         "fileFormat": "xlsx",
         "options": {
-          "fileName": "/git/dunkbin-stats-images/dunkbin_next_cosmetic_artist.xlsx",
+          "fileName": "/home/node/git/dunkbin-stats-images/dunkbin_next_cosmetic_artist.xlsx",
           "sheetName": "Next_cosmetic_artist"
         }
       },
-      "id": "3102ca32-e08e-4baa-9942-be21d07d662e",
+      "id": "1829e38f-8d16-4fbf-971b-189d2faf463f",
       "name": "Save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
@@ -364,12 +364,12 @@
     },
     {
       "parameters": {
-        "fileName": "git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_artist.xlsx",
+        "fileName": "/home/node/git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_artist.xlsx",
         "options": {
           "append": false
         }
       },
-      "id": "27e475ef-0c04-412d-8b24-6a76aab8337c",
+      "id": "41199594-8bfe-4bbb-8b75-db251c642083",
       "name": "Save Next Cosmetic Artist File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
@@ -408,7 +408,7 @@
           }
         }
       },
-      "id": "22bd7b86-bc7e-47b3-bc0d-227e286b03c9",
+      "id": "edbbe0d8-fd6f-42b6-a95e-fcb53ae7b9fc",
       "name": "Re-read Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
@@ -419,8 +419,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "r3AKxz8lpaOgzdUi",
-          "name": "Wuote Service acc"
+          "id": "PfVPCAHWDVyYiUWG",
+          "name": "Google Sheets account"
         }
       }
     },
@@ -429,11 +429,11 @@
         "operation": "toFile",
         "fileFormat": "xlsx",
         "options": {
-          "fileName": "/git/dunkbin-stats-images/dunkbin_next_cosmetic.xlsx",
+          "fileName": "/home/node/git/dunkbin-stats-images/dunkbin_next_cosmetic.xlsx",
           "sheetName": "Next_cosmetic_name"
         }
       },
-      "id": "ab1b9e24-7658-4dcf-973b-b1224cb736b9",
+      "id": "791a8a3b-f64c-4ca6-a45a-c87cf38677b4",
       "name": "Save to a second Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
@@ -444,12 +444,12 @@
     },
     {
       "parameters": {
-        "fileName": "git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_name.xlsx",
+        "fileName": "/home/node/git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_name.xlsx",
         "options": {
           "append": false
         }
       },
-      "id": "2f7ff708-bbcc-457d-9f4e-e4c6dad8d165",
+      "id": "c9d96bff-a0c0-4dbb-bdcb-a5e17cb5c2ac",
       "name": "Save Next Cosmetic File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
@@ -460,9 +460,9 @@
     },
     {
       "parameters": {
-        "command": "=cd ~/git/dunkbin-stats-images && git add -A && git commit -m \"{{ $json.formattedDate }} update next cosmetic and next cosmetic artist\" && git push   "
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $json.formattedDate }} update next cosmetic and next cosmetic artist\" && git push   "
       },
-      "id": "bb310e2d-5da7-4880-9b59-9ed458545af4",
+      "id": "1463971f-fa58-40c1-92a0-a0f5dd42f1d3",
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -473,7 +473,7 @@
     },
     {
       "parameters": {},
-      "id": "3ae8bc50-5701-4ffe-b16a-578a552f4611",
+      "id": "1ac9be99-c2f1-4e62-8a95-1ba840d63d95",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
@@ -484,9 +484,9 @@
     },
     {
       "parameters": {
-        "command": "=cd ~/git/dunkbin-stats-images && git status"
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git status"
       },
-      "id": "0672473e-1592-4fec-a7e0-35770a6e6d5a",
+      "id": "8902d25c-e3e2-47a2-b588-c27e5c0a1ab3",
       "name": "Git Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -497,9 +497,9 @@
     },
     {
       "parameters": {
-        "command": "=cd ~/git/dunkbin-stats-images && git pull && git fetch"
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch"
       },
-      "id": "12816580-84c8-4fe1-9a69-2b06b5c4ab16",
+      "id": "942d3217-fa5f-4020-add9-4450834c0a5b",
       "name": "Git Pull + Fetch",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
@@ -519,7 +519,7 @@
           ]
         }
       },
-      "id": "ea960d12-b802-49d8-9fd3-956dda8a9a17",
+      "id": "a467929c-3ac0-436a-9d5a-b0d0cfefb8bb",
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
@@ -748,23 +748,20 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
-    "executionOrder": "v1",
-    "timezone": "Asia/Bishkek",
-    "saveManualExecutions": true,
-    "callerPolicy": "workflowsFromSameOwner"
+    "executionOrder": "v1"
   },
-  "versionId": "3531ca65-d27d-4c1e-a014-c8baa9a1d808",
-  "id": "wOTmb31uTVvrIDgW",
+  "versionId": "67c2ccbd-ed6b-49cc-ad79-f54e6ab2d25f",
+  "id": "43sNplTq4nRq8mUq",
   "meta": {
-    "instanceId": "885fa0d4209e1dc2b8c762e0c7afc069667d06fa829bf5c8578d01641fbb9a6d"
+    "instanceId": "c61e0e3e352f4fb3eec73f12593a7bab561e3f4a1e80e6277ec4fb62e761252b"
   },
   "tags": [
     {
-      "createdAt": "2023-11-09T11:40:59.340Z",
-      "updatedAt": "2023-11-09T11:40:59.340Z",
-      "id": "901WEvMoiqiL1X43",
+      "createdAt": "2023-12-31T00:25:26.596Z",
+      "updatedAt": "2023-12-31T00:25:26.596Z",
+      "id": "SAvNJ3UYpYOh6u0P",
       "name": "dunkbin"
     }
   ]
