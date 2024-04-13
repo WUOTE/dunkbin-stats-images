@@ -1,0 +1,460 @@
+{
+  "name": "Dunkbin_stats_cosmetics_images_V6",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "url": "https://dunkbin.com/export/cosmetics",
+        "options": {
+          "splitIntoItems": true
+        }
+      },
+      "name": "Consume Cosmetics API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 2,
+      "position": [
+        760,
+        620
+      ],
+      "id": "8a3456d4-eacf-4225-bacf-2c05e7baca78",
+      "notesInFlow": true,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "sDdbj58DDIdhcceU",
+          "name": "Unnamed credential"
+        }
+      },
+      "notes": "Get JSON with cosmetics"
+    },
+    {
+      "parameters": {
+        "operation": "sort",
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "id"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Sort cosmetics by id from newest to oldest",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 1,
+      "position": [
+        940,
+        620
+      ],
+      "id": "0723bdd4-1ed1-4776-a34f-0604ecd3311c"
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch && git status"
+      },
+      "id": "0892146b-6b0d-46e0-a765-302a16ea24b6",
+      "name": "git status",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.id }}",
+              "operation": "larger"
+            },
+            {
+              "value1": "={{ $json[\"id\"].toString().length() }}",
+              "operation": "largerEqual",
+              "value2": 1
+            }
+          ]
+        }
+      },
+      "id": "90188fad-68e5-4bab-84d3-bf6137769866",
+      "name": "Dont process one broken cosmetic",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "2ca18641-79b4-4278-ac33-43a41d03023d",
+      "name": "Set today's date",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        940,
+        840
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "yyyy-MM-dd",
+        "options": {}
+      },
+      "id": "a3385ef3-08ab-4ced-a862-c26220bfbd80",
+      "name": "YYYY-MM-DD",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        840
+      ],
+      "executeOnce": true
+    },
+    {
+      "parameters": {},
+      "id": "ed89c53c-a1e3-4948-ae42-b0eb63193da3",
+      "name": "Do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1880,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $('YYYY-MM-DD').item.json.formattedDate }} add {{ $('Dont process one broken cosmetic').item.json.name }}\""
+      },
+      "id": "81335cb8-d5d8-48aa-8ef7-23f46f366dff",
+      "name": "git commit + push",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('Dont process one broken cosmetic').item.json.md5 }}",
+              "value2": "={{ $json.stdout }}"
+            }
+          ]
+        }
+      },
+      "id": "9b91c36b-1ed6-4a22-96e4-c5864136f951",
+      "name": "Are images the same?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        620
+      ],
+      "notesInFlow": true,
+      "notes": "Has the image on Dunkbin been changed?"
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=cd /home/node/git/dunkbin-stats-images/public/img && md5sum {{$json[\"id\"]}}.png | awk '{split($0,a); print a[1];}'"
+      },
+      "name": "MD5 - File on Disk",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        620
+      ],
+      "id": "461d7156-8e31-4965-bfe8-273ac5e51b31"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout }}",
+              "operation": "notContains",
+              "value2": "to include in what will be committed"
+            }
+          ]
+        }
+      },
+      "id": "3fec9eea-7c54-40ab-9a38-50b9a3fd019b",
+      "name": "Local copy is in sync with the remote server?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "executeOnce": false,
+        "command": "=wget -O /home/node/git/dunkbin-stats-images/public/img/{{ $('Dont process one broken cosmetic').item.json.id }}.png https://dunkbin.com/img/{{ $('Dont process one broken cosmetic').item.json.id }}-{{ $('Dont process one broken cosmetic').item.json.md5 }}.png"
+      },
+      "name": "Download new image using wget",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        760,
+        840
+      ],
+      "id": "d1d91830-8224-4880-8694-6970498f7e50"
+    },
+    {
+      "parameters": {
+        "authentication": "gitPassword",
+        "operation": "push",
+        "repositoryPath": "/home/node/git/dunkbin-stats-images",
+        "options": {
+          "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
+        }
+      },
+      "id": "5c98dcc7-a4f0-4551-a5b9-3ab7878a9d2e",
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        1880,
+        860
+      ],
+      "credentials": {
+        "gitPassword": {
+          "id": "T4ChA2GzABPtaOek",
+          "name": "Git account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Dunkbin_stats_cosmetics_images_V6",
+        "height": 532.2912987791854,
+        "width": 1598.186186393608,
+        "color": 5
+      },
+      "id": "77d73fff-aa92-4fee-afeb-c60d19c6a8b0",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        503.63965020432386,
+        520.0519539347764
+      ]
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour",
+              "minute": 23
+            }
+          ]
+        }
+      },
+      "name": "Cron For Hourly Execution",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        580,
+        620
+      ],
+      "id": "bee47d86-d1fa-4e11-822d-75d28a31c8f8",
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "content": "### Background",
+        "height": 636.216823153098,
+        "width": 1703.9002842635657,
+        "color": 7
+      },
+      "id": "5c75657d-013a-4848-bfcc-ccdb70595239",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        460,
+        460
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Consume Cosmetics API": {
+      "main": [
+        [
+          {
+            "node": "Sort cosmetics by id from newest to oldest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort cosmetics by id from newest to oldest": {
+      "main": [
+        [
+          {
+            "node": "Dont process one broken cosmetic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dont process one broken cosmetic": {
+      "main": [
+        [
+          {
+            "node": "MD5 - File on Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MD5 - File on Disk": {
+      "main": [
+        [
+          {
+            "node": "Are images the same?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Are images the same?": {
+      "main": [
+        [
+          {
+            "node": "Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Download new image using wget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set today's date": {
+      "main": [
+        [
+          {
+            "node": "YYYY-MM-DD",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YYYY-MM-DD": {
+      "main": [
+        [
+          {
+            "node": "git status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git status": {
+      "main": [
+        [
+          {
+            "node": "Local copy is in sync with the remote server?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Local copy is in sync with the remote server?": {
+      "main": [
+        [
+          {
+            "node": "Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "git commit + push",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download new image using wget": {
+      "main": [
+        [
+          {
+            "node": "Set today's date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git commit + push": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron For Hourly Execution": {
+      "main": [
+        [
+          {
+            "node": "Consume Cosmetics API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "516af599-fcfd-4771-a606-fcc443957f53",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+  },
+  "id": "AYvYjKCLBVogIMWS",
+  "tags": [
+    {
+      "createdAt": "2024-03-29T17:55:37.096Z",
+      "updatedAt": "2024-03-29T17:55:37.096Z",
+      "id": "uQXdJ2OoV7v1Qzm8",
+      "name": "dunkbin"
+    }
+  ]
+}
