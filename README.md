@@ -3,21 +3,21 @@
 ## Repo for dunkbin fantasy shop cosmetics and analytical dashboard.
 
 [https://dunkbinstats.runfast.stream](https://dunkbinstats.runfast.stream)
-
+https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V6.png
 ### V6 workflow chart
-![Dunkbin_stats_cosmetics_images_V6](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/6d723ded-327e-4123-8771-8a450ae163bd)
+![Dunkbin_stats_cosmetics_images_V6](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V6.png)
 
 
 ### Backlog spritesheet workflow chart V6
-![Dunkbin_backlog_V6](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/48f9516e-7589-436e-a3ba-e55d4df72cca)
+![Dunkbin_backlog_V6](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V6.png)
 
 
 ### Backlog spritesheet next cosmetic and next cosmetic artist chart V6
-![Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V6](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/226acceb-58ef-4d93-bf6a-c4a76a9f0850)
+![Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V6](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V6.png)
 
 
 ### Backlog spritesheet next cosmetic info V6
-![Dunkbin_Next_Cosmetic_Info_V6](https://github.com/WUOTE/dunkbin-stats-images/assets/106106310/d1e9bf0b-10e1-4964-97bb-4415e71ed685)
+![Dunkbin_Next_Cosmetic_Info_V6](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V6.png)
 
 
 ### Gotchas
