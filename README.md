@@ -33,4 +33,4 @@ Running n8n inside a container requires
 
 ![7tv_censor_emotes_add_to_the_emote_set](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/7tv_censor_emotes_add_to_the_emote_set.png)
 
-![7tv_censor_emote_status_check](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/n8n_workflows/Workflow_screenshots/7tv_censor_emote_status_check.png)
+![7tv_censor_emote_status_check](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/7tv_censor_emote_status_check.png)
