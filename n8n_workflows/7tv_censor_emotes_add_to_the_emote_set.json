@@ -1,0 +1,442 @@
+{
+  "name": "7tv censor emotes add to the emote set",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "bd92b004-d933-4027-b768-ecf250cfe02c",
+      "name": "When clicking \"Test workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        720,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1lMA5pCqhZzc9pra125JNmqgIJfi9rXdRaolwHvlq4fY",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "most common words",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lMA5pCqhZzc9pra125JNmqgIJfi9rXdRaolwHvlq4fY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "id": "01a8fab1-8663-4709-9b60-9297a85876f4",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        900,
+        360
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "UvlGvTpFkl9W5stI",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "66076c2a-ea1a-4b0d-963f-495f1d822cbb",
+              "leftValue": "={{ $json['added to the emotes set?'] }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "dd957109-d0f1-4812-9e42-d4b6de0c43de",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        1080,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1lMA5pCqhZzc9pra125JNmqgIJfi9rXdRaolwHvlq4fY",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "most common words",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1lMA5pCqhZzc9pra125JNmqgIJfi9rXdRaolwHvlq4fY/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('Sort').item.json.Name }}",
+            "added to the emotes set?": "1"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "7tv emote URL",
+              "displayName": "7tv emote URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "listed?",
+              "displayName": "listed?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "added to the emotes set?",
+              "displayName": "added to the emotes set?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "80982dc7-603d-400f-8f32-4b800e59ae1f",
+      "name": "Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        1080,
+        600
+      ],
+      "credentials": {
+        "googleApi": {
+          "id": "UvlGvTpFkl9W5stI",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 20,
+        "options": {
+          "reset": false
+        }
+      },
+      "id": "85101d28-9b6a-443a-a643-76665d527c89",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1540,
+        360
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "51dc1aae-b5a1-415b-a69b-6e3d86296232",
+      "name": "No Operation, do nothing1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Background",
+        "height": 638,
+        "width": 1503,
+        "color": 7
+      },
+      "id": "e0714736-4d4d-493d-8688-5b1b5f908713",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        570,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# 7tv censor emotes add to the emote set",
+        "height": 527,
+        "width": 1385,
+        "color": 5
+      },
+      "id": "84e86c93-2fb5-495f-abf8-ab79ebece16f",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        640,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "sortFieldsUi": {
+          "sortField": [
+            {
+              "fieldName": "row_number",
+              "order": "descending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "daec92f5-8b65-4dcc-94c3-7111e7610dc1",
+      "name": "Sort",
+      "type": "n8n-nodes-base.sort",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://7tv.io/v3/gql",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"
+            },
+            {
+              "name": "Accept",
+              "value": "*/*"
+            },
+            {
+              "name": "Accept-Language",
+              "value": "en,ru;q=0.5"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br, zstd"
+            },
+            {
+              "name": "Referer",
+              "value": "https://7tv.app/"
+            },
+            {
+              "name": "authorization",
+              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1IjoiNjYxZDgzN2JjM2ZkZDg4MmU4ZTcwOGZmIiwidiI6MSwiaXNzIjoic2V2ZW50di1hcGkiLCJleHAiOjE3MjE4ODAwNTgsIm5iZiI6MTcxNDEwNDA1OCwiaWF0IjoxNzE0MTA0MDU4fQ.Xbd9YbCMrI_RMXzmZ9yR46iMP15HYwXyWp9lEL5w1Nw"
+            },
+            {
+              "name": "Origin",
+              "value": "https://7tv.app"
+            },
+            {
+              "name": "DNT",
+              "value": "1"
+            },
+            {
+              "name": "Sec-GPC",
+              "value": "1"
+            },
+            {
+              "name": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "name": "Sec-Fetch-Dest",
+              "value": "empty"
+            },
+            {
+              "name": "Sec-Fetch-Mode",
+              "value": "cors"
+            },
+            {
+              "name": "Sec-Fetch-Site",
+              "value": "cross-site"
+            },
+            {
+              "name": "Priority",
+              "value": "u=1"
+            },
+            {
+              "name": "TE",
+              "value": "trailers"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"query\":\"mutation ChangeEmoteInSet($id: ObjectID!, $action: ListItemAction!, $emote_id: ObjectID!, $name: String) {\\n emoteSet(id: $id) {\\n id\\n emotes(id: $emote_id, action: $action, name: $name) {\\n id\\n name\\n __typename\\n }\\n __typename\\n }\\n}\",\"variables\":{\"action\":\"ADD\",\"id\":\"661d84a17e70254f21bf4a0c\",\"emote_id\":\"{{ $json['7tv emote URL'] }}\",\"name\":\"{{ $json.Name }}\"}}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "id": "5a2dd624-ccc0-426a-b674-6349318052f5",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        600
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \"Test workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sort": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0a4b9f61-8997-4a80-9a83-b93f94558820",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+  },
+  "id": "3FbJZ0peesZvLn0w",
+  "tags": []
+}
