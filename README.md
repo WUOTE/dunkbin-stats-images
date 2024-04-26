@@ -25,3 +25,8 @@ Running n8n inside a container requires
 
 1. fixing writing priviliges -- Alpine: run as `root` in `sh` -- `chown node git/`.
 2. Setting DNS server in case you run it alongside Adguard Home or similar, otherwise n8n will not be able to access external services.
+
+### Additional workflows
+
+#### 7tv emotes upload workflow
+![7tv_censor_emote_upload](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/7tv_censor_emote_upload.png)
