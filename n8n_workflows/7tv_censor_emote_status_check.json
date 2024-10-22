@@ -1,15 +1,15 @@
 {
-  "name": "7tv censor emote status check",
+  "name": "7tv_censor_emote_status_check",
   "nodes": [
     {
       "parameters": {},
-      "id": "e700bf07-8e04-4650-94d9-12d3a8444b0f",
+      "id": "f2a08cdd-15dc-4ed9-996e-5505f706a633",
       "name": "When clicking \"Test workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        720,
-        360
+        1370,
+        980
       ]
     },
     {
@@ -29,17 +29,17 @@
         },
         "options": {}
       },
-      "id": "5233ae9f-4cb6-4852-8105-74a3891dd7fa",
+      "id": "ffe3fa20-5fc0-49b0-a895-344f10a67ca0",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
       "position": [
-        900,
-        360
+        1550,
+        980
       ],
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -68,13 +68,13 @@
         },
         "options": {}
       },
-      "id": "49161dca-4a70-45c0-9051-fd425f9d06ff",
+      "id": "0355e433-7040-4414-a188-346b66876076",
       "name": "Filter",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        1080,
-        360
+        1730,
+        980
       ]
     },
     {
@@ -148,17 +148,17 @@
         },
         "options": {}
       },
-      "id": "4e7cae66-c602-4898-8816-1fde9fe6ff02",
+      "id": "58dd63a2-a64e-4fdc-8199-275ffb138165",
       "name": "Google Sheets1",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
       "position": [
-        1080,
-        600
+        1730,
+        1220
       ],
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -170,24 +170,24 @@
           "reset": false
         }
       },
-      "id": "20077799-f22c-4bea-9e53-433f89235a41",
+      "id": "3e7e30c2-49bc-4fd4-903a-ca1c3cfb783f",
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1540,
-        360
+        2190,
+        980
       ]
     },
     {
       "parameters": {},
-      "id": "74e20deb-4972-4de2-9050-5489d2444e94",
+      "id": "fbb08d72-5f78-4caf-8259-eb797d5a0ae5",
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1800,
-        340
+        2450,
+        960
       ]
     },
     {
@@ -197,13 +197,13 @@
         "width": 1503,
         "color": 7
       },
-      "id": "df0104fb-e03c-44ef-b2df-80437a08669c",
+      "id": "3c393373-19c8-459c-a428-84a0a4a43c99",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        570,
-        200
+        1220,
+        820
       ]
     },
     {
@@ -213,13 +213,13 @@
         "width": 1385,
         "color": 5
       },
-      "id": "e9129781-0613-41c3-b41e-3c578d38ce0a",
+      "id": "198819b9-26bc-42a0-b86d-a8b3a6f1d0fb",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        640,
-        260
+        1290,
+        880
       ]
     },
     {
@@ -234,13 +234,13 @@
         },
         "options": {}
       },
-      "id": "979dbeb4-d63d-4bb5-970b-b25309cb48fa",
+      "id": "8c00ad3d-83fb-4b52-9496-c15b77399dc9",
       "name": "Sort",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        1340,
-        360
+        1990,
+        980
       ]
     },
     {
@@ -248,13 +248,13 @@
         "url": "=https://7tv.io/v3/emotes/{{ $json['7tv emote URL'] }}",
         "options": {}
       },
-      "id": "bd7e766c-8858-42f7-87e1-4b01d2c0139d",
+      "id": "7389aa97-b9b8-4c33-9aa2-f98adfbaf755",
       "name": "HTTP Request1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        900,
-        600
+        1550,
+        1220
       ]
     }
   ],
@@ -349,11 +349,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "ce77e15f-9064-4322-be8a-57993b1cb075",
+  "versionId": "bbcc7432-9c80-4d7c-a237-5b6ea40916b3",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "AqRB82oeNfvuTiwA",
+  "id": "9upbVcx35n3uBTZj",
   "tags": []
 }

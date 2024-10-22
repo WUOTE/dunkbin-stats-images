@@ -1,15 +1,15 @@
 {
-  "name": "7tv censor emote upload",
+  "name": "7tv_censor_emote_upload",
   "nodes": [
     {
       "parameters": {},
-      "id": "1fb3eced-40d4-4bea-9be6-3f1121180329",
+      "id": "5b6962db-8ff9-4ee8-bb90-2bf3579e88a9",
       "name": "When clicking \"Test workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        720,
-        360
+        610,
+        620
       ]
     },
     {
@@ -29,17 +29,17 @@
         },
         "options": {}
       },
-      "id": "01e7a203-31b6-4dd1-b4fb-0e87fd8d37ef",
+      "id": "970159d9-1e22-41ae-bd68-ea1e89067160",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
       "position": [
-        900,
-        360
+        790,
+        620
       ],
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -68,13 +68,13 @@
         },
         "options": {}
       },
-      "id": "4b4724c6-d404-4659-a074-fdec9f50e56a",
+      "id": "97ef9cc0-9785-4daa-a90b-da61a17da052",
       "name": "Filter",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
       "position": [
-        1080,
-        360
+        970,
+        620
       ]
     },
     {
@@ -92,13 +92,13 @@
         "includeOtherFields": true,
         "options": {}
       },
-      "id": "9bab42c3-2a53-4de7-b6ed-4692507bb41f",
+      "id": "5f8b826f-549e-4aa4-bdf7-b2f2ca95a827",
       "name": "set emote name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
       "position": [
-        1340,
-        360
+        1230,
+        620
       ]
     },
     {
@@ -106,13 +106,13 @@
         "fileSelector": "/home/node/git/dunkbin-stats-images/public/background/upload.webp",
         "options": {}
       },
-      "id": "6d181703-73f2-4362-a1fc-ec28eb60be04",
+      "id": "12e36314-5760-4855-ba73-74f4edb2f910",
       "name": "Read/Write Files from Disk",
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
       "position": [
-        720,
-        700
+        610,
+        960
       ],
       "executeOnce": true
     },
@@ -140,24 +140,24 @@
         },
         "options": {}
       },
-      "id": "924d4151-6a14-4b4d-ad75-f85b4f2f1ed1",
+      "id": "9ea77175-8d0e-48a3-8323-233a8ac7572e",
       "name": "If",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
       "position": [
-        1080,
-        700
+        970,
+        960
       ]
     },
     {
       "parameters": {},
-      "id": "75f6d47e-6bd0-4aff-ba4c-4dc110aa88e5",
+      "id": "52dabaec-5839-4b74-9cb1-213202213abf",
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1340,
-        800
+        1230,
+        1060
       ]
     },
     {
@@ -220,17 +220,17 @@
         },
         "options": {}
       },
-      "id": "73f5aa77-02d5-42c3-9b50-f7c9937bffec",
+      "id": "857a5817-cdab-4991-8eb7-c6201d3a05b7",
       "name": "Google Sheets1",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
       "position": [
-        1340,
-        600
+        1230,
+        860
       ],
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -241,13 +241,13 @@
           "reset": false
         }
       },
-      "id": "25b50eb9-48a7-402b-a39c-6253a13c0f93",
+      "id": "9bdc4c9e-eab8-40b8-8d20-752c598d04a4",
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1540,
-        360
+        1430,
+        620
       ]
     },
     {
@@ -277,30 +277,30 @@
           }
         }
       },
-      "id": "5b8e111d-8fd0-4410-a26a-1f20c3bfa6cc",
+      "id": "bb2c6b90-0f3e-4038-b839-f1eff69eccf0",
       "name": "HTTP Request",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        900,
-        700
+        790,
+        960
       ],
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QNYAbfHZpf7owD1c",
-          "name": "7tv bearer"
+          "id": "Bz02a1oOQ69IPSbj",
+          "name": "Header Auth account"
         }
       }
     },
     {
       "parameters": {},
-      "id": "ff1a84a9-b50b-497c-93aa-532849da0e1a",
+      "id": "8f4d5c94-3a4a-4541-8516-41c5b2cc650a",
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1780,
-        340
+        1670,
+        600
       ]
     },
     {
@@ -310,13 +310,13 @@
         "width": 1450,
         "color": 7
       },
-      "id": "0bf04e5f-3c32-4cf4-a62e-0d7fae977c4b",
+      "id": "c34b3162-54dd-4d4d-9e7b-cfd9de0dc91f",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        570,
-        200
+        460,
+        460
       ]
     },
     {
@@ -326,13 +326,13 @@
         "width": 1335,
         "color": 5
       },
-      "id": "1dd2f6ff-4b3f-4bab-a80e-be3d95484d39",
+      "id": "4079afc9-86e7-4b75-826f-ec48a1880233",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        634,
-        267
+        524,
+        527
       ]
     }
   ],
@@ -456,11 +456,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "60391b4a-8b3b-4661-b521-bda30690c966",
+  "versionId": "04ae37d8-9e6f-4008-b670-85edb49fdcdf",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "ilSKloIC4rSCMtZa",
+  "id": "HAvyMzPoCb6u5gfl",
   "tags": []
 }

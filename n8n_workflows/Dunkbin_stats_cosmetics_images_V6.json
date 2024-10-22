@@ -14,14 +14,14 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 2,
       "position": [
-        760,
-        620
+        1700,
+        440
       ],
-      "id": "8a3456d4-eacf-4225-bacf-2c05e7baca78",
+      "id": "8d0cf69e-26f2-4ace-a440-d5d493b56307",
       "notesInFlow": true,
       "credentials": {
         "httpBasicAuth": {
-          "id": "sDdbj58DDIdhcceU",
+          "id": "QHEbvzURbJ7G1Abl",
           "name": "Unnamed credential"
         }
       },
@@ -43,22 +43,22 @@
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 1,
       "position": [
-        940,
-        620
+        1880,
+        440
       ],
-      "id": "0723bdd4-1ed1-4776-a34f-0604ecd3311c"
+      "id": "91971ee2-fdbc-4074-917a-065f532689d5"
     },
     {
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch && git status"
       },
-      "id": "0892146b-6b0d-46e0-a765-302a16ea24b6",
+      "id": "6e7f2069-228f-4617-b2da-f273e6d60877",
       "name": "git status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1300,
-        840
+        2240,
+        660
       ]
     },
     {
@@ -77,26 +77,26 @@
           ]
         }
       },
-      "id": "90188fad-68e5-4bab-84d3-bf6137769866",
+      "id": "3cd96665-abf7-4e73-a76d-ba47e1b295df",
       "name": "Dont process one broken cosmetic",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1120,
-        620
+        2060,
+        440
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "2ca18641-79b4-4278-ac33-43a41d03023d",
+      "id": "9d9c5f6a-a016-434f-8448-fcd317047705",
       "name": "Set today's date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        940,
-        840
+        1880,
+        660
       ],
       "executeOnce": true
     },
@@ -107,38 +107,38 @@
         "format": "yyyy-MM-dd",
         "options": {}
       },
-      "id": "a3385ef3-08ab-4ced-a862-c26220bfbd80",
+      "id": "6c061263-28e9-465b-94bd-5ab9fa671b5e",
       "name": "YYYY-MM-DD",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1120,
-        840
+        2060,
+        660
       ],
       "executeOnce": true
     },
     {
       "parameters": {},
-      "id": "ed89c53c-a1e3-4948-ae42-b0eb63193da3",
+      "id": "cc203ca3-8c57-4684-81cf-77d0fbdb273d",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1880,
-        600
+        2820,
+        420
       ]
     },
     {
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $('YYYY-MM-DD').item.json.formattedDate }} add {{ $('Dont process one broken cosmetic').item.json.name }}\""
       },
-      "id": "81335cb8-d5d8-48aa-8ef7-23f46f366dff",
+      "id": "c295dab0-631c-43c7-ab21-8fd3743434d2",
       "name": "git commit + push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1700,
-        860
+        2640,
+        680
       ]
     },
     {
@@ -152,13 +152,13 @@
           ]
         }
       },
-      "id": "9b91c36b-1ed6-4a22-96e4-c5864136f951",
+      "id": "8ae83b6c-48fd-4e0d-897a-5db956ed632e",
       "name": "Are images the same?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1480,
-        620
+        2420,
+        440
       ],
       "notesInFlow": true,
       "notes": "Has the image on Dunkbin been changed?"
@@ -172,10 +172,10 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1300,
-        620
+        2240,
+        440
       ],
-      "id": "461d7156-8e31-4965-bfe8-273ac5e51b31"
+      "id": "2c9ec850-b2f5-4b73-98f0-4634b375b6a8"
     },
     {
       "parameters": {
@@ -189,13 +189,13 @@
           ]
         }
       },
-      "id": "3fec9eea-7c54-40ab-9a38-50b9a3fd019b",
+      "id": "13a19658-f5a1-4d9f-b166-3c0797ff2ae8",
       "name": "Local copy is in sync with the remote server?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1480,
-        840
+        2420,
+        660
       ]
     },
     {
@@ -207,10 +207,10 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        760,
-        840
+        1700,
+        660
       ],
-      "id": "d1d91830-8224-4880-8694-6970498f7e50"
+      "id": "03e597a2-6c3d-4386-95f1-d6d1fc17cfce"
     },
     {
       "parameters": {
@@ -221,17 +221,17 @@
           "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
         }
       },
-      "id": "5c98dcc7-a4f0-4551-a5b9-3ab7878a9d2e",
+      "id": "40948412-b936-48a2-b60e-54627fc34071",
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
       "position": [
-        1880,
-        860
+        2820,
+        680
       ],
       "credentials": {
         "gitPassword": {
-          "id": "T4ChA2GzABPtaOek",
+          "id": "dTHUzg0ej1fsHK10",
           "name": "Git account"
         }
       }
@@ -243,13 +243,13 @@
         "width": 1598.186186393608,
         "color": 5
       },
-      "id": "77d73fff-aa92-4fee-afeb-c60d19c6a8b0",
+      "id": "b758c2f0-7ba5-475b-a2eb-c8058d02d294",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        503.63965020432386,
-        520.0519539347764
+        1443.639650204324,
+        340.0519539347764
       ]
     },
     {
@@ -267,10 +267,10 @@
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
       "position": [
-        580,
-        620
+        1520,
+        440
       ],
-      "id": "bee47d86-d1fa-4e11-822d-75d28a31c8f8",
+      "id": "2545faf4-a608-4335-b740-a8cdb6bed297",
       "notesInFlow": false
     },
     {
@@ -280,13 +280,13 @@
         "width": 1703.9002842635657,
         "color": 7
       },
-      "id": "5c75657d-013a-4848-bfcc-ccdb70595239",
+      "id": "631cc263-2f98-4010-9ae4-53e23aead89a",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        460
+        1400,
+        280
       ]
     }
   ],
@@ -443,18 +443,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "516af599-fcfd-4771-a606-fcc443957f53",
+  "versionId": "c2699764-3315-4a47-9cb9-6188d074d58a",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "AYvYjKCLBVogIMWS",
-  "tags": [
-    {
-      "createdAt": "2024-03-29T17:55:37.096Z",
-      "updatedAt": "2024-03-29T17:55:37.096Z",
-      "id": "uQXdJ2OoV7v1Qzm8",
-      "name": "dunkbin"
-    }
-  ]
+  "id": "scha86opOrtUuWno",
+  "tags": []
 }

@@ -1,15 +1,15 @@
 {
-  "name": "7tv censor emotes add to the emote set",
+  "name": "7tv_censor_emotes_add_to_the_emote_set",
   "nodes": [
     {
       "parameters": {},
-      "id": "bd92b004-d933-4027-b768-ecf250cfe02c",
+      "id": "06632902-64cb-4a94-a1b3-24fed62c2244",
       "name": "When clicking \"Test workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        720,
-        360
+        610,
+        620
       ]
     },
     {
@@ -29,53 +29,20 @@
         },
         "options": {}
       },
-      "id": "01a8fab1-8663-4709-9b60-9297a85876f4",
+      "id": "df7375fa-c5d5-4345-8d73-018bb377252e",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
       "position": [
-        900,
-        360
+        790,
+        620
       ],
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "66076c2a-ea1a-4b0d-963f-495f1d822cbb",
-              "leftValue": "={{ $json['added to the emotes set?'] }}",
-              "rightValue": 4,
-              "operator": {
-                "type": "string",
-                "operation": "empty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "id": "dd957109-d0f1-4812-9e42-d4b6de0c43de",
-      "name": "Filter",
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2,
-      "position": [
-        1080,
-        360
-      ]
     },
     {
       "parameters": {
@@ -158,17 +125,17 @@
         },
         "options": {}
       },
-      "id": "80982dc7-603d-400f-8f32-4b800e59ae1f",
+      "id": "5199e038-ce21-4989-8524-5533c148f755",
       "name": "Google Sheets1",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
       "position": [
-        1080,
-        600
+        970,
+        860
       ],
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -180,24 +147,24 @@
           "reset": false
         }
       },
-      "id": "85101d28-9b6a-443a-a643-76665d527c89",
+      "id": "29a56fd7-ba7a-44f5-93be-08e96101a53e",
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1540,
-        360
+        1430,
+        620
       ]
     },
     {
       "parameters": {},
-      "id": "51dc1aae-b5a1-415b-a69b-6e3d86296232",
+      "id": "b8c62f09-0efd-4796-8a75-594fbaaeea47",
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1800,
-        340
+        1690,
+        600
       ]
     },
     {
@@ -207,13 +174,13 @@
         "width": 1503,
         "color": 7
       },
-      "id": "e0714736-4d4d-493d-8688-5b1b5f908713",
+      "id": "1f0763d6-91fe-4194-8ce1-d055af39ae0c",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        570,
-        200
+        460,
+        460
       ]
     },
     {
@@ -223,13 +190,13 @@
         "width": 1385,
         "color": 5
       },
-      "id": "84e86c93-2fb5-495f-abf8-ab79ebece16f",
+      "id": "e597f096-cb24-4f14-9465-02725943fa66",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        640,
-        260
+        530,
+        520
       ]
     },
     {
@@ -244,13 +211,13 @@
         },
         "options": {}
       },
-      "id": "daec92f5-8b65-4dcc-94c3-7111e7610dc1",
+      "id": "8dea970e-a82c-408a-9b9c-2e4ebc4a2184",
       "name": "Sort",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
       "position": [
-        1340,
-        360
+        1230,
+        620
       ]
     },
     {
@@ -331,14 +298,48 @@
           }
         }
       },
-      "id": "5a2dd624-ccc0-426a-b674-6349318052f5",
+      "id": "a30a585f-20a7-4987-9770-18d275de9eec",
       "name": "HTTP Request",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        900,
-        600
+        790,
+        860
       ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "66076c2a-ea1a-4b0d-963f-495f1d822cbb",
+              "leftValue": "={{ $json['added to the emotes set?'] }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "3b4380fb-8632-4f33-906a-d91ea43790e7",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [
+        970,
+        620
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "pinData": {},
@@ -359,17 +360,6 @@
         [
           {
             "node": "Filter",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Filter": {
-      "main": [
-        [
-          {
-            "node": "Sort",
             "type": "main",
             "index": 0
           }
@@ -426,17 +416,28 @@
           }
         ]
       ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0a4b9f61-8997-4a80-9a83-b93f94558820",
+  "versionId": "f0cfb8b4-5b4f-4cc2-98ce-99798a026a71",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "3FbJZ0peesZvLn0w",
+  "id": "7jQIqaFW7hVRz7Dz",
   "tags": []
 }

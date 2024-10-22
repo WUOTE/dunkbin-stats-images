@@ -8,13 +8,13 @@
         "width": 1513.4302600922474,
         "color": 5
       },
-      "id": "4fa414c1-b376-4546-bb75-9eec01e91fbd",
+      "id": "db4e248c-7480-4f6f-b8bf-65d180c00c6d",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        556.3903219510087,
-        537.4219722560451
+        1396.3903219510087,
+        357.42197225604514
       ]
     },
     {
@@ -32,13 +32,13 @@
           "dotNotation": true
         }
       },
-      "id": "9082f352-6995-424d-b846-59f643bed41f",
+      "id": "e71b18f5-fa81-49fc-b32f-2c5c207f1c31",
       "name": "Set Cosmetic and Notes",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        980,
-        840
+        1820,
+        660
       ]
     },
     {
@@ -67,13 +67,13 @@
           ]
         }
       },
-      "id": "83d015d4-4956-43c0-8e8c-959c91fc0046",
+      "id": "d2f18e3e-22d6-4f80-85ba-390fc2a2da87",
       "name": "Discard empty",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1160,
-        840
+        2000,
+        660
       ]
     },
     {
@@ -122,26 +122,26 @@
           ]
         }
       },
-      "id": "b29b5c64-9ab3-40a5-8e0c-107b82f5ebf9",
+      "id": "6d2a8891-c849-4cfc-b215-4d9fbd472c26",
       "name": "Discard Number of Candidate Cosmetics",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1340,
-        840
+        2180,
+        660
       ]
     },
     {
       "parameters": {
         "operation": "limit"
       },
-      "id": "3103191c-a7a5-45f5-8b6a-e2bc9841ba01",
+      "id": "b24e34ef-e6ea-498d-aa9d-295fc46f2b59",
       "name": "Keep the Name and Notes only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        1520,
-        840
+        2360,
+        660
       ]
     },
     {
@@ -157,13 +157,13 @@
         },
         "options": {}
       },
-      "id": "1c16ab54-9bd2-4787-9c03-4c72526ee5f6",
+      "id": "c8e034a6-e1b2-4241-bb2b-beb0f4bf7bb7",
       "name": "Set Next Cosmetic Name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1700,
-        840
+        2540,
+        660
       ]
     },
     {
@@ -181,13 +181,13 @@
           "dotNotation": true
         }
       },
-      "id": "cbdd1ffd-7407-4cbf-86c0-575dda986dae",
+      "id": "a2daed3d-7246-4e99-82b8-ed1e88a9b32c",
       "name": "Set Next Cosmetic Artist",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        980,
-        640
+        1820,
+        460
       ]
     },
     {
@@ -231,26 +231,26 @@
           ]
         }
       },
-      "id": "66110e57-67d4-4277-a9af-15c4426290a0",
+      "id": "11820125-5065-44f5-9f8d-ed62432465eb",
       "name": "Discard Empty and non-name fields",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1160,
-        640
+        2000,
+        460
       ]
     },
     {
       "parameters": {
         "operation": "limit"
       },
-      "id": "703d8fa0-76e6-40e4-b656-c0d32aa37c6b",
+      "id": "019cdfa5-6bf1-47fb-bc08-10476b87f4e8",
       "name": "Keep Next Cosmetic Artist only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        1340,
-        640
+        2180,
+        460
       ]
     },
     {
@@ -268,13 +268,13 @@
           "dotNotation": true
         }
       },
-      "id": "c14e1b96-48aa-4207-a49c-25aeaae8261a",
+      "id": "7dff468f-a963-440f-b0f3-75293ba4993a",
       "name": "Set Next Cosmetic Artist to Save",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1520,
-        640
+        2360,
+        460
       ]
     },
     {
@@ -289,13 +289,13 @@
           ]
         }
       },
-      "id": "f7625ec1-6353-47a0-9ff8-02d1fc5bca03",
+      "id": "8e30347f-e22c-4875-a926-8f17cd180f9e",
       "name": "Should we push to the repo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1340,
-        1260
+        2180,
+        1080
       ],
       "notesInFlow": false
     },
@@ -303,50 +303,50 @@
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $json.formattedDate }} update next cosmetic and next cosmetic artist\""
       },
-      "id": "d1c20af4-ca8b-43ce-b67a-783426eca0f8",
+      "id": "da4da752-e079-4503-8782-e1a9234c930a",
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1700,
-        1400
+        2540,
+        1220
       ]
     },
     {
       "parameters": {},
-      "id": "6765ad22-5e32-48cc-83b4-1dbdbaa03d23",
+      "id": "ced66383-ac0e-4b8d-9b33-162e66b541a9",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1880,
-        1240
+        2720,
+        1060
       ]
     },
     {
       "parameters": {
         "command": "=cd ~/git/dunkbin-stats-images && git status"
       },
-      "id": "a100f094-1e87-4440-bf63-7fada9ac3036",
+      "id": "a163eff7-c867-4e29-8b63-83dd1c877b2c",
       "name": "Git Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1160,
-        1260
+        2000,
+        1080
       ]
     },
     {
       "parameters": {
         "command": "=cd ~/git/dunkbin-stats-images && git pull && git fetch"
       },
-      "id": "3d9aca30-e746-4225-a264-bed4b718be52",
+      "id": "97101c73-e974-45d8-9ab8-42a5371302fd",
       "name": "Git Pull + Fetch",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        980,
-        1260
+        1820,
+        1080
       ]
     },
     {
@@ -379,18 +379,18 @@
           }
         }
       },
-      "id": "ddb6c223-ac3e-4ba2-a6f1-99754ba7fd86",
+      "id": "c93e40aa-b523-48da-a6fe-b83973b2ab86",
       "name": "Google Sheets Artist",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        800,
-        640
+        1640,
+        460
       ],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -425,18 +425,18 @@
           }
         }
       },
-      "id": "eca84b32-0214-4395-b202-70ab970b4814",
+      "id": "3dd858be-ba1b-4fe5-980a-212895891496",
       "name": "Google Sheets Cosmetic",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        800,
-        840
+        1640,
+        660
       ],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -471,18 +471,18 @@
           }
         }
       },
-      "id": "0acfd952-3e1e-417f-93ed-a3c649bc9802",
+      "id": "b8407608-557a-4d0e-be7b-e334d50a2cba",
       "name": "Google Sheets Cosmetic Row",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        800,
-        1040
+        1640,
+        860
       ],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -500,13 +500,13 @@
         },
         "options": {}
       },
-      "id": "d00d28fc-3fe4-4374-b6a1-7ccad1839ec2",
+      "id": "7c20d9b0-ac2a-4b56-b24a-7180b4ab6b0d",
       "name": "Next Cosmetic Row Number",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1340,
-        1040
+        2180,
+        860
       ]
     },
     {
@@ -524,13 +524,13 @@
           "dotNotation": true
         }
       },
-      "id": "b6c116b0-2043-4880-85b5-f78db025ef81",
+      "id": "4392fda8-5b9f-4e00-bf03-2cb50523bb25",
       "name": "Set Row Number",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        980,
-        1040
+        1820,
+        860
       ]
     },
     {
@@ -564,13 +564,13 @@
           ]
         }
       },
-      "id": "7ad8ce58-4f35-43d6-95e7-f5f6cb2bbe36",
+      "id": "85f43200-de04-4da6-891e-d2780e76fa88",
       "name": "Filter for Row Number",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1160,
-        1040
+        2000,
+        860
       ]
     },
     {
@@ -584,42 +584,42 @@
           "sheetName": "NextCosmeticFullInfo"
         }
       },
-      "id": "6e5c4caf-f6a1-4780-ac39-98ac7ffafc3f",
+      "id": "b7bf03fc-8f6f-4724-bdee-8960757ad2a8",
       "name": "Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
       "position": [
-        1700,
-        1040
+        2540,
+        860
       ]
     },
     {
       "parameters": {
-        "fileName": "git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_info.xlsx",
+        "fileName": "/home/node/git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_info.xlsx",
         "options": {
           "append": false
         }
       },
-      "id": "943339f1-3aaf-4211-b89f-16b209fd6276",
+      "id": "6dc6e63b-459f-4bcf-a25a-a4feb3f0d328",
       "name": "Save Next Cosmetic File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
       "position": [
-        800,
-        1260
+        1640,
+        1080
       ]
     },
     {
       "parameters": {
         "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nmyjson = {\n  CosmeticName : $('Set Next Cosmetic Name').item.json['Next Cosmetic Name'] ,\nCosmeticRow : $('Next Cosmetic Row Number').item.json[\"Next Cosmetic Row Number\"],\nArtist : $('Set Next Cosmetic Artist to Save').item.json[\"Next Cosmetic Artist\"],\n}\n\nreturn myjson;"
       },
-      "id": "21dec83a-6d97-4288-9f3f-7c6c9071a5f5",
+      "id": "084ac9eb-d202-48bc-81b9-c4038ca22255",
       "name": "Create JSON from the set variables",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1520,
-        1040
+        2360,
+        860
       ]
     },
     {
@@ -633,13 +633,13 @@
           ]
         }
       },
-      "id": "cfffb523-edb1-447f-836e-42137df9f068",
+      "id": "03714989-7fc0-47bf-bf07-ad2a951e5772",
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        616.3903219510087,
-        636.7721614671433
+        1460,
+        460
       ]
     },
     {
@@ -651,17 +651,17 @@
           "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
         }
       },
-      "id": "a26346e1-b6f4-4a46-9d6b-f4483b3045fc",
+      "id": "49e87673-067b-4cfe-b5dd-f77c40c36d2d",
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
       "position": [
-        1880,
-        1400
+        2720,
+        1220
       ],
       "credentials": {
         "gitPassword": {
-          "id": "T4ChA2GzABPtaOek",
+          "id": "dTHUzg0ej1fsHK10",
           "name": "Git account"
         }
       }
@@ -673,13 +673,13 @@
         "width": 1753.0552108446911,
         "color": 7
       },
-      "id": "4d27f52f-80cd-49c3-8a52-ec7dd9bb3932",
+      "id": "2a7ad775-c3e4-4980-87b0-4d3670f91f25",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        460
+        1300,
+        280
       ]
     }
   ],
@@ -950,18 +950,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "51f0d922-107b-4819-b42d-b498af873dcd",
+  "versionId": "d377d3b8-be8a-4474-8bdb-556466a4666a",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "iBfg2k49v3mt7K6V",
-  "tags": [
-    {
-      "createdAt": "2024-03-29T17:55:37.096Z",
-      "updatedAt": "2024-03-29T17:55:37.096Z",
-      "id": "uQXdJ2OoV7v1Qzm8",
-      "name": "dunkbin"
-    }
-  ]
+  "id": "3cdnzp2KNzI5vF4r",
+  "tags": []
 }

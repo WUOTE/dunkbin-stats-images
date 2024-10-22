@@ -8,13 +8,13 @@
         "width": 1505.782253555385,
         "color": 5
       },
-      "id": "f40084cb-304a-4133-ae8d-fa9f60fa9fb0",
+      "id": "7ebfd807-6637-4fc5-b52c-127379441864",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        514,
-        530.313011015271
+        1434,
+        270.31301101527094
       ]
     },
     {
@@ -47,18 +47,18 @@
           }
         }
       },
-      "id": "c471860d-35a2-4baf-9e46-901eadc629e7",
+      "id": "93ed1d95-364c-415c-a7e2-33f360e90c75",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        740,
-        640
+        1660,
+        380
       ],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -78,13 +78,13 @@
           "dotNotation": true
         }
       },
-      "id": "e7a160de-84d7-4709-b080-e0b6e78790ea",
+      "id": "adb9bbc2-4a5e-457c-8f7b-06ab67511ccd",
       "name": "Set Cosmetic and Notes",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        920,
-        840
+        1840,
+        580
       ]
     },
     {
@@ -113,13 +113,13 @@
           ]
         }
       },
-      "id": "dab2ea50-342f-4b5e-8c18-70cb6bb2cefc",
+      "id": "97e7d5b4-35b9-43c5-ac6c-8b1416f0237f",
       "name": "Discard empty",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1100,
-        840
+        2020,
+        580
       ]
     },
     {
@@ -168,26 +168,26 @@
           ]
         }
       },
-      "id": "0e75c3c2-1a6f-40e3-9e45-2b205121e5db",
+      "id": "d4b1b6a9-017c-4162-8581-ccecf1ffd1b9",
       "name": "Discard Number of Candidate Cosmetics",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1280,
-        840
+        2200,
+        580
       ]
     },
     {
       "parameters": {
         "operation": "limit"
       },
-      "id": "62cbd62c-2cbc-4041-9c84-72cfad629b52",
+      "id": "e1abdb60-1afe-4638-b4d3-db5f118a94e0",
       "name": "Keep the Name and Notes only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        1460,
-        840
+        2380,
+        580
       ]
     },
     {
@@ -203,13 +203,13 @@
         },
         "options": {}
       },
-      "id": "9878a56d-64f5-4c2d-8cff-867b7261c40e",
+      "id": "8522c8d7-b899-44a4-8656-bbb5d7fdccf0",
       "name": "Set Next Cosmetic Name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1640,
-        840
+        2560,
+        580
       ]
     },
     {
@@ -227,13 +227,13 @@
           "dotNotation": true
         }
       },
-      "id": "da6c460f-9b3b-4e35-9544-db7905b5cd7e",
+      "id": "c092dab9-f7ab-4b40-b4d3-0717eff58a5e",
       "name": "Set Next Cosmetic Artist",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        920,
-        640
+        1840,
+        380
       ]
     },
     {
@@ -277,26 +277,26 @@
           ]
         }
       },
-      "id": "f8879200-172c-486d-8fdc-6bb59b31140c",
+      "id": "79af44e2-1a88-478b-8b61-6c1921ca1550",
       "name": "Discard Empty and non-name fields",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1100,
-        640
+        2020,
+        380
       ]
     },
     {
       "parameters": {
         "operation": "limit"
       },
-      "id": "3660a602-0397-458f-a248-2d56ee43df1b",
+      "id": "ed750233-a048-4868-a86c-1204ca173efb",
       "name": "Keep Next Cosmetic Artist only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
       "position": [
-        1280,
-        640
+        2200,
+        380
       ]
     },
     {
@@ -314,13 +314,13 @@
           "dotNotation": true
         }
       },
-      "id": "1441c417-342d-41b9-8dba-e42ebe98f78a",
+      "id": "abcb3950-e8c0-4d50-88de-51116a81a5cf",
       "name": "Set Next Cosmetic Artist to Save",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        1460,
-        640
+        2380,
+        380
       ]
     },
     {
@@ -341,13 +341,13 @@
         },
         "combineOperation": "any"
       },
-      "id": "c9f3fdf8-3914-4ac6-bda8-9738eb00f74c",
+      "id": "c9e3f8cc-40fa-4e82-b1db-0ec482dc3def",
       "name": "Should we push to the repo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1280,
-        1060
+        2200,
+        800
       ],
       "notesInFlow": false
     },
@@ -360,13 +360,13 @@
           "sheetName": "Next_cosmetic_artist"
         }
       },
-      "id": "bf9ef355-4b89-412f-94ad-93acd994a402",
+      "id": "462ae633-9849-4138-9d26-80dfeecdc1de",
       "name": "Save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
       "position": [
-        1640,
-        640
+        2560,
+        380
       ]
     },
     {
@@ -376,13 +376,13 @@
           "append": false
         }
       },
-      "id": "9f90d9f2-1a6a-4184-ac28-e448e302aa1c",
+      "id": "2c526357-55f7-42a0-9d9c-61a1f22182db",
       "name": "Save Next Cosmetic Artist File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
       "position": [
-        1820,
-        640
+        2740,
+        380
       ]
     },
     {
@@ -415,18 +415,18 @@
           }
         }
       },
-      "id": "1d754edb-64a5-449f-998b-f987690a4e38",
+      "id": "e60f9b58-87b0-4cd9-ad87-28d4a899e3a5",
       "name": "Re-read Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
       "position": [
-        740,
-        840
+        1660,
+        580
       ],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
-          "id": "UvlGvTpFkl9W5stI",
+          "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
@@ -440,13 +440,13 @@
           "sheetName": "Next_cosmetic_name"
         }
       },
-      "id": "de3cc237-3ba4-4866-895a-c0785ce8d5fb",
+      "id": "3f829de1-84c6-4c53-b369-d5e85ef9953f",
       "name": "Save to a second Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
       "position": [
-        1820,
-        840
+        2740,
+        580
       ]
     },
     {
@@ -456,50 +456,50 @@
           "append": false
         }
       },
-      "id": "2b644019-d5e0-40c6-8e90-171cedfbb33b",
+      "id": "8c316725-4718-42d5-bad0-38931da75e5e",
       "name": "Save Next Cosmetic File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
       "position": [
-        740,
-        1060
+        1660,
+        800
       ]
     },
     {
       "parameters": {},
-      "id": "44826f8a-474d-461b-b06c-d0ff4f815510",
+      "id": "022b3148-596d-48d3-829f-b66c5afe0c79",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1640,
-        1200
+        2560,
+        940
       ]
     },
     {
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git status"
       },
-      "id": "dbbaf8fd-8275-4f85-b803-e053db95bf3d",
+      "id": "11d17bc4-7f1e-44eb-af48-1e59febc5ebc",
       "name": "Git Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1100,
-        1060
+        2020,
+        800
       ]
     },
     {
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch"
       },
-      "id": "46d77358-b73f-4676-9e7c-7185b1952514",
+      "id": "e7805b13-0a74-4ed9-b529-41b2d3ea4790",
       "name": "Git Pull + Fetch",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        920,
-        1060
+        1840,
+        800
       ]
     },
     {
@@ -513,13 +513,13 @@
           ]
         }
       },
-      "id": "afd5b946-20c8-46a1-af1d-b46259161034",
+      "id": "42b4d48c-ed9c-4927-a47a-cbb07cd824f2",
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        560,
-        640
+        1480,
+        380
       ]
     },
     {
@@ -531,17 +531,17 @@
           "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
         }
       },
-      "id": "3b5eb3f3-640c-4506-8b9e-449b9eab17e7",
+      "id": "c27ec7cd-7737-4e96-976b-1fa646cff47d",
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
       "position": [
-        1640,
-        1040
+        2560,
+        780
       ],
       "credentials": {
         "gitPassword": {
-          "id": "T4ChA2GzABPtaOek",
+          "id": "dTHUzg0ej1fsHK10",
           "name": "Git account"
         }
       }
@@ -553,13 +553,13 @@
         "width": 1630.2881015372348,
         "color": 7
       },
-      "id": "ade3b6a5-fd9b-4a7b-aa4b-7a3de2754dd1",
+      "id": "48876b78-1838-49b8-bafe-49d5d45b6c19",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        460
+        1380,
+        200
       ]
     }
   ],
@@ -786,18 +786,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "7bc61f85-9b2b-4dfb-843f-47f7f3aebbf1",
+  "versionId": "907bc8fb-d68e-4aec-9c94-83860d6b5068",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "62e299dc340739469dba20547b72ab0d2d1aaa309f600ecbdd554e5533c4ae3d"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "NoG34PoIO16l9bk8",
-  "tags": [
-    {
-      "createdAt": "2024-03-29T17:55:37.096Z",
-      "updatedAt": "2024-03-29T17:55:37.096Z",
-      "id": "uQXdJ2OoV7v1Qzm8",
-      "name": "dunkbin"
-    }
-  ]
+  "id": "c2A5CO1RWlE5an6G",
+  "tags": []
 }
