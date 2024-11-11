@@ -6,8 +6,8 @@
 
 ![Dunkbin_Next_Cosmetic_Info_V6](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V6.png)
 
-### V6 workflow chart
-![Dunkbin_stats_cosmetics_images_V6](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V6.png)
+### V7 workflow chart
+![Dunkbin_stats_cosmetics_images_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V7.png)
 
 
 ### Backlog spritesheet workflow chart V6
