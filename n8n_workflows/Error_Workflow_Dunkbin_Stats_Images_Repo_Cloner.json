@@ -1,0 +1,159 @@
+{
+  "name": "Error Workflow Dunkbin Stats Images Repo Cloner",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "clone",
+        "repositoryPath": "/home/node/git/dunkbin-stats-images/",
+        "sourceRepository": "https://github.com/WUOTE/dunkbin-stats-images.git"
+      },
+      "id": "8d59d3de-71c7-4d2a-aa02-e25aeaa12e6f",
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        720,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "command": "rm -rf /home/node/git/"
+      },
+      "id": "600cfe60-31c3-4dc7-a590-44c8aab36903",
+      "name": "Remove git directory",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        180,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "command": "mkdir -p /home/node/git/"
+      },
+      "id": "7c52d51e-b3c5-4ae9-8341-112c7c9510cb",
+      "name": "Recreate git directory",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        360,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "command": "chown node /home/node/git/"
+      },
+      "id": "003b81d3-75ed-4b42-bf3d-ee64573d9de4",
+      "name": "Set permissions",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        540,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8521cdc5-809b-4462-a1b2-239261eee2f4",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "content": "# Error Workflow",
+        "height": 463,
+        "width": 1110,
+        "color": 5
+      },
+      "id": "6c95c44e-4773-4fab-b89f-a5bfdc79019d",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Background",
+        "height": 608,
+        "width": 1284,
+        "color": 7
+      },
+      "id": "41f2d3f3-0383-4e69-b0c9-d7583eb005b5",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -180,
+        -260
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Remove git directory": {
+      "main": [
+        [
+          {
+            "node": "Recreate git directory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recreate git directory": {
+      "main": [
+        [
+          {
+            "node": "Set permissions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set permissions": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Remove git directory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c77e8a97-9347-4816-8b7e-bca5b2bf3148",
+  "meta": {
+    "instanceId": "1f235d143bd1a5ecb8d4464d7fc66f0c6baa0cf1295440440f6a213c804330d3"
+  },
+  "id": "1QwUeygWS1BoXecy",
+  "tags": []
+}
