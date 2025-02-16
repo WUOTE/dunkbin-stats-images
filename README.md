@@ -19,6 +19,8 @@
 ### Backlog spritesheet next cosmetic info V6
 ![Dunkbin_Next_Cosmetic_Info_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V7.png)
 
+### Error Workflow
+![Errow Workflow](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Error_workflow.png)
 
 ### Gotchas
 Running n8n inside a container requires
