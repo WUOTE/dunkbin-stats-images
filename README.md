@@ -2,22 +2,22 @@
 
 ## Repo for dunkbin fantasy shop cosmetics and analytical dashboard.
 
-![Dunkbin_Next_Cosmetic_Info_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V7.png)
+![Dunkbin_Next_Cosmetic_Info_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V8.png)
 
 ### V7 workflow chart
-![Dunkbin_stats_cosmetics_images_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V7.png)
+![Dunkbin_stats_cosmetics_images_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V8.png)
 
 
-### Backlog spritesheet workflow chart V6
-![Dunkbin_backlog_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V7.png)
+### Backlog spritesheet workflow chart V8
+![Dunkbin_backlog_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V8.png)
 
 
-### Backlog spritesheet next cosmetic and next cosmetic artist chart V6
-![Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V7.png)
+### Backlog spritesheet next cosmetic and next cosmetic artist chart V8
+![Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V8.png)
 
 
-### Backlog spritesheet next cosmetic info V6
-![Dunkbin_Next_Cosmetic_Info_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V7.png)
+### Backlog spritesheet next cosmetic info V8
+![Dunkbin_Next_Cosmetic_Info_V7](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V8.png)
 
 ### Error Workflow
 ![Errow Workflow](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Error_workflow.png)

@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin_stats_cosmetics_images_V7",
+  "name": "Dunkbin_stats_cosmetics_images_V8",
   "nodes": [
     {
       "parameters": {
@@ -14,15 +14,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 2,
       "position": [
-        760,
-        620
+        1120,
+        -140
       ],
-      "id": "70f7fc86-702d-420e-bc1c-8a776a309df5",
+      "id": "ed6a5edb-e34c-49cc-aacd-08bf27c16501",
       "notesInFlow": true,
       "credentials": {
         "httpBasicAuth": {
-          "id": "J0croxqJRHrzjspr",
-          "name": "dunkbin api"
+          "id": "chO824WeaAOPFP6P",
+          "name": "Unnamed credential"
         }
       },
       "notes": "Get JSON with cosmetics"
@@ -43,22 +43,22 @@
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 1,
       "position": [
-        940,
-        620
+        1320,
+        -140
       ],
-      "id": "248d69a0-8e79-4b0d-be02-a0e25e2470b1"
+      "id": "bfa1a2cc-ef82-4a9c-85c0-19b1f44ce4ed"
     },
     {
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch && git status"
       },
-      "id": "41caee7d-863c-44e4-bdd4-66cdfd407bc3",
+      "id": "1b75e533-3ae8-425e-af3a-ffd27d823040",
       "name": "git status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1300,
-        840
+        1720,
+        80
       ]
     },
     {
@@ -77,26 +77,26 @@
           ]
         }
       },
-      "id": "a43c1d16-2d0e-44aa-b52d-4e1e984c92e6",
+      "id": "e982b461-2ef1-4fec-bd9b-d373455212d4",
       "name": "Dont process one broken cosmetic",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
       "position": [
-        1120,
-        620
+        1520,
+        -140
       ]
     },
     {
       "parameters": {
         "options": {}
       },
-      "id": "44ebd918-f749-4b3c-9d3f-72e6b11ce37f",
+      "id": "924c951a-0928-4cb3-a60d-aa1fbe97d398",
       "name": "Set today's date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        940,
-        840
+        1320,
+        80
       ],
       "executeOnce": true
     },
@@ -107,38 +107,38 @@
         "format": "yyyy-MM-dd",
         "options": {}
       },
-      "id": "008eacbc-9109-4099-bf27-e0269999f0dd",
+      "id": "47f1bc25-1bf2-48fc-bb9a-211ec1325765",
       "name": "YYYY-MM-DD",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
       "position": [
-        1120,
-        840
+        1520,
+        80
       ],
       "executeOnce": true
     },
     {
       "parameters": {},
-      "id": "fa4cf9e0-bb07-4ea2-8679-ea3f5162e987",
+      "id": "6415bcd8-c63a-4ffe-a930-2e01cbf49662",
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        1880,
-        600
+        2340,
+        -160
       ]
     },
     {
       "parameters": {
         "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git add -A && git commit -m \"{{ $('YYYY-MM-DD').item.json.formattedDate }} add {{ $('Dont process one broken cosmetic').item.json.name }}\""
       },
-      "id": "4d1d52ce-2c79-44b1-9f08-9273801bdd35",
+      "id": "76d035ee-650a-48bb-b064-7a24c23963a1",
       "name": "git commit + push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1700,
-        860
+        2140,
+        100
       ]
     },
     {
@@ -152,13 +152,13 @@
           ]
         }
       },
-      "id": "f1ca9f49-474e-407d-929f-4ff1a0d1f209",
+      "id": "3d161dab-6850-4e5d-925d-62431b887a61",
       "name": "Are images the same?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1480,
-        620
+        1920,
+        -140
       ],
       "notesInFlow": true,
       "notes": "Has the image on Dunkbin been changed?"
@@ -172,10 +172,10 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        1300,
-        620
+        1720,
+        -140
       ],
-      "id": "573f15ff-f0c9-4250-b3ef-10cf91c419df"
+      "id": "1ddd6649-6da2-4b1e-ac3b-e515ca738d0d"
     },
     {
       "parameters": {
@@ -189,13 +189,13 @@
           ]
         }
       },
-      "id": "176d1ead-52a2-47de-a8ff-877abd18669f",
+      "id": "58670c44-5225-42ae-9c36-02df2d4b862d",
       "name": "Local copy is in sync with the remote server?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        1480,
-        840
+        1920,
+        80
       ]
     },
     {
@@ -207,10 +207,10 @@
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
       "position": [
-        760,
-        840
+        1120,
+        80
       ],
-      "id": "503d71d3-5ad8-47c0-bb42-888e6f0f9b13"
+      "id": "007d0a0a-b0fa-4a8c-a929-0ad45e0983cb"
     },
     {
       "parameters": {
@@ -221,35 +221,35 @@
           "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
         }
       },
-      "id": "3f50ade5-7c28-45da-8089-fd347a10ecab",
+      "id": "64ab6875-a302-4971-b542-9cea49c1bcfe",
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
       "position": [
-        1880,
-        860
+        2340,
+        100
       ],
       "credentials": {
         "gitPassword": {
-          "id": "RpzpCFgnoIGkL6Wx",
+          "id": "bx5qDcpBqK7Vv2ko",
           "name": "Git account"
         }
       }
     },
     {
       "parameters": {
-        "content": "# Dunkbin_stats_cosmetics_images_V7",
-        "height": 532.2912987791854,
-        "width": 1598.186186393608,
+        "content": "# Dunkbin_stats_cosmetics_images_V8",
+        "height": 532,
+        "width": 1698,
         "color": 5
       },
-      "id": "6e108429-6b95-45f9-87d1-b363087fba6b",
+      "id": "cb5443d8-961b-4dbd-98cc-7a873b12f3aa",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        520,
-        540
+        860,
+        -220
       ]
     },
     {
@@ -267,26 +267,26 @@
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
       "position": [
-        580,
-        620
+        920,
+        -140
       ],
-      "id": "7b0f1324-bca3-48ef-8f10-af27d9c1c03f",
+      "id": "6199395a-cdb5-45ac-966e-653f82458a7d",
       "notesInFlow": false
     },
     {
       "parameters": {
         "content": "### Background",
-        "height": 636.216823153098,
-        "width": 1703.9002842635657,
+        "height": 636,
+        "width": 1824,
         "color": 7
       },
-      "id": "2c251eb0-d936-418c-9242-4f381749359f",
+      "id": "f07103fb-b2d4-487c-93cd-0cbec8acd343",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
-        460
+        800,
+        -300
       ]
     }
   ],
@@ -442,15 +442,13 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "saveManualExecutions": false,
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "xcLOCUzPhmHsxqnG"
+    "errorWorkflow": "1QwUeygWS1BoXecy"
   },
-  "versionId": "9cffd864-fbdb-45fa-ae76-537932215166",
+  "versionId": "076e2d7f-ffa2-4fe5-a176-391d74340868",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "7abfd7e3c51c365d643e40a4fd71d0b02791ab6c37973171eb645ec3142ecf86"
+    "instanceId": "1f235d143bd1a5ecb8d4464d7fc66f0c6baa0cf1295440440f6a213c804330d3"
   },
-  "id": "K4ZtD49Hp1yWuxM4",
+  "id": "gozCdcr1z2qSnBv6",
   "tags": []
 }
