@@ -4,7 +4,7 @@
 
 ![Dunkbin_Next_Cosmetic_Info_V8](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V8.png)
 
-### V7 workflow chart
+### V8 workflow chart
 
 ![Dunkbin_stats_cosmetics_images_V8](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V8.png)
 
