@@ -1,0 +1,797 @@
+{
+  "name": "Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V8",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V8",
+        "height": 834,
+        "width": 1646,
+        "color": 5
+      },
+      "id": "6613441c-33a0-4702-b76b-6f83adc01af8",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        -300
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1VscyNGvC_S4mRg_6uMscdXxTDPA1hjEIRkJPOcZjMaQ",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1373485552,
+          "mode": "list",
+          "cachedResultName": "NextCosmetic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VscyNGvC_S4mRg_6uMscdXxTDPA1hjEIRkJPOcZjMaQ/edit#gid=1373485552"
+        },
+        "options": {
+          "dataLocationOnSheet": {
+            "values": {
+              "rangeDefinition": "specifyRangeA1",
+              "range": "B:D"
+            }
+          },
+          "outputFormatting": {
+            "values": {
+              "general": "UNFORMATTED_VALUE",
+              "date": "FORMATTED_STRING"
+            }
+          }
+        }
+      },
+      "id": "e9afc7d0-1f93-412c-b9a9-6c9858f8a9a7",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1940,
+        -200
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleApi": {
+          "id": "w6OhcdHmVyiA41U3",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Cosmetic name and notes",
+              "value": "={{ $json.col_2 }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": true
+        }
+      },
+      "id": "6b1ecefc-b510-4afe-91b1-8d9a13afbf8f",
+      "name": "Set Cosmetic and Notes",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2140,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": "Title/notes"
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": "Twitch ID"
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": "Add aliases and IDs to the UserLookup tab"
+            }
+          ]
+        }
+      },
+      "id": "30934ee4-59e4-4c35-83c8-3a414cc469f2",
+      "name": "Discard empty",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 1
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual"
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 2
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 3
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 4
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 5
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 6
+            },
+            {
+              "value1": "={{ $json[\"Cosmetic name and notes\"] }}",
+              "operation": "notEqual",
+              "value2": 7
+            }
+          ]
+        }
+      },
+      "id": "ff42614d-0749-462b-9989-fa3104e53c00",
+      "name": "Discard Number of Candidate Cosmetics",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        2540,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "limit"
+      },
+      "id": "980df2b0-cfc8-4399-b336-2534afb5b738",
+      "name": "Keep the Name and Notes only",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        2740,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Next Cosmetic Name",
+              "value": "={{ $json['Cosmetic name and notes'].split(\"\\n\")[0] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "92dfe9cd-57d1-4fd5-9e77-531bfd2667e8",
+      "name": "Set Next Cosmetic Name",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2940,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Next Cosmetic Artist",
+              "value": "={{ $json['Type to search:'] }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": true
+        }
+      },
+      "id": "fce52f15-d939-42a3-8938-839f1b78f0f8",
+      "name": "Set Next Cosmetic Artist",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2140,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "notEqual",
+              "value2": "Here is the oldest cosmetic in the backlog by the least-recently added creator, along with any CITB redeems. Change the selector to see each in turn."
+            },
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "notContains",
+              "value2": "If there is a red chip in the top right, select the first number in the list to see the current cosmetic  vvvvv"
+            },
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "notEqual",
+              "value2": "Preview"
+            },
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "notEqual",
+              "value2": "Shop candidates:"
+            },
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "notEqual",
+              "value2": "Creator"
+            },
+            {
+              "value1": "={{ $json['Next Cosmetic Artist'] }}",
+              "operation": "notEqual",
+              "value2": "Discord alias(es)"
+            }
+          ]
+        }
+      },
+      "id": "59356388-2d41-4531-b8bc-a22276660b94",
+      "name": "Discard Empty and non-name fields",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "limit"
+      },
+      "id": "d3330a10-1d7e-4882-bf23-b8f6c8109a92",
+      "name": "Keep Next Cosmetic Artist only",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 3,
+      "position": [
+        2540,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Next Cosmetic Artist",
+              "value": "={{ $json['Next Cosmetic Artist'] }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": true
+        }
+      },
+      "id": "1e636ea3-d84b-446d-a59b-d7edb148ddbb",
+      "name": "Set Next Cosmetic Artist to Save",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2740,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout }}",
+              "operation": "contains",
+              "value2": "is ahead"
+            },
+            {
+              "value1": "{{ $json.stdout }}",
+              "operation": "contains",
+              "value2": "use \"git push\""
+            }
+          ]
+        },
+        "combineOperation": "any"
+      },
+      "id": "16aa94aa-4fe9-47c7-9239-4f6d17169faf",
+      "name": "Should we push to the repo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2540,
+        220
+      ],
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "xlsx",
+        "options": {
+          "fileName": "/home/node/git/dunkbin-stats-images/dunkbin_next_cosmetic_artist.xlsx",
+          "sheetName": "Next_cosmetic_artist"
+        }
+      },
+      "id": "2c581d26-05a2-40fb-a927-2796115c205b",
+      "name": "Save to Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "/home/node/git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_artist.xlsx",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "99ae5ebd-d333-46c2-a181-cd70fa609d7d",
+      "name": "Save Next Cosmetic Artist File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        3140,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1VscyNGvC_S4mRg_6uMscdXxTDPA1hjEIRkJPOcZjMaQ",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1373485552,
+          "mode": "list",
+          "cachedResultName": "NextCosmetic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1VscyNGvC_S4mRg_6uMscdXxTDPA1hjEIRkJPOcZjMaQ/edit#gid=1373485552"
+        },
+        "options": {
+          "dataLocationOnSheet": {
+            "values": {
+              "rangeDefinition": "specifyRangeA1",
+              "range": "B:D"
+            }
+          },
+          "outputFormatting": {
+            "values": {
+              "general": "UNFORMATTED_VALUE",
+              "date": "FORMATTED_STRING"
+            }
+          }
+        }
+      },
+      "id": "36ff0536-522a-48be-a5c0-8c59c643e65c",
+      "name": "Re-read Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4,
+      "position": [
+        1940,
+        0
+      ],
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleApi": {
+          "id": "w6OhcdHmVyiA41U3",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "toFile",
+        "fileFormat": "xlsx",
+        "options": {
+          "fileName": "/home/node/git/dunkbin-stats-images/dunkbin_next_cosmetic.xlsx",
+          "sheetName": "Next_cosmetic_name"
+        }
+      },
+      "id": "b2579606-d492-49c9-9305-e2ced26555a9",
+      "name": "Save to a second Spreadsheet File",
+      "type": "n8n-nodes-base.spreadsheetFile",
+      "typeVersion": 1,
+      "position": [
+        3140,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "fileName": "/home/node/git/dunkbin-stats-images/public/sheets/dunkbin_next_cosmetic_name.xlsx",
+        "options": {
+          "append": false
+        }
+      },
+      "id": "f3d55bda-5c3c-45f2-b666-a4d169246e58",
+      "name": "Save Next Cosmetic File",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        220
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "b733bef1-3b3c-451f-9013-d3df60bef3f3",
+      "name": "Do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git status"
+      },
+      "id": "8f01934d-684a-4a52-a696-e62a8758de59",
+      "name": "Git Status",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        2340,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=cd /home/node/git/dunkbin-stats-images && git config user.email \"itswuote@gmail.com\" && git config user.name \"WUOTE\" && git pull && git fetch"
+      },
+      "id": "21c0d17c-8c66-443c-b574-5a0fa9929e16",
+      "name": "Git Pull + Fetch",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "triggerAtMinute": 33
+            }
+          ]
+        }
+      },
+      "id": "16f53a62-35c5-4ab4-bb43-3a15e2ffc409",
+      "name": "Cron For Hourly Execusion",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        1740,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "gitPassword",
+        "operation": "push",
+        "repositoryPath": "/home/node/git/dunkbin-stats-images/",
+        "options": {
+          "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
+        }
+      },
+      "id": "422e48f6-fbeb-47cf-a01f-5678a71f568d",
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        200
+      ],
+      "credentials": {
+        "gitPassword": {
+          "id": "bx5qDcpBqK7Vv2ko",
+          "name": "Git account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Background",
+        "height": 947,
+        "width": 1770,
+        "color": 7
+      },
+      "id": "b3a49ee7-7417-4941-84e1-ffec6df861f1",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1640,
+        -380
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Set Next Cosmetic Artist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Cosmetic and Notes": {
+      "main": [
+        [
+          {
+            "node": "Discard empty",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discard empty": {
+      "main": [
+        [
+          {
+            "node": "Discard Number of Candidate Cosmetics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discard Number of Candidate Cosmetics": {
+      "main": [
+        [
+          {
+            "node": "Keep the Name and Notes only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep the Name and Notes only": {
+      "main": [
+        [
+          {
+            "node": "Set Next Cosmetic Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Next Cosmetic Artist": {
+      "main": [
+        [
+          {
+            "node": "Discard Empty and non-name fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discard Empty and non-name fields": {
+      "main": [
+        [
+          {
+            "node": "Keep Next Cosmetic Artist only",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Keep Next Cosmetic Artist only": {
+      "main": [
+        [
+          {
+            "node": "Set Next Cosmetic Artist to Save",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Next Cosmetic Artist to Save": {
+      "main": [
+        [
+          {
+            "node": "Save to Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Next Cosmetic Name": {
+      "main": [
+        [
+          {
+            "node": "Save to a second Spreadsheet File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Should we push to the repo?": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Save Next Cosmetic Artist File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Next Cosmetic Artist File": {
+      "main": [
+        [
+          {
+            "node": "Re-read Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Re-read Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Set Cosmetic and Notes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to a second Spreadsheet File": {
+      "main": [
+        [
+          {
+            "node": "Save Next Cosmetic File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Next Cosmetic File": {
+      "main": [
+        [
+          {
+            "node": "Git Pull + Fetch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Status": {
+      "main": [
+        [
+          {
+            "node": "Should we push to the repo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git Pull + Fetch": {
+      "main": [
+        [
+          {
+            "node": "Git Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron For Hourly Execusion": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "1QwUeygWS1BoXecy"
+  },
+  "versionId": "291b91da-c4c5-4702-9b97-0cd141f706bd",
+  "meta": {
+    "instanceId": "1f235d143bd1a5ecb8d4464d7fc66f0c6baa0cf1295440440f6a213c804330d3"
+  },
+  "id": "SVYLSXn5Qi8BVuOB",
+  "tags": []
+}
