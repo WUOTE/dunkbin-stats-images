@@ -22,7 +22,7 @@
 
 ### Dunkbinstats build trigger V1
 
-![Dunkbinstats_build_trigger_V1](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbinstats_build_trigger_V1.png)
+![Dunkbinstats_build_trigger_V1](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbinstats_build_trigger_V1.png) 
 
 ### Error Workflow
 
