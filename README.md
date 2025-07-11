@@ -20,6 +20,10 @@
 
 ![Dunkbin_Next_Cosmetic_Info_V8](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbin_Next_Cosmetic_Info_V8.png)
 
+### Dunkbinstats build trigger V1
+
+![Dunkbinstats_build_trigger_V1](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Dunkbinstats_build_trigger_V1.png)
+
 ### Error Workflow
 
 ![Errow Workflow](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Error_workflow.png)
