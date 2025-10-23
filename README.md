@@ -28,13 +28,6 @@
 
 ![Errow Workflow](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/Error_workflow.png)
 
-### Gotchas
-
-Running n8n inside a container requires
-
-1. fixing writing priviliges -- Alpine: run as `root` in `sh` -- `chown node git/`.
-2. Setting DNS server in case you run it alongside Adguard Home or similar, otherwise n8n will not be able to access external services.
-
 ### Additional workflows
 
 #### 7tv emotes upload workflow
@@ -44,3 +37,11 @@ Running n8n inside a container requires
 ![7tv_censor_emotes_add_to_the_emote_set](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/7tv_censor_emotes_add_to_the_emote_set.png)
 
 ![7tv_censor_emote_status_check](https://github.com/WUOTE/dunkbin-stats-images/blob/main/n8n_workflows/Workflow_screenshots/7tv_censor_emote_status_check.png)
+
+### Gotchas
+
+Running n8n inside a container requires
+
+1. fixing writing priviliges -- Alpine: run as `root` in `sh` -- `chown node git/`.
+2. Setting DNS server in case you run it alongside Adguard Home or similar, otherwise n8n will not be able to access external services.
+3. GitHub credentials: use the classic token (as per n8n's docs).
