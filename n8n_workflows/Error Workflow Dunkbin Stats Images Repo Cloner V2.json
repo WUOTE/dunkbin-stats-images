@@ -1,0 +1,193 @@
+{
+  "name": "Error Workflow Dunkbin Stats Images Repo Cloner V2",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "clone",
+        "repositoryPath": "/home/node/git/dunkbin-stats-images/",
+        "sourceRepository": "https://github.com/WUOTE/dunkbin-stats-images.git"
+      },
+      "id": "f70d54bb-6aeb-4f54-b5b3-ac53b4eba263",
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        896,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "command": "rm -rf /home/node/git/"
+      },
+      "id": "d379b1c1-7f41-4639-ab7f-21792d34cbce",
+      "name": "Remove git directory",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        368,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "command": "mkdir -p /home/node/git/"
+      },
+      "id": "6502b271-6d59-4b08-a3a2-22db23840c1d",
+      "name": "Recreate git directory",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        544,
+        272
+      ]
+    },
+    {
+      "parameters": {
+        "command": "chown node /home/node/git/"
+      },
+      "id": "fdddf8a3-1bda-4a5e-9049-b3a7c50f6d03",
+      "name": "Set permissions",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        720,
+        272
+      ]
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        192,
+        272
+      ],
+      "id": "f0dee101-655d-4edb-9641-8182fea53ee0",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "content": "# Error Workflow",
+        "height": 463,
+        "width": 1254,
+        "color": 5
+      },
+      "id": "dd422834-dbfe-4759-b68c-67cb1758a6a6",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        80,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Background",
+        "height": 608,
+        "width": 1428,
+        "color": 7
+      },
+      "id": "56a73ff6-e11e-4e5a-a640-3bf3c33399a1",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "A workflow failed, triggered the error workflow.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1072,
+        272
+      ],
+      "id": "41b7ef3d-4a97-47f5-9e0b-c7678b1563b0",
+      "name": "Discord",
+      "webhookId": "dfdeff9b-0f36-4b4a-a887-3ff5b5058de0",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "kgk30OphDKED99xA",
+          "name": "Discord Webhook account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Remove git directory": {
+      "main": [
+        [
+          {
+            "node": "Recreate git directory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recreate git directory": {
+      "main": [
+        [
+          {
+            "node": "Set permissions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set permissions": {
+      "main": [
+        [
+          {
+            "node": "Git",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Remove git directory",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e28ca555-154f-460a-b18c-7247199baa85",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c8816237a2379112f5f78ec78ce6c705c7c690111e9d7e7e5fe8e9f636db62bc"
+  },
+  "id": "MME6Iyb9jW2K1l7o",
+  "tags": []
+}
