@@ -1,9 +1,9 @@
 {
-  "name": "Dunkbin_Next_Cosmetic_Info_V8",
+  "name": "Dunkbin_Next_Cosmetic_Info_V9",
   "nodes": [
     {
       "parameters": {
-        "content": "# Dunkbin_Next_Cosmetic_Info_V8",
+        "content": "# Dunkbin_Next_Cosmetic_Info_V9",
         "height": 1045,
         "width": 1673,
         "color": 5
@@ -12,10 +12,7 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        580,
-        -260
-      ]
+      "position": [580, -260]
     },
     {
       "parameters": {
@@ -36,10 +33,7 @@
       "name": "Set Cosmetic and Notes",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        1040,
-        40
-      ]
+      "position": [1040, 40]
     },
     {
       "parameters": {
@@ -71,10 +65,7 @@
       "name": "Discard empty",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        1240,
-        40
-      ]
+      "position": [1240, 40]
     },
     {
       "parameters": {
@@ -126,10 +117,7 @@
       "name": "Discard Number of Candidate Cosmetics",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        1440,
-        40
-      ]
+      "position": [1440, 40]
     },
     {
       "parameters": {
@@ -139,10 +127,7 @@
       "name": "Keep the Name and Notes only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
-      "position": [
-        1640,
-        40
-      ]
+      "position": [1640, 40]
     },
     {
       "parameters": {
@@ -161,10 +146,7 @@
       "name": "Set Next Cosmetic Name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        1840,
-        40
-      ]
+      "position": [1840, 40]
     },
     {
       "parameters": {
@@ -185,10 +167,7 @@
       "name": "Set Next Cosmetic Artist",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        1040,
-        -160
-      ]
+      "position": [1040, -160]
     },
     {
       "parameters": {
@@ -235,10 +214,7 @@
       "name": "Discard Empty and non-name fields",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        1240,
-        -160
-      ]
+      "position": [1240, -160]
     },
     {
       "parameters": {
@@ -248,10 +224,7 @@
       "name": "Keep Next Cosmetic Artist only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
-      "position": [
-        1440,
-        -160
-      ]
+      "position": [1440, -160]
     },
     {
       "parameters": {
@@ -272,10 +245,7 @@
       "name": "Set Next Cosmetic Artist to Save",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        1640,
-        -160
-      ]
+      "position": [1640, -160]
     },
     {
       "parameters": {
@@ -293,10 +263,7 @@
       "name": "Should we push to the repo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [
-        1440,
-        460
-      ],
+      "position": [1440, 460],
       "notesInFlow": false
     },
     {
@@ -307,10 +274,7 @@
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        1840,
-        600
-      ]
+      "position": [1840, 600]
     },
     {
       "parameters": {},
@@ -318,10 +282,7 @@
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [
-        2040,
-        440
-      ]
+      "position": [2040, 440]
     },
     {
       "parameters": {
@@ -331,10 +292,7 @@
       "name": "Git Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        1240,
-        460
-      ]
+      "position": [1240, 460]
     },
     {
       "parameters": {
@@ -344,10 +302,7 @@
       "name": "Git Pull + Fetch",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        1040,
-        460
-      ]
+      "position": [1040, 460]
     },
     {
       "parameters": {
@@ -383,10 +338,7 @@
       "name": "Google Sheets Artist",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        840,
-        -160
-      ],
+      "position": [840, -160],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
@@ -429,10 +381,7 @@
       "name": "Google Sheets Cosmetic",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        840,
-        40
-      ],
+      "position": [840, 40],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
@@ -475,10 +424,7 @@
       "name": "Google Sheets Cosmetic Row",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        840,
-        240
-      ],
+      "position": [840, 240],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
@@ -504,10 +450,7 @@
       "name": "Next Cosmetic Row Number",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        1440,
-        240
-      ]
+      "position": [1440, 240]
     },
     {
       "parameters": {
@@ -528,10 +471,7 @@
       "name": "Set Row Number",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        1040,
-        240
-      ]
+      "position": [1040, 240]
     },
     {
       "parameters": {
@@ -568,10 +508,7 @@
       "name": "Filter for Row Number",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        1240,
-        240
-      ]
+      "position": [1240, 240]
     },
     {
       "parameters": {
@@ -588,10 +525,7 @@
       "name": "Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
-      "position": [
-        1840,
-        240
-      ]
+      "position": [1840, 240]
     },
     {
       "parameters": {
@@ -604,10 +538,7 @@
       "name": "Save Next Cosmetic File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
-      "position": [
-        840,
-        460
-      ]
+      "position": [840, 460]
     },
     {
       "parameters": {
@@ -617,10 +548,7 @@
       "name": "Create JSON from the set variables",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        1640,
-        240
-      ]
+      "position": [1640, 240]
     },
     {
       "parameters": {
@@ -637,10 +565,7 @@
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
-      "position": [
-        640,
-        -160
-      ]
+      "position": [640, -160]
     },
     {
       "parameters": {
@@ -655,10 +580,7 @@
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
-      "position": [
-        2040,
-        600
-      ],
+      "position": [2040, 600],
       "credentials": {
         "gitPassword": {
           "id": "bx5qDcpBqK7Vv2ko",
@@ -677,10 +599,7 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        480,
-        -340
-      ]
+      "position": [480, -340]
     }
   ],
   "pinData": {},
@@ -950,7 +869,8 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "1QwUeygWS1BoXecy"
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
   "versionId": "46728b28-c3be-412f-85c0-e176ce71a2d5",
   "meta": {

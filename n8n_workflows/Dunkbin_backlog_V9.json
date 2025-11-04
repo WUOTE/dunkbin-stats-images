@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin_backlog_V8",
+  "name": "Dunkbin_backlog_V9",
   "nodes": [
     {
       "parameters": {
@@ -17,10 +17,7 @@
       "name": "Remove \"Formula row\"",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        2160,
-        -200
-      ]
+      "position": [2160, -200]
     },
     {
       "parameters": {
@@ -30,10 +27,7 @@
       "name": "Get Current Date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
-      "position": [
-        2360,
-        420
-      ]
+      "position": [2360, 420]
     },
     {
       "parameters": {
@@ -46,10 +40,7 @@
       "name": "Format Date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
-      "position": [
-        2560,
-        420
-      ]
+      "position": [2560, 420]
     },
     {
       "parameters": {
@@ -59,14 +50,11 @@
       "name": "Git Push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        2760,
-        420
-      ]
+      "position": [2760, 420]
     },
     {
       "parameters": {
-        "content": "# Dunkbin_backlog_V8",
+        "content": "# Dunkbin_backlog_V9",
         "height": 943,
         "width": 1450,
         "color": 5
@@ -75,10 +63,7 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        1720,
-        -300
-      ]
+      "position": [1720, -300]
     },
     {
       "parameters": {
@@ -88,10 +73,7 @@
       "name": "MD5 - File on Disk",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        2160,
-        0
-      ],
+      "position": [2160, 0],
       "id": "22f9ba52-aa87-4d1c-919e-5cd2178b9aa8"
     },
     {
@@ -100,10 +82,7 @@
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [
-        2960,
-        -20
-      ]
+      "position": [2960, -20]
     },
     {
       "parameters": {
@@ -133,10 +112,7 @@
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        1960,
-        -200
-      ],
+      "position": [1960, -200],
       "credentials": {
         "googleApi": {
           "id": "w6OhcdHmVyiA41U3",
@@ -153,10 +129,7 @@
       "name": "MD5 - File from Google Sheets",
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
-      "position": [
-        1960,
-        0
-      ]
+      "position": [1960, 0]
     },
     {
       "parameters": {
@@ -173,10 +146,7 @@
       "name": "Are Spritesheets Identical?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [
-        2360,
-        0
-      ],
+      "position": [2360, 0],
       "notesInFlow": false
     },
     {
@@ -187,10 +157,7 @@
       "name": "Git Pull + Fetch + Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        2160,
-        420
-      ]
+      "position": [2160, 420]
     },
     {
       "parameters": {
@@ -203,10 +170,7 @@
       "name": "Save Spritesheet to Disk",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
-      "position": [
-        1960,
-        420
-      ]
+      "position": [1960, 420]
     },
     {
       "parameters": {
@@ -225,10 +189,7 @@
       "name": "Sort by Added from New to Old",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
-      "position": [
-        2360,
-        -200
-      ]
+      "position": [2360, -200]
     },
     {
       "parameters": {
@@ -258,10 +219,7 @@
       "name": "Re-read Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        1960,
-        220
-      ],
+      "position": [1960, 220],
       "credentials": {
         "googleApi": {
           "id": "w6OhcdHmVyiA41U3",
@@ -285,10 +243,7 @@
       "name": "Re-remove \"Formula row\"",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        2160,
-        220
-      ]
+      "position": [2160, 220]
     },
     {
       "parameters": {
@@ -307,10 +262,7 @@
       "name": "Re-sort by Added from New to Old",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
-      "position": [
-        2360,
-        220
-      ]
+      "position": [2360, 220]
     },
     {
       "parameters": {
@@ -327,10 +279,7 @@
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
-      "position": [
-        1760,
-        -200
-      ]
+      "position": [1760, -200]
     },
     {
       "parameters": {
@@ -347,10 +296,7 @@
       "name": "Save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 2,
-      "position": [
-        2560,
-        -200
-      ]
+      "position": [2560, -200]
     },
     {
       "parameters": {
@@ -367,10 +313,7 @@
       "name": "Re-save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 2,
-      "position": [
-        2560,
-        220
-      ]
+      "position": [2560, 220]
     },
     {
       "parameters": {
@@ -385,10 +328,7 @@
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
-      "position": [
-        2960,
-        420
-      ],
+      "position": [2960, 420],
       "credentials": {
         "gitPassword": {
           "id": "bx5qDcpBqK7Vv2ko",
@@ -407,10 +347,7 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        1640,
-        -380
-      ]
+      "position": [1640, -380]
     }
   ],
   "pinData": {},
@@ -614,7 +551,8 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "1QwUeygWS1BoXecy"
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
   "versionId": "c3d19667-7b8d-44b7-b113-036f89959ef6",
   "meta": {

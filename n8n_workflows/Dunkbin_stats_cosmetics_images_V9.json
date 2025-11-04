@@ -1,5 +1,5 @@
 {
-  "name": "Dunkbin_stats_cosmetics_images_V8",
+  "name": "Dunkbin_stats_cosmetics_images_V9",
   "nodes": [
     {
       "parameters": {
@@ -13,10 +13,7 @@
       "name": "Consume Cosmetics API",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 2,
-      "position": [
-        1120,
-        -140
-      ],
+      "position": [1120, -140],
       "id": "ed6a5edb-e34c-49cc-aacd-08bf27c16501",
       "notesInFlow": true,
       "credentials": {
@@ -42,10 +39,7 @@
       "name": "Sort cosmetics by id from newest to oldest",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 1,
-      "position": [
-        1320,
-        -140
-      ],
+      "position": [1320, -140],
       "id": "bfa1a2cc-ef82-4a9c-85c0-19b1f44ce4ed"
     },
     {
@@ -56,10 +50,7 @@
       "name": "git status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        1720,
-        80
-      ]
+      "position": [1720, 80]
     },
     {
       "parameters": {
@@ -81,10 +72,7 @@
       "name": "Dont process one broken cosmetic",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        1520,
-        -140
-      ]
+      "position": [1520, -140]
     },
     {
       "parameters": {
@@ -94,10 +82,7 @@
       "name": "Set today's date",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
-      "position": [
-        1320,
-        80
-      ],
+      "position": [1320, 80],
       "executeOnce": true
     },
     {
@@ -111,10 +96,7 @@
       "name": "YYYY-MM-DD",
       "type": "n8n-nodes-base.dateTime",
       "typeVersion": 2,
-      "position": [
-        1520,
-        80
-      ],
+      "position": [1520, 80],
       "executeOnce": true
     },
     {
@@ -123,10 +105,7 @@
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [
-        2340,
-        -160
-      ]
+      "position": [2340, -160]
     },
     {
       "parameters": {
@@ -136,10 +115,7 @@
       "name": "git commit + push",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        2140,
-        100
-      ]
+      "position": [2140, 100]
     },
     {
       "parameters": {
@@ -156,10 +132,7 @@
       "name": "Are images the same?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [
-        1920,
-        -140
-      ],
+      "position": [1920, -140],
       "notesInFlow": true,
       "notes": "Has the image on Dunkbin been changed?"
     },
@@ -171,10 +144,7 @@
       "name": "MD5 - File on Disk",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        1720,
-        -140
-      ],
+      "position": [1720, -140],
       "id": "1ddd6649-6da2-4b1e-ac3b-e515ca738d0d"
     },
     {
@@ -193,10 +163,7 @@
       "name": "Local copy is in sync with the remote server?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [
-        1920,
-        80
-      ]
+      "position": [1920, 80]
     },
     {
       "parameters": {
@@ -206,10 +173,7 @@
       "name": "Download new image using wget",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        1120,
-        80
-      ],
+      "position": [1120, 80],
       "id": "007d0a0a-b0fa-4a8c-a929-0ad45e0983cb"
     },
     {
@@ -225,10 +189,7 @@
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
-      "position": [
-        2340,
-        100
-      ],
+      "position": [2340, 100],
       "credentials": {
         "gitPassword": {
           "id": "bx5qDcpBqK7Vv2ko",
@@ -238,7 +199,7 @@
     },
     {
       "parameters": {
-        "content": "# Dunkbin_stats_cosmetics_images_V8",
+        "content": "# Dunkbin_stats_cosmetics_images_V9",
         "height": 532,
         "width": 1698,
         "color": 5
@@ -247,10 +208,7 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        860,
-        -220
-      ]
+      "position": [860, -220]
     },
     {
       "parameters": {
@@ -266,10 +224,7 @@
       "name": "Cron For Hourly Execution",
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
-      "position": [
-        920,
-        -140
-      ],
+      "position": [920, -140],
       "id": "6199395a-cdb5-45ac-966e-653f82458a7d",
       "notesInFlow": false
     },
@@ -284,10 +239,7 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        800,
-        -300
-      ]
+      "position": [800, -300]
     }
   ],
   "pinData": {},
@@ -443,7 +395,8 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "1QwUeygWS1BoXecy"
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
   "versionId": "076e2d7f-ffa2-4fe5-a176-391d74340868",
   "meta": {

@@ -1,5 +1,5 @@
 {
-  "name": "Error Workflow Dunkbin Stats Images Repo Cloner V2",
+  "name": "Error_Workflow_Dunkbin_Stats_Images_Repo_Cloner_V3",
   "nodes": [
     {
       "parameters": {
@@ -11,10 +11,7 @@
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
-      "position": [
-        896,
-        272
-      ]
+      "position": [896, 272]
     },
     {
       "parameters": {
@@ -24,10 +21,7 @@
       "name": "Remove git directory",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        368,
-        272
-      ]
+      "position": [368, 272]
     },
     {
       "parameters": {
@@ -37,10 +31,7 @@
       "name": "Recreate git directory",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        544,
-        272
-      ]
+      "position": [544, 272]
     },
     {
       "parameters": {
@@ -50,19 +41,13 @@
       "name": "Set permissions",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        720,
-        272
-      ]
+      "position": [720, 272]
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
-      "position": [
-        192,
-        272
-      ],
+      "position": [192, 272],
       "id": "f0dee101-655d-4edb-9641-8182fea53ee0",
       "name": "Error Trigger"
     },
@@ -77,10 +62,7 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        80,
-        80
-      ]
+      "position": [80, 80]
     },
     {
       "parameters": {
@@ -93,10 +75,7 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        0,
-        0
-      ]
+      "position": [0, 0]
     },
     {
       "parameters": {
@@ -106,10 +85,7 @@
       },
       "type": "n8n-nodes-base.discord",
       "typeVersion": 2,
-      "position": [
-        1072,
-        272
-      ],
+      "position": [1072, 272],
       "id": "41b7ef3d-4a97-47f5-9e0b-c7678b1563b0",
       "name": "Discord",
       "webhookId": "dfdeff9b-0f36-4b4a-a887-3ff5b5058de0",
@@ -181,7 +157,10 @@
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
   "versionId": "e28ca555-154f-460a-b18c-7247199baa85",
   "meta": {

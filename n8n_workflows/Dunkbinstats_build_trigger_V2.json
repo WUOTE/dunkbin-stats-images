@@ -1,9 +1,9 @@
 {
-  "name": "Dunkbinstats_build_trigger_V1",
+  "name": "Dunkbinstats_build_trigger_V2",
   "nodes": [
     {
       "parameters": {
-        "content": "# Dunkbinstats_build_trigger_V1",
+        "content": "# Dunkbinstats_build_trigger_V2",
         "height": 532,
         "width": 978,
         "color": 5
@@ -12,10 +12,7 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        672,
-        -416
-      ]
+      "position": [672, -416]
     },
     {
       "parameters": {
@@ -28,10 +25,7 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        608,
-        -480
-      ]
+      "position": [608, -480]
     },
     {
       "parameters": {
@@ -39,10 +33,7 @@
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        960,
-        -208
-      ],
+      "position": [960, -208],
       "id": "ae0858e9-fc7b-4d78-bf04-20628ac0a6b0",
       "name": "Execute Command"
     },
@@ -70,10 +61,7 @@
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
-      "position": [
-        1152,
-        -208
-      ],
+      "position": [1152, -208],
       "id": "688d88f4-a39f-4210-93ae-9232fd079a02",
       "name": "Dunkbinstats Users Images",
       "webhookId": "49c07ebf-2959-4d88-94a3-b74bcde4fcf8",
@@ -109,10 +97,7 @@
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
-      "position": [
-        1328,
-        -208
-      ],
+      "position": [1328, -208],
       "id": "a1f5b43e-6a8e-49e9-8690-84fd42d045ef",
       "name": "Dunkbinstats",
       "webhookId": "49c07ebf-2959-4d88-94a3-b74bcde4fcf8",
@@ -138,10 +123,7 @@
       "name": "Cron For Runnin Every 3 Hours",
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
-      "position": [
-        784,
-        -208
-      ],
+      "position": [784, -208],
       "id": "46a3d85a-af77-49dc-a45b-98ae1653edd8",
       "notesInFlow": false
     }
@@ -160,9 +142,7 @@
       ]
     },
     "Dunkbinstats": {
-      "main": [
-        []
-      ]
+      "main": [[]]
     },
     "Dunkbinstats Users Images": {
       "main": [
@@ -191,7 +171,8 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "1QwUeygWS1BoXecy"
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
   "versionId": "8dcd0c7d-881b-4ceb-b43d-166da851420f",
   "meta": {

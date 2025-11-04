@@ -1,16 +1,13 @@
 {
-  "name": "7tv_censor_emotes_add_to_the_emote_set",
+  "name": "7tv_censor_emote_status_check",
   "nodes": [
     {
       "parameters": {},
-      "id": "06632902-64cb-4a94-a1b3-24fed62c2244",
+      "id": "f2a08cdd-15dc-4ed9-996e-5505f706a633",
       "name": "When clicking \"Test workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [
-        610,
-        620
-      ]
+      "position": [1370, 980]
     },
     {
       "parameters": {
@@ -29,20 +26,47 @@
         },
         "options": {}
       },
-      "id": "df7375fa-c5d5-4345-8d73-018bb377252e",
+      "id": "ffe3fa20-5fc0-49b0-a895-344f10a67ca0",
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [
-        790,
-        620
-      ],
+      "position": [1550, 980],
       "credentials": {
         "googleApi": {
           "id": "lewjvX7iVXgJ0GW3",
           "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "66076c2a-ea1a-4b0d-963f-495f1d822cbb",
+              "leftValue": "={{ $json['7tv emote URL'] }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "0355e433-7040-4414-a188-346b66876076",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2,
+      "position": [1730, 980]
     },
     {
       "parameters": {
@@ -64,11 +88,9 @@
           "mappingMode": "defineBelow",
           "value": {
             "Name": "={{ $('Sort').item.json.Name }}",
-            "added to the emotes set?": "1"
+            "listed?": "={{ $json.listed }}"
           },
-          "matchingColumns": [
-            "Name"
-          ],
+          "matchingColumns": ["Name"],
           "schema": [
             {
               "id": "Name",
@@ -98,16 +120,6 @@
               "display": true,
               "type": "string",
               "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "added to the emotes set?",
-              "displayName": "added to the emotes set?",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
               "removed": false
             },
             {
@@ -125,14 +137,11 @@
         },
         "options": {}
       },
-      "id": "5199e038-ce21-4989-8524-5533c148f755",
+      "id": "58dd63a2-a64e-4fdc-8199-275ffb138165",
       "name": "Google Sheets1",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [
-        970,
-        860
-      ],
+      "position": [1730, 1220],
       "credentials": {
         "googleApi": {
           "id": "lewjvX7iVXgJ0GW3",
@@ -147,25 +156,19 @@
           "reset": false
         }
       },
-      "id": "29a56fd7-ba7a-44f5-93be-08e96101a53e",
+      "id": "3e7e30c2-49bc-4fd4-903a-ca1c3cfb783f",
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [
-        1430,
-        620
-      ]
+      "position": [2190, 980]
     },
     {
       "parameters": {},
-      "id": "b8c62f09-0efd-4796-8a75-594fbaaeea47",
+      "id": "fbb08d72-5f78-4caf-8259-eb797d5a0ae5",
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [
-        1690,
-        600
-      ]
+      "position": [2450, 960]
     },
     {
       "parameters": {
@@ -174,30 +177,24 @@
         "width": 1503,
         "color": 7
       },
-      "id": "1f0763d6-91fe-4194-8ce1-d055af39ae0c",
+      "id": "3c393373-19c8-459c-a428-84a0a4a43c99",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        460,
-        460
-      ]
+      "position": [1220, 820]
     },
     {
       "parameters": {
-        "content": "# 7tv censor emotes add to the emote set",
+        "content": "# 7tv redacted emote status check",
         "height": 527,
         "width": 1385,
         "color": 5
       },
-      "id": "e597f096-cb24-4f14-9465-02725943fa66",
+      "id": "198819b9-26bc-42a0-b86d-a8b3a6f1d0fb",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        530,
-        520
-      ]
+      "position": [1290, 880]
     },
     {
       "parameters": {
@@ -211,135 +208,22 @@
         },
         "options": {}
       },
-      "id": "8dea970e-a82c-408a-9b9c-2e4ebc4a2184",
+      "id": "8c00ad3d-83fb-4b52-9496-c15b77399dc9",
       "name": "Sort",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
-      "position": [
-        1230,
-        620
-      ]
+      "position": [1990, 980]
     },
     {
       "parameters": {
-        "method": "POST",
-        "url": "https://7tv.io/v3/gql",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "User-Agent",
-              "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0"
-            },
-            {
-              "name": "Accept",
-              "value": "*/*"
-            },
-            {
-              "name": "Accept-Language",
-              "value": "en,ru;q=0.5"
-            },
-            {
-              "name": "Accept-Encoding",
-              "value": "gzip, deflate, br, zstd"
-            },
-            {
-              "name": "Referer",
-              "value": "https://7tv.app/"
-            },
-            {
-              "name": "authorization",
-              "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1IjoiNjYxZDgzN2JjM2ZkZDg4MmU4ZTcwOGZmIiwidiI6MSwiaXNzIjoic2V2ZW50di1hcGkiLCJleHAiOjE3MjE4ODAwNTgsIm5iZiI6MTcxNDEwNDA1OCwiaWF0IjoxNzE0MTA0MDU4fQ.Xbd9YbCMrI_RMXzmZ9yR46iMP15HYwXyWp9lEL5w1Nw"
-            },
-            {
-              "name": "Origin",
-              "value": "https://7tv.app"
-            },
-            {
-              "name": "DNT",
-              "value": "1"
-            },
-            {
-              "name": "Sec-GPC",
-              "value": "1"
-            },
-            {
-              "name": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "name": "Sec-Fetch-Dest",
-              "value": "empty"
-            },
-            {
-              "name": "Sec-Fetch-Mode",
-              "value": "cors"
-            },
-            {
-              "name": "Sec-Fetch-Site",
-              "value": "cross-site"
-            },
-            {
-              "name": "Priority",
-              "value": "u=1"
-            },
-            {
-              "name": "TE",
-              "value": "trailers"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\"query\":\"mutation ChangeEmoteInSet($id: ObjectID!, $action: ListItemAction!, $emote_id: ObjectID!, $name: String) {\\n emoteSet(id: $id) {\\n id\\n emotes(id: $emote_id, action: $action, name: $name) {\\n id\\n name\\n __typename\\n }\\n __typename\\n }\\n}\",\"variables\":{\"action\":\"ADD\",\"id\":\"661d84a17e70254f21bf4a0c\",\"emote_id\":\"{{ $json['7tv emote URL'] }}\",\"name\":\"{{ $json.Name }}\"}}",
-        "options": {
-          "redirect": {
-            "redirect": {}
-          }
-        }
-      },
-      "id": "a30a585f-20a7-4987-9770-18d275de9eec",
-      "name": "HTTP Request",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        790,
-        860
-      ]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict"
-          },
-          "conditions": [
-            {
-              "id": "66076c2a-ea1a-4b0d-963f-495f1d822cbb",
-              "leftValue": "={{ $json['added to the emotes set?'] }}",
-              "rightValue": 4,
-              "operator": {
-                "type": "string",
-                "operation": "empty",
-                "singleValue": true
-              }
-            }
-          ],
-          "combinator": "and"
-        },
+        "url": "=https://7tv.io/v3/emotes/{{ $json['7tv emote URL'] }}",
         "options": {}
       },
-      "id": "3b4380fb-8632-4f33-906a-d91ea43790e7",
-      "name": "Filter",
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2,
-      "position": [
-        970,
-        620
-      ],
-      "onError": "continueRegularOutput"
+      "id": "7389aa97-b9b8-4c33-9aa2-f98adfbaf755",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1550, 1220]
     }
   ],
   "pinData": {},
@@ -366,6 +250,17 @@
         ]
       ]
     },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Sort",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Loop Over Items": {
       "main": [
         [
@@ -377,7 +272,7 @@
         ],
         [
           {
-            "node": "HTTP Request",
+            "node": "HTTP Request1",
             "type": "main",
             "index": 0
           }
@@ -406,7 +301,7 @@
         ]
       ]
     },
-    "HTTP Request": {
+    "HTTP Request1": {
       "main": [
         [
           {
@@ -416,28 +311,20 @@
           }
         ]
       ]
-    },
-    "Filter": {
-      "main": [
-        [
-          {
-            "node": "Sort",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "active": false,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
-  "versionId": "f0cfb8b4-5b4f-4cc2-98ce-99798a026a71",
+  "versionId": "bbcc7432-9c80-4d7c-a237-5b6ea40916b3",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
   },
-  "id": "7jQIqaFW7hVRz7Dz",
+  "id": "9upbVcx35n3uBTZj",
   "tags": []
 }

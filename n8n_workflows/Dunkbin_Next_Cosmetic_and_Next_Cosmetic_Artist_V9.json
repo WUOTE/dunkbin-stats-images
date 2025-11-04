@@ -1,9 +1,9 @@
 {
-  "name": "Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V8",
+  "name": "Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V9",
   "nodes": [
     {
       "parameters": {
-        "content": "# Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V8",
+        "content": "# Dunkbin_Next_Cosmetic_and_Next_Cosmetic_Artist_V9",
         "height": 834,
         "width": 1646,
         "color": 5
@@ -12,10 +12,7 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        1700,
-        -300
-      ]
+      "position": [1700, -300]
     },
     {
       "parameters": {
@@ -51,10 +48,7 @@
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        1940,
-        -200
-      ],
+      "position": [1940, -200],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
@@ -82,10 +76,7 @@
       "name": "Set Cosmetic and Notes",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        2140,
-        0
-      ]
+      "position": [2140, 0]
     },
     {
       "parameters": {
@@ -117,10 +108,7 @@
       "name": "Discard empty",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        2340,
-        0
-      ]
+      "position": [2340, 0]
     },
     {
       "parameters": {
@@ -172,10 +160,7 @@
       "name": "Discard Number of Candidate Cosmetics",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        2540,
-        0
-      ]
+      "position": [2540, 0]
     },
     {
       "parameters": {
@@ -185,10 +170,7 @@
       "name": "Keep the Name and Notes only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
-      "position": [
-        2740,
-        0
-      ]
+      "position": [2740, 0]
     },
     {
       "parameters": {
@@ -207,10 +189,7 @@
       "name": "Set Next Cosmetic Name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        2940,
-        0
-      ]
+      "position": [2940, 0]
     },
     {
       "parameters": {
@@ -231,10 +210,7 @@
       "name": "Set Next Cosmetic Artist",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        2140,
-        -200
-      ]
+      "position": [2140, -200]
     },
     {
       "parameters": {
@@ -281,10 +257,7 @@
       "name": "Discard Empty and non-name fields",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 1,
-      "position": [
-        2340,
-        -200
-      ]
+      "position": [2340, -200]
     },
     {
       "parameters": {
@@ -294,10 +267,7 @@
       "name": "Keep Next Cosmetic Artist only",
       "type": "n8n-nodes-base.itemLists",
       "typeVersion": 3,
-      "position": [
-        2540,
-        -200
-      ]
+      "position": [2540, -200]
     },
     {
       "parameters": {
@@ -318,10 +288,7 @@
       "name": "Set Next Cosmetic Artist to Save",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
-      "position": [
-        2740,
-        -200
-      ]
+      "position": [2740, -200]
     },
     {
       "parameters": {
@@ -345,10 +312,7 @@
       "name": "Should we push to the repo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
-      "position": [
-        2540,
-        220
-      ],
+      "position": [2540, 220],
       "notesInFlow": false
     },
     {
@@ -364,10 +328,7 @@
       "name": "Save to Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
-      "position": [
-        2940,
-        -200
-      ]
+      "position": [2940, -200]
     },
     {
       "parameters": {
@@ -380,10 +341,7 @@
       "name": "Save Next Cosmetic Artist File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
-      "position": [
-        3140,
-        -200
-      ]
+      "position": [3140, -200]
     },
     {
       "parameters": {
@@ -419,10 +377,7 @@
       "name": "Re-read Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4,
-      "position": [
-        1940,
-        0
-      ],
+      "position": [1940, 0],
       "alwaysOutputData": false,
       "credentials": {
         "googleApi": {
@@ -444,10 +399,7 @@
       "name": "Save to a second Spreadsheet File",
       "type": "n8n-nodes-base.spreadsheetFile",
       "typeVersion": 1,
-      "position": [
-        3140,
-        0
-      ]
+      "position": [3140, 0]
     },
     {
       "parameters": {
@@ -460,10 +412,7 @@
       "name": "Save Next Cosmetic File",
       "type": "n8n-nodes-base.writeBinaryFile",
       "typeVersion": 1,
-      "position": [
-        1940,
-        220
-      ]
+      "position": [1940, 220]
     },
     {
       "parameters": {},
@@ -471,10 +420,7 @@
       "name": "Do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [
-        2940,
-        360
-      ]
+      "position": [2940, 360]
     },
     {
       "parameters": {
@@ -484,10 +430,7 @@
       "name": "Git Status",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        2340,
-        220
-      ]
+      "position": [2340, 220]
     },
     {
       "parameters": {
@@ -497,10 +440,7 @@
       "name": "Git Pull + Fetch",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        2140,
-        220
-      ]
+      "position": [2140, 220]
     },
     {
       "parameters": {
@@ -517,10 +457,7 @@
       "name": "Cron For Hourly Execusion",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
-      "position": [
-        1740,
-        -200
-      ]
+      "position": [1740, -200]
     },
     {
       "parameters": {
@@ -535,10 +472,7 @@
       "name": "Git",
       "type": "n8n-nodes-base.git",
       "typeVersion": 1,
-      "position": [
-        2940,
-        200
-      ],
+      "position": [2940, 200],
       "credentials": {
         "gitPassword": {
           "id": "bx5qDcpBqK7Vv2ko",
@@ -557,10 +491,7 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        1640,
-        -380
-      ]
+      "position": [1640, -380]
     }
   ],
   "pinData": {},
@@ -786,7 +717,8 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "1QwUeygWS1BoXecy"
+    "executionTimeout": -1,
+    "availableInMCP": false
   },
   "versionId": "291b91da-c4c5-4702-9b97-0cd141f706bd",
   "meta": {
