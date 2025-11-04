@@ -242,7 +242,6 @@
       "position": [800, -300]
     }
   ],
-  "pinData": {},
   "connections": {
     "Consume Cosmetics API": {
       "main": [

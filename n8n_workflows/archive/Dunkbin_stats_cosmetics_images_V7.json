@@ -289,9 +289,7 @@
         460
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Consume Cosmetics API": {
       "main": [
         [

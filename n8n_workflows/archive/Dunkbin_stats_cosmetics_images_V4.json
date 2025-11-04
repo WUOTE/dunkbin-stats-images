@@ -304,9 +304,7 @@
       "id": "2a4b2aca-bc22-4c49-8a42-68fa23d714cc",
       "notesInFlow": false
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Consume Cosmetics API": {
       "main": [
         [

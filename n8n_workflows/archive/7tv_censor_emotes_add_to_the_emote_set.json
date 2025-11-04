@@ -309,9 +309,7 @@
       "position": [970, 620],
       "onError": "continueRegularOutput"
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "When clicking \"Test workflow\"": {
       "main": [
         [

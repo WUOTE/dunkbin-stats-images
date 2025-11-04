@@ -128,7 +128,6 @@
       "notesInFlow": false
     }
   ],
-  "pinData": {},
   "connections": {
     "Execute Command": {
       "main": [

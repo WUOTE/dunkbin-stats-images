@@ -97,7 +97,6 @@
       }
     }
   ],
-  "pinData": {},
   "connections": {
     "Remove git directory": {
       "main": [

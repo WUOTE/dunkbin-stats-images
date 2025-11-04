@@ -294,9 +294,7 @@
       "typeVersion": 1,
       "position": [524, 527]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "When clicking \"Test workflow\"": {
       "main": [
         [

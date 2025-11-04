@@ -528,9 +528,7 @@
         500
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Google Sheets": {
       "main": [
         [
