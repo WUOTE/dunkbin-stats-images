@@ -1,0 +1,204 @@
+{
+  "name": "Dunkbinstats_build_trigger_V1",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# Dunkbinstats_build_trigger_V1",
+        "height": 532,
+        "width": 978,
+        "color": 5
+      },
+      "id": "95e76a5a-33d6-4cf9-b02c-c6972c4280cd",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -416
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### Background",
+        "height": 616,
+        "width": 1084,
+        "color": 7
+      },
+      "id": "bb0b5e39-e6cf-4182-99d4-d1444d12f6c1",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        608,
+        -480
+      ]
+    },
+    {
+      "parameters": {
+        "command": "=echo {{ Date.now() }}"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        960,
+        -208
+      ],
+      "id": "04455e97-0055-4648-a6b3-dcbdcdfd475d",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "value": "acidflow-dunkbin",
+          "mode": "list",
+          "cachedResultName": "acidflow-dunkbin",
+          "cachedResultUrl": "https://github.com/acidflow-dunkbin"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "dunkbinstats-users-images",
+          "mode": "list",
+          "cachedResultName": "dunkbinstats-users-images",
+          "cachedResultUrl": "https://github.com/acidflow-dunkbin/dunkbinstats-users-images"
+        },
+        "filePath": "build_trigger_file.txt",
+        "fileContent": "={{ $json.stdout }}",
+        "commitMessage": "=Trigger build at {{ $json.stdout }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        -208
+      ],
+      "id": "df7e582c-a0d8-4d43-812e-193ac649b485",
+      "name": "Dunkbinstats Users Images",
+      "webhookId": "2dbd975f-f190-4479-83d5-38d702cd9d84",
+      "executeOnce": true,
+      "credentials": {
+        "githubApi": {
+          "id": "PDJTUTKC6Xv0eI6o",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "value": "acidflow-dunkbin",
+          "mode": "list",
+          "cachedResultName": "acidflow-dunkbin",
+          "cachedResultUrl": "https://github.com/acidflow-dunkbin"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "dunkbinstats",
+          "mode": "list",
+          "cachedResultName": "dunkbinstats",
+          "cachedResultUrl": "https://github.com/acidflow-dunkbin/dunkbinstats"
+        },
+        "filePath": "build_trigger_file.txt",
+        "fileContent": "={{ $('Execute Command').item.json.stdout }}",
+        "commitMessage": "=Trigger build at {{ $('Execute Command').item.json.stdout }}"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1328,
+        -208
+      ],
+      "id": "4549fcb6-18ca-4ec1-b857-7ad5b493b7eb",
+      "name": "Dunkbinstats",
+      "webhookId": "298c3ae9-315b-449f-a070-6e4f196aa4ad",
+      "executeOnce": true,
+      "credentials": {
+        "githubApi": {
+          "id": "PDJTUTKC6Xv0eI6o",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "custom",
+              "cronExpression": "0 0 * * *"
+            }
+          ]
+        }
+      },
+      "name": "Cron For Running Daily",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [
+        784,
+        -208
+      ],
+      "id": "73656be7-18e4-43d1-93c1-fbec618db687",
+      "notesInFlow": false
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Dunkbinstats Users Images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dunkbinstats": {
+      "main": [
+        []
+      ]
+    },
+    "Dunkbinstats Users Images": {
+      "main": [
+        [
+          {
+            "node": "Dunkbinstats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron For Running Daily": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "MME6Iyb9jW2K1l7o",
+    "availableInMCP": false
+  },
+  "versionId": "094895ee-5df9-4cf8-87b6-2f5ba47afaae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "043266c7f4a8d2d9abddba017a3bdc147d452479ddcf145c97588f32c93ac538"
+  },
+  "id": "FAIJdiXfrREFc3IP",
+  "tags": []
+}
