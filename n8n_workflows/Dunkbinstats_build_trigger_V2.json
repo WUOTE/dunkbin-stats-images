@@ -1,21 +1,18 @@
 {
-  "name": "Dunkbinstats_build_trigger_V1",
+  "name": "Dunkbinstats_build_trigger_V2",
   "nodes": [
     {
       "parameters": {
-        "content": "# Dunkbinstats_build_trigger_V1",
+        "content": "# Dunkbinstats_build_trigger_V2",
         "height": 532,
         "width": 978,
         "color": 5
       },
-      "id": "95e76a5a-33d6-4cf9-b02c-c6972c4280cd",
+      "id": "156db6da-22de-4ea9-970f-9eb2574bdd30",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        672,
-        -416
-      ]
+      "position": [672, -416]
     },
     {
       "parameters": {
@@ -24,14 +21,11 @@
         "width": 1084,
         "color": 7
       },
-      "id": "bb0b5e39-e6cf-4182-99d4-d1444d12f6c1",
+      "id": "5eb05034-db8f-4e9f-860a-9022ba9c2500",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [
-        608,
-        -480
-      ]
+      "position": [608, -480]
     },
     {
       "parameters": {
@@ -39,11 +33,8 @@
       },
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [
-        960,
-        -208
-      ],
-      "id": "04455e97-0055-4648-a6b3-dcbdcdfd475d",
+      "position": [960, -208],
+      "id": "ae0858e9-fc7b-4d78-bf04-20628ac0a6b0",
       "name": "Execute Command"
     },
     {
@@ -70,17 +61,14 @@
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
-      "position": [
-        1152,
-        -208
-      ],
-      "id": "df7e582c-a0d8-4d43-812e-193ac649b485",
+      "position": [1152, -208],
+      "id": "688d88f4-a39f-4210-93ae-9232fd079a02",
       "name": "Dunkbinstats Users Images",
-      "webhookId": "2dbd975f-f190-4479-83d5-38d702cd9d84",
+      "webhookId": "49c07ebf-2959-4d88-94a3-b74bcde4fcf8",
       "executeOnce": true,
       "credentials": {
         "githubApi": {
-          "id": "PDJTUTKC6Xv0eI6o",
+          "id": "MATIsd0kznKIi8Ak",
           "name": "GitHub account"
         }
       }
@@ -109,17 +97,14 @@
       },
       "type": "n8n-nodes-base.github",
       "typeVersion": 1.1,
-      "position": [
-        1328,
-        -208
-      ],
-      "id": "4549fcb6-18ca-4ec1-b857-7ad5b493b7eb",
+      "position": [1328, -208],
+      "id": "a1f5b43e-6a8e-49e9-8690-84fd42d045ef",
       "name": "Dunkbinstats",
-      "webhookId": "298c3ae9-315b-449f-a070-6e4f196aa4ad",
+      "webhookId": "49c07ebf-2959-4d88-94a3-b74bcde4fcf8",
       "executeOnce": true,
       "credentials": {
         "githubApi": {
-          "id": "PDJTUTKC6Xv0eI6o",
+          "id": "MATIsd0kznKIi8Ak",
           "name": "GitHub account"
         }
       }
@@ -130,23 +115,19 @@
           "item": [
             {
               "mode": "custom",
-              "cronExpression": "0 0 * * *"
+              "cronExpression": "0 */3 * * *"
             }
           ]
         }
       },
-      "name": "Cron For Running Daily",
+      "name": "Cron For Runnin Every 3 Hours",
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
-      "position": [
-        784,
-        -208
-      ],
-      "id": "73656be7-18e4-43d1-93c1-fbec618db687",
+      "position": [784, -208],
+      "id": "46a3d85a-af77-49dc-a45b-98ae1653edd8",
       "notesInFlow": false
     }
   ],
-  "pinData": {},
   "connections": {
     "Execute Command": {
       "main": [
@@ -160,9 +141,7 @@
       ]
     },
     "Dunkbinstats": {
-      "main": [
-        []
-      ]
+      "main": [[]]
     },
     "Dunkbinstats Users Images": {
       "main": [
@@ -175,7 +154,7 @@
         ]
       ]
     },
-    "Cron For Running Daily": {
+    "Cron For Runnin Every 3 Hours": {
       "main": [
         [
           {
@@ -191,14 +170,14 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "MME6Iyb9jW2K1l7o",
+    "executionTimeout": -1,
     "availableInMCP": false
   },
-  "versionId": "094895ee-5df9-4cf8-87b6-2f5ba47afaae",
+  "versionId": "8dcd0c7d-881b-4ceb-b43d-166da851420f",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "043266c7f4a8d2d9abddba017a3bdc147d452479ddcf145c97588f32c93ac538"
+    "instanceId": "1f235d143bd1a5ecb8d4464d7fc66f0c6baa0cf1295440440f6a213c804330d3"
   },
-  "id": "FAIJdiXfrREFc3IP",
+  "id": "Xca3v3BQoRjBMT0g",
   "tags": []
 }

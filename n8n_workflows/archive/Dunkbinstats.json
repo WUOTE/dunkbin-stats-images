@@ -559,9 +559,7 @@
         760
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Is the cosmetic's image static (one frame)?": {
       "main": [
         [

@@ -281,9 +281,7 @@
         300
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Save to Spreadsheet File": {
       "main": [
         [

@@ -562,9 +562,7 @@
         305.6682891140305
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Google Sheets": {
       "main": [
         [

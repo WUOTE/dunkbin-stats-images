@@ -641,9 +641,7 @@
         500
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Set Cosmetic and Notes": {
       "main": [
         [

@@ -412,9 +412,7 @@
         327.5746937792102
       ]
     }
-  ],
-  "pinData": {},
-  "connections": {
+  ],"connections": {
     "Remove \"Formula row\"": {
       "main": [
         [
