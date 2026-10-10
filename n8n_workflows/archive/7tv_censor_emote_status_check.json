@@ -7,7 +7,10 @@
       "name": "When clicking \"Test workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [1370, 980]
+      "position": [
+        1370,
+        980
+      ]
     },
     {
       "parameters": {
@@ -30,7 +33,10 @@
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [1550, 980],
+      "position": [
+        1550,
+        980
+      ],
       "credentials": {
         "googleApi": {
           "id": "lewjvX7iVXgJ0GW3",
@@ -66,7 +72,10 @@
       "name": "Filter",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
-      "position": [1730, 980]
+      "position": [
+        1730,
+        980
+      ]
     },
     {
       "parameters": {
@@ -90,7 +99,9 @@
             "Name": "={{ $('Sort').item.json.Name }}",
             "listed?": "={{ $json.listed }}"
           },
-          "matchingColumns": ["Name"],
+          "matchingColumns": [
+            "Name"
+          ],
           "schema": [
             {
               "id": "Name",
@@ -141,7 +152,10 @@
       "name": "Google Sheets1",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [1730, 1220],
+      "position": [
+        1730,
+        1220
+      ],
       "credentials": {
         "googleApi": {
           "id": "lewjvX7iVXgJ0GW3",
@@ -160,7 +174,10 @@
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [2190, 980]
+      "position": [
+        2190,
+        980
+      ]
     },
     {
       "parameters": {},
@@ -168,7 +185,10 @@
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [2450, 960]
+      "position": [
+        2450,
+        960
+      ]
     },
     {
       "parameters": {
@@ -181,7 +201,10 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [1220, 820]
+      "position": [
+        1220,
+        820
+      ]
     },
     {
       "parameters": {
@@ -194,7 +217,10 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [1290, 880]
+      "position": [
+        1290,
+        880
+      ]
     },
     {
       "parameters": {
@@ -212,7 +238,10 @@
       "name": "Sort",
       "type": "n8n-nodes-base.sort",
       "typeVersion": 1,
-      "position": [1990, 980]
+      "position": [
+        1990,
+        980
+      ]
     },
     {
       "parameters": {
@@ -223,9 +252,14 @@
       "name": "HTTP Request1",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1550, 1220]
+      "position": [
+        1550,
+        1220
+      ]
     }
-  ],"connections": {
+  ],
+  "pinData": {},
+  "connections": {
     "When clicking \"Test workflow\"": {
       "main": [
         [
@@ -314,9 +348,7 @@
   "active": false,
   "settings": {
     "executionOrder": "v1",
-    "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": -1,
-    "availableInMCP": false
+    "availableInMCP": true
   },
   "versionId": "bbcc7432-9c80-4d7c-a237-5b6ea40916b3",
   "meta": {

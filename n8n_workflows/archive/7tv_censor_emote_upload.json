@@ -7,7 +7,10 @@
       "name": "When clicking \"Test workflow\"",
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
-      "position": [610, 620]
+      "position": [
+        610,
+        620
+      ]
     },
     {
       "parameters": {
@@ -30,7 +33,10 @@
       "name": "Google Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [790, 620],
+      "position": [
+        790,
+        620
+      ],
       "credentials": {
         "googleApi": {
           "id": "lewjvX7iVXgJ0GW3",
@@ -66,7 +72,10 @@
       "name": "Filter",
       "type": "n8n-nodes-base.filter",
       "typeVersion": 2,
-      "position": [970, 620]
+      "position": [
+        970,
+        620
+      ]
     },
     {
       "parameters": {
@@ -87,7 +96,10 @@
       "name": "set emote name",
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.3,
-      "position": [1230, 620]
+      "position": [
+        1230,
+        620
+      ]
     },
     {
       "parameters": {
@@ -98,7 +110,10 @@
       "name": "Read/Write Files from Disk",
       "type": "n8n-nodes-base.readWriteFile",
       "typeVersion": 1,
-      "position": [610, 960],
+      "position": [
+        610,
+        960
+      ],
       "executeOnce": true
     },
     {
@@ -129,7 +144,10 @@
       "name": "If",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [970, 960]
+      "position": [
+        970,
+        960
+      ]
     },
     {
       "parameters": {},
@@ -137,7 +155,10 @@
       "name": "No Operation, do nothing",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [1230, 1060]
+      "position": [
+        1230,
+        1060
+      ]
     },
     {
       "parameters": {
@@ -161,7 +182,9 @@
             "Name": "={{ $('set emote name').item.json.Name }}",
             "7tv emote URL": "={{ $json.id }}"
           },
-          "matchingColumns": ["Name"],
+          "matchingColumns": [
+            "Name"
+          ],
           "schema": [
             {
               "id": "Name",
@@ -201,7 +224,10 @@
       "name": "Google Sheets1",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [1230, 860],
+      "position": [
+        1230,
+        860
+      ],
       "credentials": {
         "googleApi": {
           "id": "lewjvX7iVXgJ0GW3",
@@ -219,7 +245,10 @@
       "name": "Loop Over Items",
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
-      "position": [1430, 620]
+      "position": [
+        1430,
+        620
+      ]
     },
     {
       "parameters": {
@@ -252,7 +281,10 @@
       "name": "HTTP Request",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [790, 960],
+      "position": [
+        790,
+        960
+      ],
       "credentials": {
         "httpHeaderAuth": {
           "id": "Bz02a1oOQ69IPSbj",
@@ -266,7 +298,10 @@
       "name": "No Operation, do nothing1",
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
-      "position": [1670, 600]
+      "position": [
+        1670,
+        600
+      ]
     },
     {
       "parameters": {
@@ -279,7 +314,10 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [460, 460]
+      "position": [
+        460,
+        460
+      ]
     },
     {
       "parameters": {
@@ -292,9 +330,14 @@
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [524, 527]
+      "position": [
+        524,
+        527
+      ]
     }
-  ],"connections": {
+  ],
+  "pinData": {},
+  "connections": {
     "When clicking \"Test workflow\"": {
       "main": [
         [
@@ -412,9 +455,7 @@
   "active": false,
   "settings": {
     "executionOrder": "v1",
-    "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": -1,
-    "availableInMCP": false
+    "availableInMCP": true
   },
   "versionId": "04ae37d8-9e6f-4008-b670-85edb49fdcdf",
   "meta": {

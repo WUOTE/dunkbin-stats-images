@@ -10,9 +10,9 @@
 
 ![Dunkbin_stats_cosmetics_images_V8](n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V8.png)
 
-### Backlog spritesheet workflow chart V8
+### Backlog spritesheet workflow chart V9
 
-![unkbin_backlog_V8](n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V8.png)
+![Dunkbin_backlog_V9](n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V9.png)
 
 ### Backlog spritesheet next cosmetic and next cosmetic artist chart V9
 

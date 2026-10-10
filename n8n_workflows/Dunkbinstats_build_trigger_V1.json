@@ -146,7 +146,16 @@
       "notesInFlow": false
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Cron For Running Daily": [
+      {
+        "json": {},
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
   "connections": {
     "Execute Command": {
       "main": [
@@ -191,13 +200,16 @@
   "settings": {
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "MME6Iyb9jW2K1l7o",
-    "availableInMCP": false
+    "errorWorkflow": "IW8wY23CDfrzJ6dU",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Bishkek"
   },
   "versionId": "094895ee-5df9-4cf8-87b6-2f5ba47afaae",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "043266c7f4a8d2d9abddba017a3bdc147d452479ddcf145c97588f32c93ac538"
+    "instanceId": "1f235d143bd1a5ecb8d4464d7fc66f0c6baa0cf1295440440f6a213c804330d3"
   },
   "id": "FAIJdiXfrREFc3IP",
   "tags": []

@@ -3,100 +3,101 @@
   "nodes": [
     {
       "parameters": {
-        "operation": "clone",
-        "repositoryPath": "/home/node/git/dunkbin-stats-images/",
-        "sourceRepository": "https://github.com/WUOTE/dunkbin-stats-images.git"
-      },
-      "id": "f70d54bb-6aeb-4f54-b5b3-ac53b4eba263",
-      "name": "Git",
-      "type": "n8n-nodes-base.git",
-      "typeVersion": 1,
-      "position": [896, 272]
-    },
-    {
-      "parameters": {
         "command": "rm -rf /home/node/git/"
       },
-      "id": "d379b1c1-7f41-4639-ab7f-21792d34cbce",
+      "id": "24a33a4f-63a9-42e3-b8cb-4701469f8da8",
       "name": "Remove git directory",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [368, 272]
+      "position": [
+        368,
+        272
+      ]
     },
     {
       "parameters": {
         "command": "mkdir -p /home/node/git/"
       },
-      "id": "6502b271-6d59-4b08-a3a2-22db23840c1d",
+      "id": "659a4860-88f6-42db-9c59-8a83e892f40e",
       "name": "Recreate git directory",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [544, 272]
+      "position": [
+        544,
+        272
+      ]
     },
     {
       "parameters": {
         "command": "chown node /home/node/git/"
       },
-      "id": "fdddf8a3-1bda-4a5e-9049-b3a7c50f6d03",
+      "id": "6eacb118-3edb-4e5a-a567-e2c401d6b864",
       "name": "Set permissions",
       "type": "n8n-nodes-base.executeCommand",
       "typeVersion": 1,
-      "position": [720, 272]
+      "position": [
+        720,
+        272
+      ]
     },
     {
       "parameters": {},
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
-      "position": [192, 272],
-      "id": "f0dee101-655d-4edb-9641-8182fea53ee0",
+      "position": [
+        192,
+        272
+      ],
+      "id": "e7da1a71-7f0c-4c8e-b08a-b4fc9e1f10db",
       "name": "Error Trigger"
     },
     {
       "parameters": {
         "content": "# Error Workflow",
         "height": 463,
-        "width": 1254,
+        "width": 1062,
         "color": 5
       },
-      "id": "dd422834-dbfe-4759-b68c-67cb1758a6a6",
+      "id": "d4f54cc8-c366-44a7-a14e-90383e6ec766",
       "name": "Sticky Note",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [80, 80]
+      "position": [
+        80,
+        80
+      ]
     },
     {
       "parameters": {
         "content": "### Background",
         "height": 608,
-        "width": 1428,
+        "width": 1220,
         "color": 7
       },
-      "id": "56a73ff6-e11e-4e5a-a640-3bf3c33399a1",
+      "id": "d988e355-97c5-473b-acf8-5745e611f872",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
-      "position": [0, 0]
+      "position": [
+        0,
+        0
+      ]
     },
     {
       "parameters": {
-        "authentication": "webhook",
-        "content": "A workflow failed, triggered the error workflow.",
-        "options": {}
+        "command": "mkdir -p /home/node/git\n\nif [ -d \"/home/node/git/dunkbin-stats-images/.git\" ]; then\n  git -C /home/node/git/dunkbin-stats-images pull\nelse\n  git clone https://github.com/WUOTE/dunkbin-stats-images.git /home/node/git/dunkbin-stats-images\nfi"
       },
-      "type": "n8n-nodes-base.discord",
-      "typeVersion": 2,
-      "position": [1072, 272],
-      "id": "41b7ef3d-4a97-47f5-9e0b-c7678b1563b0",
-      "name": "Discord",
-      "webhookId": "dfdeff9b-0f36-4b4a-a887-3ff5b5058de0",
-      "credentials": {
-        "discordWebhookApi": {
-          "id": "kgk30OphDKED99xA",
-          "name": "Discord Webhook account"
-        }
-      }
+      "id": "cb6e5744-fb28-4a5f-bc16-2769c55be5ca",
+      "name": "Clone repo",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        896,
+        272
+      ]
     }
   ],
+  "pinData": {},
   "connections": {
     "Remove git directory": {
       "main": [
@@ -124,7 +125,7 @@
       "main": [
         [
           {
-            "node": "Git",
+            "node": "Clone repo",
             "type": "main",
             "index": 0
           }
@@ -142,30 +143,22 @@
         ]
       ]
     },
-    "Git": {
+    "Clone repo": {
       "main": [
-        [
-          {
-            "node": "Discord",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
-    "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": -1,
-    "availableInMCP": false
+    "binaryMode": "separate",
+    "availableInMCP": true
   },
-  "versionId": "e28ca555-154f-460a-b18c-7247199baa85",
+  "versionId": "e5937eaa-7c20-43ba-bb40-11126a2ca705",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "c8816237a2379112f5f78ec78ce6c705c7c690111e9d7e7e5fe8e9f636db62bc"
+    "templateCredsSetupCompleted": true
   },
-  "id": "MME6Iyb9jW2K1l7o",
+  "id": "IW8wY23CDfrzJ6dU",
   "tags": []
 }
