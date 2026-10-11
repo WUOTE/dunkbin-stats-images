@@ -10,9 +10,11 @@
 
 ![Dunkbin_stats_cosmetics_images_V8](n8n_workflows/Workflow_screenshots/Dunkbin_stats_cosmetics_images_V8.png)
 
-### Backlog spritesheet workflow chart V9
+### Backlog spritesheet workflow chart V10
 
-![Dunkbin_backlog_V9](n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V9.png)
+Reads Google Sheets once and generates one XLSX. When its MD5 differs from the file on disk, `Reuse generated XLSX` restores that same binary for writing before the existing Git steps.
+
+![Dunkbin_backlog_V10](n8n_workflows/Workflow_screenshots/Dunkbin_backlog_V10.png)
 
 ### Backlog spritesheet next cosmetic and next cosmetic artist chart V9
 
