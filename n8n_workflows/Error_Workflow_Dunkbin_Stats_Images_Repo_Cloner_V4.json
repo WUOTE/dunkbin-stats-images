@@ -1,0 +1,118 @@
+{
+  "name": "Error_Workflow_Dunkbin_Stats_Images_Repo_Cloner_V4",
+  "nodes": [
+    {
+      "id": "e7da1a71-7f0c-4c8e-b08a-b4fc9e1f10db",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "019f38a9-8a69-c38d-d44c-086ace207763",
+      "name": "Recover checkout without deleting files",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "parameters": {
+        "command": "=mkdir -p /home/node/git && flock /home/node/git/.dunkbin-publish.lock node <<'N8N_OPERATION'\nfunction checkout(config) {\n  const fs = require('node:fs');\n  const path = require('node:path');\n  const cp = require('node:child_process');\n  const { repo, remote, mode, workflowId = 'recovery', executionId = 'recovery' } = config;\n  if (!path.isAbsolute(repo) || !/^[\\w-]+$/.test(workflowId) || !/^[\\w-]+$/.test(executionId)) {\n    throw new Error('Invalid checkout or execution path');\n  }\n  const env = { ...process.env, GIT_TERMINAL_PROMPT: '0' };\n  const run = (args, cwd = repo) => cp.execFileSync('git', args, {\n    cwd, env, encoding: 'utf8', timeout: 90000, stdio: ['ignore', 'pipe', 'pipe'],\n  }).trim();\n  const git = (...args) => run(['-c', 'user.name=WUOTE', '-c', 'user.email=itswuote@gmail.com', ...args]);\n  const stageRoot = path.join(repo, 'n8n-staging');\n  const stage = path.join(stageRoot, workflowId, executionId);\n  const noLink = target => {\n    if (fs.existsSync(target) && fs.lstatSync(target).isSymbolicLink()) throw new Error('Refusing symlink: ' + target);\n  };\n  noLink(repo);\n  let initialized = false;\n  if (!fs.existsSync(path.join(repo, '.git'))) {\n    if (fs.existsSync(repo) && fs.readdirSync(repo).length) {\n      throw new Error('Checkout is nonempty but has no .git; existing files were preserved');\n    }\n    fs.mkdirSync(path.dirname(repo), { recursive: true });\n    run(['clone', '--', remote, repo], path.dirname(repo));\n    initialized = true;\n  }\n  noLink(path.join(repo, '.git'));\n  if (path.resolve(git('rev-parse', '--show-toplevel')) !== path.resolve(repo)) throw new Error('Unexpected Git root');\n  if (git('remote', 'get-url', 'origin').replace(/\\.git$/, '') !== remote.replace(/\\.git$/, '')) throw new Error('Unexpected Git origin');\n  if (!git('branch', '--show-current')) throw new Error('Detached HEAD; preserved for manual review');\n  for (const marker of ['MERGE_HEAD', 'rebase-merge', 'rebase-apply', 'CHERRY_PICK_HEAD']) {\n    if (fs.existsSync(path.join(repo, '.git', marker))) throw new Error('Unfinished Git operation; preserved for manual review');\n  }\n  for (const dir of ['public', 'public/img', 'public/sheets', 'n8n-staging']) {\n    const target = path.join(repo, dir);\n    noLink(target);\n    fs.mkdirSync(target, { recursive: true });\n  }\n  const exclude = path.join(repo, '.git/info/exclude');\n  const previous = fs.existsSync(exclude) ? fs.readFileSync(exclude, 'utf8') : '';\n  if (!previous.split(/\\r?\\n/).includes('/n8n-staging/')) {\n    fs.mkdirSync(path.dirname(exclude), { recursive: true });\n    fs.appendFileSync(exclude, (previous.endsWith('\\n') || !previous ? '' : '\\n') + '/n8n-staging/\\n');\n  }\n  if (mode === 'recover') return { healthy: true, initialized, preservedExistingFiles: true };\n  if (mode === 'prepare') {\n    for (const dir of [path.dirname(stage), stage, path.join(stage, 'public'), path.join(stage, 'public/sheets'), path.join(stage, 'public/img')]) {\n      noLink(dir);\n      fs.mkdirSync(dir, { recursive: true });\n    }\n    return { stage, initialized };\n  }\n  if (!['commit', 'sync'].includes(mode)) throw new Error('Unknown checkout operation');\n  const files = [...new Set(config.files ?? [])];\n  for (const file of files) {\n    if (!/^public\\/(?:sheets\\/dunkbin_(?:backlog|next_cosmetic_(?:artist|name|info))\\.xlsx|img\\/[1-9]\\d*\\.png)$/.test(file)) {\n      throw new Error('Unexpected publication path: ' + file);\n    }\n  }\n  const staged = git('diff', '--cached', '--name-only', '-z').split('\\0').filter(Boolean);\n  if (staged.some(file => !files.includes(file))) throw new Error('Unrelated staged changes were preserved; publication stopped');\n  // Fetch before deciding whether a pull/rebase is necessary; never parse human-readable git status.\n  git('fetch', 'origin');\n  const upstream = git('rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}');\n  const behind = Number(git('rev-list', '--count', 'HEAD..' + upstream));\n  if (behind) {\n    if (git('status', '--porcelain', '--untracked-files=no')) {\n      throw new Error('Incoming commits and local edits both exist; edits preserved for manual review');\n    }\n    try {\n      git('rebase', upstream);\n    } catch (error) {\n      if (fs.existsSync(path.join(repo, '.git/rebase-merge')) || fs.existsSync(path.join(repo, '.git/rebase-apply'))) {\n        git('rebase', '--abort');\n      }\n      throw new Error('Could not rebase; original commits and files preserved', { cause: error });\n    }\n  }\n  let changed = [];\n  if (mode === 'commit') {\n    // Validate every staged file before changing any published file.\n    for (const file of files) {\n      const source = path.join(stage, file);\n      noLink(source);\n      if (!fs.statSync(source).isFile() || !fs.statSync(source).size) throw new Error('Empty or missing staged file: ' + file);\n      noLink(path.join(repo, file));\n    }\n    for (const file of files) {\n      const source = path.join(stage, file), target = path.join(repo, file);\n      if (!fs.existsSync(target) || !fs.readFileSync(source).equals(fs.readFileSync(target))) {\n        const temporary = target + '.n8n-' + executionId;\n        fs.copyFileSync(source, temporary, fs.constants.COPYFILE_EXCL);\n        fs.renameSync(temporary, target);\n      }\n    }\n    changed = files.filter(file => git('diff', 'HEAD', '--', file) !== '');\n    // New untracked files do not appear in git diff until explicitly added.\n    for (const file of files) {\n      if (!git('ls-files', '--', file) && !changed.includes(file)) changed.push(file);\n    }\n    if (changed.length) {\n      git('add', '--', ...changed);\n      git('commit', '--only', '-m',\n        new Date().toISOString().slice(0, 10) + ' ' + config.message, '--', ...changed);\n    }\n    // Only this execution's disposable staging directory is removed, after its changes are committed.\n    if (fs.existsSync(stage)) {\n      noLink(stage);\n      if (!stage.startsWith(stageRoot + path.sep)) throw new Error('Unsafe staging cleanup');\n      fs.rmSync(stage, { recursive: true });\n    }\n  }\n  const ahead = Number(git('rev-list', '--count', upstream + '..HEAD'));\n  return { changed, needsPush: ahead > 0, ahead, initialized };\n}\nconst config=JSON.parse(Buffer.from('{{ JSON.stringify({repo:\"/home/node/git/dunkbin-stats-images\",remote:\"https://github.com/WUOTE/dunkbin-stats-images\",workflowId:\"IW8wY23CDfrzJ6dU\",executionId:$execution.id,mode:\"recover\",}).base64Encode() }}','base64'));\nPromise.resolve(checkout(config)).then(result=>console.log(JSON.stringify(result))).catch(error=>{console.error(error.message);process.exitCode=1;});\nN8N_OPERATION"
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
+    },
+    {
+      "id": "a92bc040-7540-8d5b-d110-1317582d43b1",
+      "name": "Recovery result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "return [{json:{...JSON.parse($json.stdout),failedWorkflow:$('Error Trigger').first().json.workflow?.name ?? null}}];"
+      }
+    },
+    {
+      "id": "d4f54cc8-c366-44a7-a14e-90383e6ec766",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -96
+      ],
+      "parameters": {
+        "content": "# Error Workflow V4",
+        "height": 320,
+        "width": 752,
+        "color": 5
+      }
+    },
+    {
+      "id": "d988e355-97c5-473b-acf8-5745e611f872",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        -176
+      ],
+      "parameters": {
+        "content": "### Background",
+        "height": 464,
+        "width": 880,
+        "color": 7
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Recover checkout without deleting files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recover checkout without deleting files": {
+      "main": [
+        [
+          {
+            "node": "Recovery result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true,
+    "executionTimeout": 600
+  },
+  "versionId": "910adc7d-d2f4-42a7-9fe9-0766c4e8c310",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  },
+  "id": "IW8wY23CDfrzJ6dU",
+  "tags": []
+}

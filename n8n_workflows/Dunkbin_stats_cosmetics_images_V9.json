@@ -1,0 +1,444 @@
+{
+  "name": "Dunkbin_stats_cosmetics_images_V9",
+  "nodes": [
+    {
+      "id": "2f7954f1-a5a1-0bb2-da74-fc50e8a6ac43",
+      "name": "Hourly schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 1,
+              "triggerAtMinute": 23
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "ebe94362-2bee-9942-c572-1809a7a84cf1",
+      "name": "Prepare isolated staging",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "parameters": {
+        "command": "=mkdir -p /home/node/git && flock /home/node/git/.dunkbin-publish.lock node <<'N8N_OPERATION'\nfunction checkout(config) {\n  const fs = require('node:fs');\n  const path = require('node:path');\n  const cp = require('node:child_process');\n  const { repo, remote, mode, workflowId = 'recovery', executionId = 'recovery' } = config;\n  if (!path.isAbsolute(repo) || !/^[\\w-]+$/.test(workflowId) || !/^[\\w-]+$/.test(executionId)) {\n    throw new Error('Invalid checkout or execution path');\n  }\n  const env = { ...process.env, GIT_TERMINAL_PROMPT: '0' };\n  const run = (args, cwd = repo) => cp.execFileSync('git', args, {\n    cwd, env, encoding: 'utf8', timeout: 90000, stdio: ['ignore', 'pipe', 'pipe'],\n  }).trim();\n  const git = (...args) => run(['-c', 'user.name=WUOTE', '-c', 'user.email=itswuote@gmail.com', ...args]);\n  const stageRoot = path.join(repo, 'n8n-staging');\n  const stage = path.join(stageRoot, workflowId, executionId);\n  const noLink = target => {\n    if (fs.existsSync(target) && fs.lstatSync(target).isSymbolicLink()) throw new Error('Refusing symlink: ' + target);\n  };\n  noLink(repo);\n  let initialized = false;\n  if (!fs.existsSync(path.join(repo, '.git'))) {\n    if (fs.existsSync(repo) && fs.readdirSync(repo).length) {\n      throw new Error('Checkout is nonempty but has no .git; existing files were preserved');\n    }\n    fs.mkdirSync(path.dirname(repo), { recursive: true });\n    run(['clone', '--', remote, repo], path.dirname(repo));\n    initialized = true;\n  }\n  noLink(path.join(repo, '.git'));\n  if (path.resolve(git('rev-parse', '--show-toplevel')) !== path.resolve(repo)) throw new Error('Unexpected Git root');\n  if (git('remote', 'get-url', 'origin').replace(/\\.git$/, '') !== remote.replace(/\\.git$/, '')) throw new Error('Unexpected Git origin');\n  if (!git('branch', '--show-current')) throw new Error('Detached HEAD; preserved for manual review');\n  for (const marker of ['MERGE_HEAD', 'rebase-merge', 'rebase-apply', 'CHERRY_PICK_HEAD']) {\n    if (fs.existsSync(path.join(repo, '.git', marker))) throw new Error('Unfinished Git operation; preserved for manual review');\n  }\n  for (const dir of ['public', 'public/img', 'public/sheets', 'n8n-staging']) {\n    const target = path.join(repo, dir);\n    noLink(target);\n    fs.mkdirSync(target, { recursive: true });\n  }\n  const exclude = path.join(repo, '.git/info/exclude');\n  const previous = fs.existsSync(exclude) ? fs.readFileSync(exclude, 'utf8') : '';\n  if (!previous.split(/\\r?\\n/).includes('/n8n-staging/')) {\n    fs.mkdirSync(path.dirname(exclude), { recursive: true });\n    fs.appendFileSync(exclude, (previous.endsWith('\\n') || !previous ? '' : '\\n') + '/n8n-staging/\\n');\n  }\n  if (mode === 'recover') return { healthy: true, initialized, preservedExistingFiles: true };\n  if (mode === 'prepare') {\n    for (const dir of [path.dirname(stage), stage, path.join(stage, 'public'), path.join(stage, 'public/sheets'), path.join(stage, 'public/img')]) {\n      noLink(dir);\n      fs.mkdirSync(dir, { recursive: true });\n    }\n    return { stage, initialized };\n  }\n  if (!['commit', 'sync'].includes(mode)) throw new Error('Unknown checkout operation');\n  const files = [...new Set(config.files ?? [])];\n  for (const file of files) {\n    if (!/^public\\/(?:sheets\\/dunkbin_(?:backlog|next_cosmetic_(?:artist|name|info))\\.xlsx|img\\/[1-9]\\d*\\.png)$/.test(file)) {\n      throw new Error('Unexpected publication path: ' + file);\n    }\n  }\n  const staged = git('diff', '--cached', '--name-only', '-z').split('\\0').filter(Boolean);\n  if (staged.some(file => !files.includes(file))) throw new Error('Unrelated staged changes were preserved; publication stopped');\n  // Fetch before deciding whether a pull/rebase is necessary; never parse human-readable git status.\n  git('fetch', 'origin');\n  const upstream = git('rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}');\n  const behind = Number(git('rev-list', '--count', 'HEAD..' + upstream));\n  if (behind) {\n    if (git('status', '--porcelain', '--untracked-files=no')) {\n      throw new Error('Incoming commits and local edits both exist; edits preserved for manual review');\n    }\n    try {\n      git('rebase', upstream);\n    } catch (error) {\n      if (fs.existsSync(path.join(repo, '.git/rebase-merge')) || fs.existsSync(path.join(repo, '.git/rebase-apply'))) {\n        git('rebase', '--abort');\n      }\n      throw new Error('Could not rebase; original commits and files preserved', { cause: error });\n    }\n  }\n  let changed = [];\n  if (mode === 'commit') {\n    // Validate every staged file before changing any published file.\n    for (const file of files) {\n      const source = path.join(stage, file);\n      noLink(source);\n      if (!fs.statSync(source).isFile() || !fs.statSync(source).size) throw new Error('Empty or missing staged file: ' + file);\n      noLink(path.join(repo, file));\n    }\n    for (const file of files) {\n      const source = path.join(stage, file), target = path.join(repo, file);\n      if (!fs.existsSync(target) || !fs.readFileSync(source).equals(fs.readFileSync(target))) {\n        const temporary = target + '.n8n-' + executionId;\n        fs.copyFileSync(source, temporary, fs.constants.COPYFILE_EXCL);\n        fs.renameSync(temporary, target);\n      }\n    }\n    changed = files.filter(file => git('diff', 'HEAD', '--', file) !== '');\n    // New untracked files do not appear in git diff until explicitly added.\n    for (const file of files) {\n      if (!git('ls-files', '--', file) && !changed.includes(file)) changed.push(file);\n    }\n    if (changed.length) {\n      git('add', '--', ...changed);\n      git('commit', '--only', '-m',\n        new Date().toISOString().slice(0, 10) + ' ' + config.message, '--', ...changed);\n    }\n    // Only this execution's disposable staging directory is removed, after its changes are committed.\n    if (fs.existsSync(stage)) {\n      noLink(stage);\n      if (!stage.startsWith(stageRoot + path.sep)) throw new Error('Unsafe staging cleanup');\n      fs.rmSync(stage, { recursive: true });\n    }\n  }\n  const ahead = Number(git('rev-list', '--count', upstream + '..HEAD'));\n  return { changed, needsPush: ahead > 0, ahead, initialized };\n}\nconst config=JSON.parse(Buffer.from('{{ JSON.stringify({repo:\"/home/node/git/dunkbin-stats-images\",remote:\"https://github.com/WUOTE/dunkbin-stats-images\",workflowId:\"xuAWl20LupGecNvd\",executionId:$execution.id,mode:\"prepare\",}).base64Encode() }}','base64'));\nPromise.resolve(checkout(config)).then(result=>console.log(JSON.stringify(result))).catch(error=>{console.error(error.message);process.exitCode=1;});\nN8N_OPERATION"
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
+    },
+    {
+      "id": "863de684-f7f6-421f-819a-87f068fb72cb",
+      "name": "Consume Cosmetics API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        416,
+        0
+      ],
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "url": "https://dunkbin.com/export/cosmetics",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 30000
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "UjhdZAZSQ8FxXNlo",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "id": "76462fa8-054e-f1cc-4e4c-076576d703f3",
+      "name": "Validate cosmetic IDs and hashes",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const images=$input.all().map(item=>item.json).filter(item=>Number(item.id)!==0).map(item=>({id:Number(item.id),md5:String(item.md5).toLowerCase()}));\nif(!images.length)throw new Error('Cosmetics API returned no usable images');\nif(images.some(item=>!Number.isSafeInteger(item.id)||item.id<1||!/^[a-f0-9]{32}$/.test(item.md5)))throw new Error('Invalid cosmetic ID or MD5');\nreturn [{json:{images:images.sort((a,b)=>a.id-b.id)}}];"
+      }
+    },
+    {
+      "id": "cf9695ad-b6cb-a03f-7ae1-d53ce8256ad6",
+      "name": "Stage changed images",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        624,
+        208
+      ],
+      "parameters": {
+        "command": "=node <<'N8N_OPERATION'\nasync function downloadImages(config) {\n  const fs = require('node:fs');\n  const path = require('node:path');\n  const crypto = require('node:crypto');\n  const { repo, stage, baseUrl = 'https://dunkbin.com' } = config;\n  if (!stage.startsWith(path.join(repo, 'n8n-staging') + path.sep)) throw new Error('Invalid staging path');\n  // Keep the API payload in a file so catalog growth cannot exceed shell argument limits.\n  const images = config.images ?? JSON.parse(fs.readFileSync(path.join(stage, 'images.json'), 'utf8'))[0].images;\n  if (!Array.isArray(images) || !images.length) throw new Error('Empty or invalid image manifest');\n  const md5 = bytes => crypto.createHash('md5').update(bytes).digest('hex');\n  const files = [];\n  let cursor = 0;\n  const seen = new Set();\n  for (const item of images) {\n    if (!Number.isSafeInteger(item.id) || item.id <= 0 || !/^[a-f0-9]{32}$/.test(item.md5) || seen.has(item.id)) {\n      throw new Error('Invalid or duplicate cosmetic id/hash');\n    }\n    seen.add(item.id);\n  }\n  async function worker() {\n    while (cursor < images.length) {\n      const item = images[cursor++];\n      const file = 'public/img/' + item.id + '.png';\n      const target = path.join(repo, file);\n      if (fs.existsSync(target) && md5(fs.readFileSync(target)) === item.md5) continue;\n      let bytes;\n      for (let attempt = 0; attempt < 3; attempt++) {\n        try {\n          const response = await fetch(baseUrl + '/img/' + item.id + '-' + item.md5 + '.png', {\n            redirect: 'error', signal: AbortSignal.timeout(30000),\n          });\n          if (!response.ok) throw new Error('Image HTTP ' + response.status);\n          if (Number(response.headers.get('content-length')) > 25 * 1024 * 1024) throw new Error('Image too large');\n          bytes = Buffer.from(await response.arrayBuffer());\n          if (bytes.length > 25 * 1024 * 1024 || bytes.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') throw new Error('Invalid PNG response');\n          if (md5(bytes) !== item.md5) throw new Error('Downloaded image hash does not match API');\n          break;\n        } catch (error) {\n          if (attempt === 2) throw new Error('Cosmetic ' + item.id + ': ' + error.message);\n          await new Promise(resolve => setTimeout(resolve, (attempt + 1) * 1000));\n        }\n      }\n      fs.writeFileSync(path.join(stage, file), bytes, { flag: 'wx' });\n      files.push(file);\n    }\n  }\n  // Wait for all workers to stop before reporting failure; no background writes outlive this operation.\n  const results = await Promise.allSettled(Array.from({ length: Math.min(4, images.length) }, worker));\n  const failed = results.find(result => result.status === 'rejected');\n  if (failed) throw failed.reason;\n  return { checked: images.length, downloaded: files.length, files: files.sort() };\n}\nconst config=JSON.parse(Buffer.from('{{ JSON.stringify({repo:\"/home/node/git/dunkbin-stats-images\",stage:JSON.parse($('Prepare isolated staging').first().json.stdout).stage}).base64Encode() }}','base64'));\nPromise.resolve(downloadImages(config)).then(result=>console.log(JSON.stringify(result))).catch(error=>{console.error(error.message);process.exitCode=1;});\nN8N_OPERATION"
+      }
+    },
+    {
+      "id": "2af3a990-862a-e56a-86fa-cc11ef40041e",
+      "name": "Commit only this workflow files",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        832,
+        208
+      ],
+      "parameters": {
+        "command": "=mkdir -p /home/node/git && flock /home/node/git/.dunkbin-publish.lock node <<'N8N_OPERATION'\nfunction checkout(config) {\n  const fs = require('node:fs');\n  const path = require('node:path');\n  const cp = require('node:child_process');\n  const { repo, remote, mode, workflowId = 'recovery', executionId = 'recovery' } = config;\n  if (!path.isAbsolute(repo) || !/^[\\w-]+$/.test(workflowId) || !/^[\\w-]+$/.test(executionId)) {\n    throw new Error('Invalid checkout or execution path');\n  }\n  const env = { ...process.env, GIT_TERMINAL_PROMPT: '0' };\n  const run = (args, cwd = repo) => cp.execFileSync('git', args, {\n    cwd, env, encoding: 'utf8', timeout: 90000, stdio: ['ignore', 'pipe', 'pipe'],\n  }).trim();\n  const git = (...args) => run(['-c', 'user.name=WUOTE', '-c', 'user.email=itswuote@gmail.com', ...args]);\n  const stageRoot = path.join(repo, 'n8n-staging');\n  const stage = path.join(stageRoot, workflowId, executionId);\n  const noLink = target => {\n    if (fs.existsSync(target) && fs.lstatSync(target).isSymbolicLink()) throw new Error('Refusing symlink: ' + target);\n  };\n  noLink(repo);\n  let initialized = false;\n  if (!fs.existsSync(path.join(repo, '.git'))) {\n    if (fs.existsSync(repo) && fs.readdirSync(repo).length) {\n      throw new Error('Checkout is nonempty but has no .git; existing files were preserved');\n    }\n    fs.mkdirSync(path.dirname(repo), { recursive: true });\n    run(['clone', '--', remote, repo], path.dirname(repo));\n    initialized = true;\n  }\n  noLink(path.join(repo, '.git'));\n  if (path.resolve(git('rev-parse', '--show-toplevel')) !== path.resolve(repo)) throw new Error('Unexpected Git root');\n  if (git('remote', 'get-url', 'origin').replace(/\\.git$/, '') !== remote.replace(/\\.git$/, '')) throw new Error('Unexpected Git origin');\n  if (!git('branch', '--show-current')) throw new Error('Detached HEAD; preserved for manual review');\n  for (const marker of ['MERGE_HEAD', 'rebase-merge', 'rebase-apply', 'CHERRY_PICK_HEAD']) {\n    if (fs.existsSync(path.join(repo, '.git', marker))) throw new Error('Unfinished Git operation; preserved for manual review');\n  }\n  for (const dir of ['public', 'public/img', 'public/sheets', 'n8n-staging']) {\n    const target = path.join(repo, dir);\n    noLink(target);\n    fs.mkdirSync(target, { recursive: true });\n  }\n  const exclude = path.join(repo, '.git/info/exclude');\n  const previous = fs.existsSync(exclude) ? fs.readFileSync(exclude, 'utf8') : '';\n  if (!previous.split(/\\r?\\n/).includes('/n8n-staging/')) {\n    fs.mkdirSync(path.dirname(exclude), { recursive: true });\n    fs.appendFileSync(exclude, (previous.endsWith('\\n') || !previous ? '' : '\\n') + '/n8n-staging/\\n');\n  }\n  if (mode === 'recover') return { healthy: true, initialized, preservedExistingFiles: true };\n  if (mode === 'prepare') {\n    for (const dir of [path.dirname(stage), stage, path.join(stage, 'public'), path.join(stage, 'public/sheets'), path.join(stage, 'public/img')]) {\n      noLink(dir);\n      fs.mkdirSync(dir, { recursive: true });\n    }\n    return { stage, initialized };\n  }\n  if (!['commit', 'sync'].includes(mode)) throw new Error('Unknown checkout operation');\n  const files = [...new Set(config.files ?? [])];\n  for (const file of files) {\n    if (!/^public\\/(?:sheets\\/dunkbin_(?:backlog|next_cosmetic_(?:artist|name|info))\\.xlsx|img\\/[1-9]\\d*\\.png)$/.test(file)) {\n      throw new Error('Unexpected publication path: ' + file);\n    }\n  }\n  const staged = git('diff', '--cached', '--name-only', '-z').split('\\0').filter(Boolean);\n  if (staged.some(file => !files.includes(file))) throw new Error('Unrelated staged changes were preserved; publication stopped');\n  // Fetch before deciding whether a pull/rebase is necessary; never parse human-readable git status.\n  git('fetch', 'origin');\n  const upstream = git('rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}');\n  const behind = Number(git('rev-list', '--count', 'HEAD..' + upstream));\n  if (behind) {\n    if (git('status', '--porcelain', '--untracked-files=no')) {\n      throw new Error('Incoming commits and local edits both exist; edits preserved for manual review');\n    }\n    try {\n      git('rebase', upstream);\n    } catch (error) {\n      if (fs.existsSync(path.join(repo, '.git/rebase-merge')) || fs.existsSync(path.join(repo, '.git/rebase-apply'))) {\n        git('rebase', '--abort');\n      }\n      throw new Error('Could not rebase; original commits and files preserved', { cause: error });\n    }\n  }\n  let changed = [];\n  if (mode === 'commit') {\n    // Validate every staged file before changing any published file.\n    for (const file of files) {\n      const source = path.join(stage, file);\n      noLink(source);\n      if (!fs.statSync(source).isFile() || !fs.statSync(source).size) throw new Error('Empty or missing staged file: ' + file);\n      noLink(path.join(repo, file));\n    }\n    for (const file of files) {\n      const source = path.join(stage, file), target = path.join(repo, file);\n      if (!fs.existsSync(target) || !fs.readFileSync(source).equals(fs.readFileSync(target))) {\n        const temporary = target + '.n8n-' + executionId;\n        fs.copyFileSync(source, temporary, fs.constants.COPYFILE_EXCL);\n        fs.renameSync(temporary, target);\n      }\n    }\n    changed = files.filter(file => git('diff', 'HEAD', '--', file) !== '');\n    // New untracked files do not appear in git diff until explicitly added.\n    for (const file of files) {\n      if (!git('ls-files', '--', file) && !changed.includes(file)) changed.push(file);\n    }\n    if (changed.length) {\n      git('add', '--', ...changed);\n      git('commit', '--only', '-m',\n        new Date().toISOString().slice(0, 10) + ' ' + config.message, '--', ...changed);\n    }\n    // Only this execution's disposable staging directory is removed, after its changes are committed.\n    if (fs.existsSync(stage)) {\n      noLink(stage);\n      if (!stage.startsWith(stageRoot + path.sep)) throw new Error('Unsafe staging cleanup');\n      fs.rmSync(stage, { recursive: true });\n    }\n  }\n  const ahead = Number(git('rev-list', '--count', upstream + '..HEAD'));\n  return { changed, needsPush: ahead > 0, ahead, initialized };\n}\nconst config=JSON.parse(Buffer.from('{{ JSON.stringify({repo:\"/home/node/git/dunkbin-stats-images\",remote:\"https://github.com/WUOTE/dunkbin-stats-images\",workflowId:\"xuAWl20LupGecNvd\",executionId:$execution.id,mode:\"commit\",files:JSON.parse($json.stdout).files,message:\"update cosmetic images\"}).base64Encode() }}','base64'));\nPromise.resolve(checkout(config)).then(result=>console.log(JSON.stringify(result))).catch(error=>{console.error(error.message);process.exitCode=1;});\nN8N_OPERATION"
+      }
+    },
+    {
+      "id": "514c96f9-7961-d3e7-4ce1-ccec8b1aa914",
+      "name": "Nothing to push?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        208
+      ],
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ JSON.parse($json.stdout).needsPush ? \"yes\" : \"no\" }}",
+              "value2": "no"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b9a37903-0daa-4d18-b25c-fb4f88d6ce99",
+      "name": "Do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "e36f5e10-373d-1ca9-9a66-d6c9c32fe556",
+      "name": "Push committed changes",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        224
+      ],
+      "parameters": {
+        "authentication": "gitPassword",
+        "operation": "push",
+        "repositoryPath": "/home/node/git/dunkbin-stats-images",
+        "options": {
+          "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
+        }
+      },
+      "onError": "continueErrorOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "gitPassword": {
+          "id": "r4Nep4KAv4ebzjo8",
+          "name": "Git account"
+        }
+      }
+    },
+    {
+      "id": "59a7d4ba-9303-723d-57f8-c323215261cf",
+      "name": "Refresh after push failure",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1040,
+        448
+      ],
+      "parameters": {
+        "command": "=mkdir -p /home/node/git && flock /home/node/git/.dunkbin-publish.lock node <<'N8N_OPERATION'\nfunction checkout(config) {\n  const fs = require('node:fs');\n  const path = require('node:path');\n  const cp = require('node:child_process');\n  const { repo, remote, mode, workflowId = 'recovery', executionId = 'recovery' } = config;\n  if (!path.isAbsolute(repo) || !/^[\\w-]+$/.test(workflowId) || !/^[\\w-]+$/.test(executionId)) {\n    throw new Error('Invalid checkout or execution path');\n  }\n  const env = { ...process.env, GIT_TERMINAL_PROMPT: '0' };\n  const run = (args, cwd = repo) => cp.execFileSync('git', args, {\n    cwd, env, encoding: 'utf8', timeout: 90000, stdio: ['ignore', 'pipe', 'pipe'],\n  }).trim();\n  const git = (...args) => run(['-c', 'user.name=WUOTE', '-c', 'user.email=itswuote@gmail.com', ...args]);\n  const stageRoot = path.join(repo, 'n8n-staging');\n  const stage = path.join(stageRoot, workflowId, executionId);\n  const noLink = target => {\n    if (fs.existsSync(target) && fs.lstatSync(target).isSymbolicLink()) throw new Error('Refusing symlink: ' + target);\n  };\n  noLink(repo);\n  let initialized = false;\n  if (!fs.existsSync(path.join(repo, '.git'))) {\n    if (fs.existsSync(repo) && fs.readdirSync(repo).length) {\n      throw new Error('Checkout is nonempty but has no .git; existing files were preserved');\n    }\n    fs.mkdirSync(path.dirname(repo), { recursive: true });\n    run(['clone', '--', remote, repo], path.dirname(repo));\n    initialized = true;\n  }\n  noLink(path.join(repo, '.git'));\n  if (path.resolve(git('rev-parse', '--show-toplevel')) !== path.resolve(repo)) throw new Error('Unexpected Git root');\n  if (git('remote', 'get-url', 'origin').replace(/\\.git$/, '') !== remote.replace(/\\.git$/, '')) throw new Error('Unexpected Git origin');\n  if (!git('branch', '--show-current')) throw new Error('Detached HEAD; preserved for manual review');\n  for (const marker of ['MERGE_HEAD', 'rebase-merge', 'rebase-apply', 'CHERRY_PICK_HEAD']) {\n    if (fs.existsSync(path.join(repo, '.git', marker))) throw new Error('Unfinished Git operation; preserved for manual review');\n  }\n  for (const dir of ['public', 'public/img', 'public/sheets', 'n8n-staging']) {\n    const target = path.join(repo, dir);\n    noLink(target);\n    fs.mkdirSync(target, { recursive: true });\n  }\n  const exclude = path.join(repo, '.git/info/exclude');\n  const previous = fs.existsSync(exclude) ? fs.readFileSync(exclude, 'utf8') : '';\n  if (!previous.split(/\\r?\\n/).includes('/n8n-staging/')) {\n    fs.mkdirSync(path.dirname(exclude), { recursive: true });\n    fs.appendFileSync(exclude, (previous.endsWith('\\n') || !previous ? '' : '\\n') + '/n8n-staging/\\n');\n  }\n  if (mode === 'recover') return { healthy: true, initialized, preservedExistingFiles: true };\n  if (mode === 'prepare') {\n    for (const dir of [path.dirname(stage), stage, path.join(stage, 'public'), path.join(stage, 'public/sheets'), path.join(stage, 'public/img')]) {\n      noLink(dir);\n      fs.mkdirSync(dir, { recursive: true });\n    }\n    return { stage, initialized };\n  }\n  if (!['commit', 'sync'].includes(mode)) throw new Error('Unknown checkout operation');\n  const files = [...new Set(config.files ?? [])];\n  for (const file of files) {\n    if (!/^public\\/(?:sheets\\/dunkbin_(?:backlog|next_cosmetic_(?:artist|name|info))\\.xlsx|img\\/[1-9]\\d*\\.png)$/.test(file)) {\n      throw new Error('Unexpected publication path: ' + file);\n    }\n  }\n  const staged = git('diff', '--cached', '--name-only', '-z').split('\\0').filter(Boolean);\n  if (staged.some(file => !files.includes(file))) throw new Error('Unrelated staged changes were preserved; publication stopped');\n  // Fetch before deciding whether a pull/rebase is necessary; never parse human-readable git status.\n  git('fetch', 'origin');\n  const upstream = git('rev-parse', '--abbrev-ref', '--symbolic-full-name', '@{upstream}');\n  const behind = Number(git('rev-list', '--count', 'HEAD..' + upstream));\n  if (behind) {\n    if (git('status', '--porcelain', '--untracked-files=no')) {\n      throw new Error('Incoming commits and local edits both exist; edits preserved for manual review');\n    }\n    try {\n      git('rebase', upstream);\n    } catch (error) {\n      if (fs.existsSync(path.join(repo, '.git/rebase-merge')) || fs.existsSync(path.join(repo, '.git/rebase-apply'))) {\n        git('rebase', '--abort');\n      }\n      throw new Error('Could not rebase; original commits and files preserved', { cause: error });\n    }\n  }\n  let changed = [];\n  if (mode === 'commit') {\n    // Validate every staged file before changing any published file.\n    for (const file of files) {\n      const source = path.join(stage, file);\n      noLink(source);\n      if (!fs.statSync(source).isFile() || !fs.statSync(source).size) throw new Error('Empty or missing staged file: ' + file);\n      noLink(path.join(repo, file));\n    }\n    for (const file of files) {\n      const source = path.join(stage, file), target = path.join(repo, file);\n      if (!fs.existsSync(target) || !fs.readFileSync(source).equals(fs.readFileSync(target))) {\n        const temporary = target + '.n8n-' + executionId;\n        fs.copyFileSync(source, temporary, fs.constants.COPYFILE_EXCL);\n        fs.renameSync(temporary, target);\n      }\n    }\n    changed = files.filter(file => git('diff', 'HEAD', '--', file) !== '');\n    // New untracked files do not appear in git diff until explicitly added.\n    for (const file of files) {\n      if (!git('ls-files', '--', file) && !changed.includes(file)) changed.push(file);\n    }\n    if (changed.length) {\n      git('add', '--', ...changed);\n      git('commit', '--only', '-m',\n        new Date().toISOString().slice(0, 10) + ' ' + config.message, '--', ...changed);\n    }\n    // Only this execution's disposable staging directory is removed, after its changes are committed.\n    if (fs.existsSync(stage)) {\n      noLink(stage);\n      if (!stage.startsWith(stageRoot + path.sep)) throw new Error('Unsafe staging cleanup');\n      fs.rmSync(stage, { recursive: true });\n    }\n  }\n  const ahead = Number(git('rev-list', '--count', upstream + '..HEAD'));\n  return { changed, needsPush: ahead > 0, ahead, initialized };\n}\nconst config=JSON.parse(Buffer.from('{{ JSON.stringify({repo:\"/home/node/git/dunkbin-stats-images\",remote:\"https://github.com/WUOTE/dunkbin-stats-images\",workflowId:\"xuAWl20LupGecNvd\",executionId:$execution.id,mode:\"sync\",}).base64Encode() }}','base64'));\nPromise.resolve(checkout(config)).then(result=>console.log(JSON.stringify(result))).catch(error=>{console.error(error.message);process.exitCode=1;});\nN8N_OPERATION"
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
+    },
+    {
+      "id": "d75e079d-5c9a-3796-f683-62a1724fdf87",
+      "name": "Retry push",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        1248,
+        448
+      ],
+      "parameters": {
+        "authentication": "gitPassword",
+        "operation": "push",
+        "repositoryPath": "/home/node/git/dunkbin-stats-images",
+        "options": {
+          "targetRepository": "https://github.com/WUOTE/dunkbin-stats-images"
+        }
+      },
+      "onError": "stopWorkflow",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000,
+      "credentials": {
+        "gitPassword": {
+          "id": "r4Nep4KAv4ebzjo8",
+          "name": "Git account"
+        }
+      }
+    },
+    {
+      "id": "f61cd064-4ca9-4f83-89d3-d3e332d258cc",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -48,
+        -96
+      ],
+      "parameters": {
+        "content": "# Dunkbin_stats_cosmetics_images_V9",
+        "height": 736,
+        "width": 1536,
+        "color": 5
+      }
+    },
+    {
+      "id": "c55ba9f5-665d-4657-b4b1-ac3c4afa84a6",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        -176
+      ],
+      "parameters": {
+        "content": "### Background",
+        "height": 880,
+        "width": 1664,
+        "color": 7
+      }
+    },
+    {
+      "id": "e60eebe1-7143-8444-7023-d08739039a7c",
+      "name": "Create image manifest",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        208
+      ],
+      "parameters": {
+        "operation": "toJson",
+        "mode": "once",
+        "options": {
+          "fileName": "images.json"
+        }
+      }
+    },
+    {
+      "id": "0be4b8ae-ee6a-16d8-a45d-81b275f97d32",
+      "name": "Stage image manifest",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        208
+      ],
+      "parameters": {
+        "operation": "write",
+        "fileName": "={{ JSON.parse($('Prepare isolated staging').first().json.stdout).stage + '/images.json' }}",
+        "dataPropertyName": "data",
+        "options": {
+          "append": false
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Cron For Hourly Execution": [
+      {
+        "json": {},
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Hourly schedule": {
+      "main": [
+        [
+          {
+            "node": "Prepare isolated staging",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare isolated staging": {
+      "main": [
+        [
+          {
+            "node": "Consume Cosmetics API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Consume Cosmetics API": {
+      "main": [
+        [
+          {
+            "node": "Validate cosmetic IDs and hashes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage changed images": {
+      "main": [
+        [
+          {
+            "node": "Commit only this workflow files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit only this workflow files": {
+      "main": [
+        [
+          {
+            "node": "Nothing to push?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nothing to push?": {
+      "main": [
+        [
+          {
+            "node": "Do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Push committed changes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Push committed changes": {
+      "main": [
+        null,
+        [
+          {
+            "node": "Refresh after push failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refresh after push failure": {
+      "main": [
+        [
+          {
+            "node": "Retry push",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate cosmetic IDs and hashes": {
+      "main": [
+        [
+          {
+            "node": "Create image manifest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create image manifest": {
+      "main": [
+        [
+          {
+            "node": "Stage image manifest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage image manifest": {
+      "main": [
+        [
+          {
+            "node": "Stage changed images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "IW8wY23CDfrzJ6dU",
+    "availableInMCP": true,
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "executionTimeout": 600
+  },
+  "versionId": "f8b625e7-7af2-4c95-9705-06d05c00d392",
+  "meta": {
+    "instanceId": "1f235d143bd1a5ecb8d4464d7fc66f0c6baa0cf1295440440f6a213c804330d3",
+    "templateCredsSetupCompleted": true,
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
+  },
+  "id": "xuAWl20LupGecNvd",
+  "tags": []
+}

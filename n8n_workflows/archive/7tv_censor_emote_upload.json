@@ -8,7 +8,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        610,
+        430,
         620
       ]
     },
@@ -39,7 +39,7 @@
       ],
       "credentials": {
         "googleApi": {
-          "id": "lewjvX7iVXgJ0GW3",
+          "id": "vK6ogk6NvXpz3kOT",
           "name": "Google Sheets account"
         }
       }
@@ -230,7 +230,7 @@
       ],
       "credentials": {
         "googleApi": {
-          "id": "lewjvX7iVXgJ0GW3",
+          "id": "vK6ogk6NvXpz3kOT",
           "name": "Google Sheets account"
         }
       }
@@ -307,7 +307,7 @@
       "parameters": {
         "content": "### Background",
         "height": 809,
-        "width": 1450,
+        "width": 1630,
         "color": 7
       },
       "id": "c34b3162-54dd-4d4d-9e7b-cfd9de0dc91f",
@@ -315,7 +315,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        460,
+        280,
         460
       ]
     },
@@ -323,7 +323,7 @@
       "parameters": {
         "content": "# 7tv redacted emote upload",
         "height": 708,
-        "width": 1335,
+        "width": 1515,
         "color": 5
       },
       "id": "4079afc9-86e7-4b75-826f-ec48a1880233",
@@ -331,7 +331,7 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        524,
+        344,
         527
       ]
     }
@@ -457,10 +457,12 @@
     "executionOrder": "v1",
     "availableInMCP": true
   },
-  "versionId": "04ae37d8-9e6f-4008-b670-85edb49fdcdf",
+  "versionId": "2d5f5ad4-85ec-4f29-a843-153d48ae7382",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f"
+    "instanceId": "ca3e26fe66692686fea99a2ff03654b1801275568b864201724e6f6c1d03de1f",
+    "aiBuilderAssisted": true,
+    "builderVariant": "mcp"
   },
   "id": "HAvyMzPoCb6u5gfl",
   "tags": []
